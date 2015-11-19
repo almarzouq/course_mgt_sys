@@ -2,12 +2,12 @@
 Web app for managing course grades and students interactions within/outside of class
 
 # Setup Instructions
-1- clone the repository
-2- run `cd course_mgt_sys` to make the project your working directory
-3- run `pip install -r requirements.txt` to install all required libraries
-4- run `python manage.py migrate`
-5- run `python manager.py runserver`
-6- Open browser to http://localhost:8000/
+1. clone the repository
+2. run `cd course_mgt_sys` to make the project your working directory
+3. run `pip install -r requirements.txt` to install all required libraries
+4. run `python manage.py migrate`
+5. run `python manager.py runserver`
+6. Open browser to http://localhost:8000/
 
 # Teams
 - Red team is responsible for the students app
