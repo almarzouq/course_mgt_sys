@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .models import Student  #to import the Students Model
 from django.views.generic.edit import CreateView , UpdateView
+from forms import StudentEdit
 # Create your views here.
 
 class StudentRegister(CreateView):
@@ -11,3 +12,15 @@ class StudentRegister(CreateView):
     template_name = "Student_Profile_Create.html"
     #after succeding in the registery proccess the student will be redirected to this directery
     success_url = ("Home",)
+
+def edit_profile(request):
+    obj = request.user.student
+    if request.method == 'POST':
+        form = StudentEdit(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            return redirect('Home')
+    else:
+        form = UserProfileForm(instance=obj)
+
+        return render(request, 'Student_Profile_Create.html', {'profile': obj, 'form': form, })
