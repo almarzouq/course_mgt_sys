@@ -20,4 +20,10 @@ Web app for managing course grades and students interactions within/outside of c
 - Send pull request when you push an update, and choose the branch you worked on
 - *ALWAYS* work on a new branch for every new feature
 
-testing forks
+# sending a pull request
+- After forking the original project, clone your forked project to your local machine
+- *ALWAYS* start from branch dev, switch to it using `git checkout dev`
+- Create a new branch from branch dev by running `git checkout -b newbranchname`
+- After completing and testing your work, commit it
+- finally, push your new branch to your forked project using `git push origin newbranchname`
+- Got ot github, issue a pull request to the almarzouq/course_mgt_sys (branch dev)
