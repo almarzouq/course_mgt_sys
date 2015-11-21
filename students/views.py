@@ -1,7 +1,7 @@
-from django.shortcuts import render , redirect
-from .models import Student  #to import the Students Model
-from django.views.generic.edit import CreateView , UpdateView
-from forms import StudentEdit
+from  django.shortcuts import  render ,  redirect
+from  .models import  Student  #to import the Students Model
+from  django.views.generic.edit import  CreateView ,  UpdateView
+from  forms import  StudentEdit
 # Create your views here.
 
 
