@@ -28,3 +28,10 @@ Web app for managing course grades and students interactions within/outside of c
 - After completing and testing your work, commit it
 - finally, push your new branch to your forked project using `git push origin newbranchname`
 - Got ot github, issue a pull request to the almarzouq/course_mgt_sys (branch dev)
+
+# Working with the most recent copy of the dev branch
+- *IMPORTANT* after forking the project, create a remote called upstream:
+      git remote add upstream https://github.com/almarzouq/course_mgt_sys.git
+- Before creating any branch, switch to branch dev, and run `git pull upstream dev`
+  This will update the dev to match what is on the project dev repository so
+  you can work on a fresh copy
