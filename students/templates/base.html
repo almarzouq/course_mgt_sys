@@ -49,7 +49,6 @@ other head content must come *after* these tags -->
           <li class="active"><a href="http://localhost:8000/index">Home</a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'student_profile_edit' %}">Edit_profile</a></li>
-          <li><a href="http://localhost:8000/polls/create">Create poll</a></li>
           <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
           {% else %}
           <li><a href="{% url 'account_login' %}"> Sign In</a></li>
