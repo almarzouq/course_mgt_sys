@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<a class="list-group-item">
+​
+    <h4 class="list-group-item-heading">Name: {{instructor.name}}
+​
+    </h4>
+    <p class="list-group-item-text">Email: {{instructor.email}}
+​
+    </p>
+    <p class="list-group-item-text">Phone: {{instructor.phone}}
+​
+    </p>
+    <p class="list-group-item-text">Office Hours: {{instructor.office_hours}}
+​
+    </p>
+    <p class="list-group-item-text">Department: {{instructor.department}}
+​
+    </p>
+    <p class="list-group-item-text">School: {{instructor.school}}
+​
+    </p>
+    <p class="list-group-item-text">Twitter username: {{instructor.twitter_id}}
+​
+    </p>
+​
+  </a>
+{% endblock %}

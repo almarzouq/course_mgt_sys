@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+
+<a class="list-group-item">
+
+    <h4 class="list-group-item-heading">Name: {{announcement.name}}
+​
+    </h4>
+    <p class="list-group-item-text">Description: {{announcement.comment}}
+​
+    </p>
+
+    <p class="list-group-item-text">submitted at: {{announcement.submitted_at}}
+​
+    </p>
+​
+  </a>
+{% endblock %}
