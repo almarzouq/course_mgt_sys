@@ -12,8 +12,13 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from unipath import Path
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = Path(__file__).ancestor(1)
+MEDIA_ROOT = PROJECT_DIR .child("media")
+STATIC_ROOT = PROJECT_DIR .child("static")
+STATICFILES_DIRS = (PROJECT_DIR .child("assets"), )
 
 
 # Quick-start development settings - unsuitable for production
@@ -40,6 +45,10 @@ INSTALLED_APPS = (
     'students',
     'instructors',
     'courses',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,7 +67,7 @@ ROOT_URLCONF = 'course_mgt_sys.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'course_mgt_sys', 'templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'course_mgt_sys', 'templates'), ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -97,7 +106,11 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+# related to allauth authentication proccesses
+AUTHENTICATION_BACKENDS = (
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
