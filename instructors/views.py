@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
+
 from .models import Instructor, Announcement
 
 
@@ -21,3 +23,9 @@ class AnnouncementView(DetailView):
     fields = '__all__'
     template_name = "announcement.html"
     context_object_name = "announcement"
+
+
+class InstructorRegister(CreateView):
+    model = Instructor
+    fields = '__all__'
+    template_name = 'instructor_create_profile.html'
