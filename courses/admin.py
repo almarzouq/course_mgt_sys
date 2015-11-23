@@ -10,7 +10,8 @@ class GradeColumnInline(admin.StackedInline):
 
 class CourseAdmin (admin. ModelAdmin):
     list_display = ('name', 'tag', 'academic_year', 'semester',
-                    'days', 'completed', 'syllabusURL', 'student_registration_open')
+                    'days', 'completed', 'syllabusURL',
+                    'student_registration_open')
     inlines = [GradeColumnInline, ]
 
 admin.site.register(Course, CourseAdmin)
