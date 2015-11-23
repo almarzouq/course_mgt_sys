@@ -116,4 +116,5 @@ AUTHENTICATION_BACKENDS = (
 
 STATIC_URL = '/static/'
 
+SITE_ID = 1
 ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.StudentForm'

@@ -26,3 +26,7 @@ class StudentRegister(CreateView):
     # after succeding in the registery proccess the student will be redirected
     # to this directery
     success_url = reverse_lazy('student_profile')
+
+
+def edit_profile(request):
+    pass

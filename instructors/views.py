@@ -5,17 +5,14 @@ from .models import Instructor, Announcement
 
 
 # Create your views here.
-
 @login_required
 def instructor_profile(request):
-
     qs = Instructor.objects.get(pk=request.user.pk)
     return render(
         request,
         'instructor_profile.html',
         {
             'instructor': qs,
-
         })
 
 
