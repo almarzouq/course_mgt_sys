@@ -9,7 +9,7 @@ from .models import Instructor, Announcement
 @login_required
 def instructor_profile(request):
 
-    qs = instructor.objects.get(pk=request.user.pk)
+    qs = Instructor.objects.get(pk=request.user.pk)
     return render(
         request,
         'instructor_profile.html',
@@ -17,6 +17,7 @@ def instructor_profile(request):
             'instructor': qs,
 
         })
+
 
 class AnnouncementView(DetailView):
     model = Announcement

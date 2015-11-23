@@ -2,8 +2,8 @@ from django.db import models
 
 # Create your models here.
 
-class Instructor(models.Model):
 
+class Instructor(models.Model):
     name = models.CharField(max_length=120)
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True, default="")
@@ -12,8 +12,8 @@ class Instructor(models.Model):
     school = models.CharField(max_length=120, blank=True, default="")
     twitter_id = models.CharField(max_length=50, blank=True, default="")
 
-class Appointment(models.Model):
 
+class Appointment(models.Model):
     name = models.CharField(max_length=120)
     date_time = models.DateTimeField()
     reason = models.TextField(default="")
@@ -24,8 +24,8 @@ class Appointment(models.Model):
     sent_1st_reminder = models.BooleanField(default=False)
     sent_2nd_reminder = models.BooleanField(default=False)
 
-class Announcement(models.Model):
 
+class Announcement(models.Model):
     name = models.CharField(max_length=120)
     comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
