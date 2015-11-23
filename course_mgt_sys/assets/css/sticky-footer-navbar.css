@@ -1,5 +1,6 @@
 /* Sticky footer styles
 -------------------------------------------------- */
+
 html {
   position: relative;
   min-height: 100%;
@@ -13,7 +14,10 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
+<<<<<<< HEAD
   height: 60px;
+  height: 20px;
+>>>>>>> 1f6150aa798390ec82e5717f2fef527a1f2810f0
   background-color: #f5f5f5;
 }
 

@@ -1,13 +1,7 @@
-{%extends "base.html"%}
-{% block content %}
+{%extends "base.html"%} {% block content %}
 
-<form method="post" action="{% url 'student_register' %}"> {% csrf_token %}
-<p>      </p>
-<p>      </p>
-{{ form.as_p }}
+<form method="post" action="{% url 'student_register' %}"> {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
 
-{{ formset.as_p }}
-
-<input class="btn btn-default" type="submit" value="done!"> </form>
+  <input class="btn btn-default" type="submit" value="done!"> </form>
 
 {% endblock %}
