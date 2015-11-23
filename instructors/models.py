@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+
+
 class Instructor(models.Model):
     name = models.CharField(max_length=120)
     email = models.EmailField()
@@ -9,7 +11,8 @@ class Instructor(models.Model):
     department = models.CharField(max_length=120, blank=True, default="")
     school = models.CharField(max_length=120, blank=True, default="")
     twitter_id = models.CharField(max_length=50, blank=True, default="")
-    
+
+
 class Appointment(models.Model):
     name = models.CharField(max_length=120)
     date_time = models.DateTimeField()
