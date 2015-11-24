@@ -35,3 +35,5 @@ Web app for managing course grades and students interactions within/outside of c
 - Before creating any branch, switch to branch dev, and run `git pull upstream dev`
   This will update the dev to match what is on the project dev repository so
   you can work on a fresh copy
+
+Lujain Al Subaie
