@@ -1,9 +1,8 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
+
 from instructors import views
 
 urlpatterns = [
-    url(r'^myprofile/$', views.instructor_profile, name='instructor_profile'),
-    url(r'^announcement/$', views.AnnouncementView.as_view(),
-        name='announcement_view',),
-
+    url(r'^profile/(?P<pk>\d+)/$', views.instructor_profile,
+        name='instructor_profile'),
 ]
