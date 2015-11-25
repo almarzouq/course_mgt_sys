@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 
-from .models import Instructor
+from .models import Instructor, Appointment
 
 
 # Create your views here.
@@ -32,3 +32,9 @@ class InstructorEditProfile(UpdateView):
     fields = ['phone', 'email', 'office_hours', 'twitter_id', ]
     template_name = 'instructor_profile_edit.html'
     context_object_name = "form"
+
+
+class AppointmentView(CreateView):
+    model = Appointment
+    fields = ('name', 'date_time', 'reason', 'email', 'phone',)
+    template_name = 'take_appointment.html'

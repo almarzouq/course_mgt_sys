@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from django.core.urlresolvers import reverse
+
 
 class Instructor(models.Model):
     name = models.CharField(max_length=120)
@@ -25,6 +27,9 @@ class Appointment(models.Model):
     approved = models.BooleanField(default=False)
     sent_1st_reminder = models.BooleanField(default=False)
     sent_2nd_reminder = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('instructor_profile')
 
 
 class Announcement(models.Model):

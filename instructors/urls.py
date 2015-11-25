@@ -10,4 +10,6 @@ urlpatterns = [
         views.InstructorEditProfile.as_view(), name='instructor_edit',),
     url(r'^instructor/(?P<pk>\d+)/$', views.instructor_view,
         name='instructor_view'),
+    url(r'^appointment/$', views.AppointmentView.as_view(),
+        name='take_appointment'),
 ]
