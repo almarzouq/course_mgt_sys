@@ -41,5 +41,9 @@ def edit_profile(request):
             return redirect('student_profile')
     else:
         form = StudentEditForm(instance=obj)
-
-        return render(request, 'student_profile_edit.html', {'student': obj, 'form': form, })
+    return render(request,
+                  'student_profile_edit.html',
+                  {
+                      'student': obj,
+                      'form': form,
+                  })
