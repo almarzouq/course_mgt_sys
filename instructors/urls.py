@@ -8,5 +8,6 @@ urlpatterns = [
         name='announcement_view',),
     url(r'^registor/$', views.InstructorRegister.as_view(),
         name='instructor_register',),
-
+    url(r'^edit/(?P<pk>\d+)/profile/$', views.InstructorEditProfile.as_view(),
+        name="instructor_profile_edit",),
 ]
