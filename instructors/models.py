@@ -27,3 +27,4 @@ class Announcement(models.Model):
     name = models.CharField(max_length=120)
     comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
+    instructor = models.ForeignKey(Instructor)

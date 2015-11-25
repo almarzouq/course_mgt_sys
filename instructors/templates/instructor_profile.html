@@ -1,28 +1,51 @@
-{% extends "base.html" %}
-{% block content %}
-<a class="list-group-item">
-​
-    <h4 class="list-group-item-heading">Name: {{instructor.name}}
-​
+{% extends "base.html" %} {% block content %}
+
+<h1 style="color:DarkSlateGray"><b><i>Instructor Profile Page</i></b></h1>
+
+<style>
+  body {
+    background-color: AliceBlue;
+  }
+
+  p {
+    color: LightSkyBlublacke;
+  }
+</style>
+<ul>
+  <a class="list-group-item">
+
+    ​
+    <h4 class="list-group-item-heading">Name: {{instructor.name}} ​
     </h4>
-    <p class="list-group-item-text">Email: {{instructor.email}}
-​
+    <p class="list-group-item-text">Email: {{instructor.email}} ​
     </p>
-    <p class="list-group-item-text">Phone: {{instructor.phone}}
-​
+    <p class="list-group-item-text">Phone: {{instructor.phone}} ​
     </p>
-    <p class="list-group-item-text">Office Hours: {{instructor.office_hours}}
-​
+    <p class="list-group-item-text">Office Hours: {{instructor.office_hours}} ​
     </p>
-    <p class="list-group-item-text">Department: {{instructor.department}}
-​
+    <p class="list-group-item-text">Department: {{instructor.department}} ​
     </p>
-    <p class="list-group-item-text">School: {{instructor.school}}
-​
+    <p class="list-group-item-text">School: {{instructor.school}} ​
     </p>
-    <p class="list-group-item-text">Twitter username: {{instructor.twitter_id}}
-​
+    <p class="list-group-item-text">Twitter username: {{instructor.twitter_id}} ​
     </p>
-​
+    ​
   </a>
+  <br/> {% for announcement in announcements %}
+  <li class="list-group-item">
+
+    <h4 class="list-group-item-heading">Name: {{announcement.name}} ​
+    </h4>
+    <p class="list-group-item-text">Description: {{announcement.comment}} ​
+    </p>
+
+    <p class="list-group-item-text">submitted at: {{announcement.submitted_at}} ​
+    </p>
+    ​
+  </li>
+  {% endfor %}
+</ul>
+
+
+
 {% endblock %}
