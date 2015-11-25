@@ -30,8 +30,8 @@ class StudentRegister(CreateView):
 
 
 @login_required
-def edit_profile(request):
-    obj = request.user
+def edit_profile(request, student_id):
+    obj = Student.objects.get(pk=student_id)
     if request.method == 'POST':
         form = StudentEditForm(request.POST, instance=obj)
         if form.is_valid():
