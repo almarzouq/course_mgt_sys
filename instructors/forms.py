@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Instructor, Announcement
+from .models import Instructor, Announcement, Appointment
 
 
 class InstructorForm(forms.ModelForm):
@@ -14,4 +14,11 @@ class AnnouncementForm(forms.ModelForm):
 
     class Meta:
         model = Announcement
+        fields = '__all__'
+
+
+class AppointmentForm(form.ModelForm):
+
+    class Meta:
+        model = Appointment
         fields = '__all__'
