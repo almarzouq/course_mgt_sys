@@ -1,10 +1,11 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 
 from .models import Student
-from .forms import  StudentEditForm
+from .forms import StudentEditForm
+
 
 @login_required
 def student_profile(request):
