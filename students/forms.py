@@ -1,8 +1,8 @@
-from  .models import  Student
-from  django import  forms
+from .models import Student
+from django import forms
 
 
-class StudentEdit(forms.ModelForm):
+class StudentEditForm(forms.ModelForm):
 
     class Meta:
         model = Student
