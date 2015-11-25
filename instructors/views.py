@@ -21,13 +21,6 @@ def instructor_profile(request, pk=None):
         })
 
 
-class AnnouncementView(DetailView):
-    model = Announcement
-    fields = '__all__'
-    template_name = "announcement.html"
-    context_object_name = "announcement"
-
-
 class InstructorRegister(CreateView):
     model = Instructor
     fields = '__all__'
