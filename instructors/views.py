@@ -6,7 +6,7 @@ from .models import Instructor
 
 # Create your views here.
 
-def instructor_profile(request, pk=None):
+def instructor_view(request, pk=None):
     if pk:
         obj = get_object_or_404(Instructor, pk=pk)
     else:

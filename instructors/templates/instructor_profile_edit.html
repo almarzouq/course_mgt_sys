@@ -2,7 +2,7 @@
 <div>
   <h1 style="color:grey"><b> Instructor Edit Profile </b></h1>
   </br>
-  <form method="post" action="{ % url 'instructor_edit_profile' instructor.pk % }">
+  <form method="post" action="{ % url 'instructor_edit' instructor.pk % }">
     {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
 
     <input class="btn btn-default" type="submit" value="done!"> </form>
