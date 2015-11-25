@@ -8,8 +8,8 @@ from .forms import StudentEditForm
 
 
 @login_required
-def student_profile(request):
-    qs = Student.objects.get(pk=request.user.pk)
+def student_profile(request, student_id):
+    qs = Student.objects.get(pk=student_id)
     return render(
         request,
         'student_profile.html',
