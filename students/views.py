@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from django.core.urlresolvers import reverse_lazy
 
 from .models import Student
-from .forms import  StudentEdit
+from .forms import  StudentEditForm
 
 @login_required
 def student_profile(request):
@@ -37,7 +37,7 @@ def edit_profile(request):
 
             form.save()
 
-            return redirect('home')
+            return redirect('student_profile')
     else:
         form = StudentEditForm(instance=obj)
 
