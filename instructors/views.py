@@ -24,6 +24,7 @@ class InstructorRegister(CreateView):
     model = Instructor
     fields = '__all__'
     template_name = 'instructor_create_profile.html'
+    context_object_name = 'form'
 
 
 class InstructorEditProfile(UpdateView):
