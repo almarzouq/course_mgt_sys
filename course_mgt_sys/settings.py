@@ -121,3 +121,9 @@ STATIC_URL = '/static/'
 
 SITE_ID = 1
 ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.StudentForm'
+
+# do not put anything under this line
+try:
+    from local_settings import *
+except ImportError, exp:
+    pass
