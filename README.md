@@ -35,3 +35,23 @@ Web app for managing course grades and students interactions within/outside of c
 - Before creating any branch, switch to branch dev, and run `git pull upstream dev`
   This will update the dev to match what is on the project dev repository so
   you can work on a fresh copy
+
+# final project instructions
+  1. Never work on dev or master.
+  2. Never push to master.
+  3. Never modify Models until you talk to the project manager.
+  4. Never run Makemigrations if you need to talk to project manager.
+  5. After pull upstream and checkout to other branch you need to migrate.
+  6. Always beatify your code before push.
+  7. Always use flake8 to make sure there is no issues before push.
+  8. Puts 2 empty spaces between defining function and classes.
+  9. divide importing at the top to 3 parts and leave1 empty line space between them:
+      1. import from python (pip install library ).
+      2. import from django.
+      3. import your own code ".models ..."
+  10. work on the ticket only and nothing else.
+  11. we have only one base.html file under root directory, don't try to create one.
+  12. Make sure branch and template name small letters and use _ as a space.
+  13. Pull request tittle much be brief and informative.
+
+  Good luck all
