@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^students/', include('students.urls')),
     url(r'^instructors/', include('instructors.urls')),
+    url(r'^courses/', include('courses.urls')),
     url(r'^accounts/', include('allauth.urls',)),
     # url(r'^', TemplateView.as_view(template_name='Home.html'), name="Home",)
 ]
