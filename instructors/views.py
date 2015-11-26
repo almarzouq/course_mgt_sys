@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 
 from .models import Instructor, Appointment
-from courses.models import Grade
+from courses.models import Grade, GradeColumn
+from .forms import GradeColumnEditForm
 
 # Create your views here.
 
@@ -44,3 +45,21 @@ class GradesAdd(CreateView):
     model = Grade
     fields = '__all__'
     template_name = 'instructor_grading.html'
+
+def gradecolumn_edit (request, gradecolumn_id):
+    obj = GradeColumn.objects.get(pk=gradecolumn_id)
+    if request.method == 'POST':
+        form = GradeColumnEditForm(request.POST, instance=obj)
+        if form.is_valid():
+
+            form.save()
+
+            return redirect('instructor_profile')
+    else:
+        form = GradeColumnEditForm(instance=obj)
+    return render(request,
+                  'instructor_gradecolumn_edit.html',
+                  {
+                      'gradecolumn': obj,
+                      'form': form,
+                  })

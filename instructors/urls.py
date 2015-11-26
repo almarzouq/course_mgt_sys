@@ -13,4 +13,6 @@ urlpatterns = [
     url(r'^appointment/$', views.AppointmentView.as_view(),
         name='take_appointment'),
     url(r'^grades/', views.GradesAdd.as_view(),name='instructor_grading',),
+    url(r'^gradecolumn/(?P<gradecolumn_id>\d+)/$',views.gradecolumn_edit,name='gradecolumn_edit',),
+
 ]
