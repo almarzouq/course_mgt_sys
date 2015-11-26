@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Instructor, Announcement, Appointment
-
+from courses.models import GradeColumn
 
 class InstructorForm(forms.ModelForm):
 
@@ -17,8 +17,14 @@ class AnnouncementForm(forms.ModelForm):
         fields = '__all__'
 
 
-class AppointmentForm(form.ModelForm):
+class AppointmentForm(forms.ModelForm):
 
     class Meta:
         model = Appointment
+        fields = '__all__'
+
+
+class GradeColumnEditForm(forms.ModelForm):
+    class Meta:
+        model = GradeColumn
         fields = '__all__'

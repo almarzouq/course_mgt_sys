@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
+from django.views.generic import ListView
 from .forms import NewCourseForm
-
+from .models import GradeColumn
 
 # Create your views here.
 
@@ -20,3 +21,8 @@ def course_create(request):
             "form": form,
         }
     )
+
+
+class CourseGradeView(ListView):
+    model = GradeColumn
+    template_name = "course_grade.html"
