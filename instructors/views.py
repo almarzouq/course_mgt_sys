@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 
 from .models import Instructor, Appointment
-
+from courses.models import Grade
 
 # Create your views here.
 
@@ -38,3 +38,9 @@ class AppointmentView(CreateView):
     model = Appointment
     fields = ('name', 'date_time', 'reason', 'email', 'phone',)
     template_name = 'take_appointment.html'
+
+
+class GradesAdd(CreateView):
+    model = Grade
+    fields = '__all__'
+    template_name = 'instructor_grading.html'

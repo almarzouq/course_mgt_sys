@@ -12,4 +12,5 @@ urlpatterns = [
         name='instructor_view'),
     url(r'^appointment/$', views.AppointmentView.as_view(),
         name='take_appointment'),
+    url(r'^grades/', views.GradesAdd.as_view(),name='instructor_grading',),
 ]
