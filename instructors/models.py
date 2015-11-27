@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from django.core.urlresolvers import reverse
 
 
 class Instructor(models.Model):
@@ -11,6 +10,9 @@ class Instructor(models.Model):
     department = models.CharField(max_length=120, blank=True, default="")
     school = models.CharField(max_length=120, blank=True, default="")
     twitter_id = models.CharField(max_length=50, blank=True, default="")
+
+    def get_absolute_url(self):
+        return reverse('instructor_view', kwargs={'pk': self.pk})
 
 
 class Appointment(models.Model):
@@ -24,8 +26,8 @@ class Appointment(models.Model):
     sent_1st_reminder = models.BooleanField(default=False)
     sent_2nd_reminder = models.BooleanField(default=False)
 
-
 class Announcement(models.Model):
     name = models.CharField(max_length=120)
     comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
+    instructor = models.ForeignKey(Instructor)

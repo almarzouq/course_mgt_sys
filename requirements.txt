@@ -1,4 +1,5 @@
 Django==1.8.6
+Unipath==1.1
 django-allauth==0.24.1
 django-extensions==1.5.9
 oauthlib==1.0.3

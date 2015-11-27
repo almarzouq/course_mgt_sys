@@ -1,19 +1,26 @@
-{% extends "base.html" %}
-{% block content %}
-<a class="list-group-item">
-      
-    <h4 class="list-group-item-heading">Name: {{student.name}}
-      
+{% extends "base.html" %} {% block content %}
+
+<h1 style="color:LightRed"><b><i>Student Profile Page</i></b></h1>
+
+<style>
+  body {
+    background-color: AliceBlue;
+  }
+
+  p {
+    color: LightSkyBlublacke;
+  }
+</style>
+<ul>
+  <a class="list-group-item">
+
+    ​
+    <h4 class="list-group-item-heading">Name: {{student.name}} ​
     </h4>
-    <p class="list-group-item-text">Email: {{student.email}}
-       
+    <p class="list-group-item-text">Email: {{student.email}} ​
     </p>
-    <p class="list-group-item-text">ID: {{student.university_id}}
-       
+    <p class="list-group-item-text">Student U ID: {{student.university_id}} ​
     </p>
-    <p class="list-group-item-text">Twitter username: {{student.twitter_id}}
-       
-    </p>
-    
-  </a>
-{% endblock %}
+    <p class="list-group-item-text"> Twitter Handel: {{student.twitter_id}} ​
+    </p>    ​
+  </a> {% endblock %}
