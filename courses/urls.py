@@ -3,5 +3,5 @@ from django.conf.urls import patterns, url
 from courses import views
 
 urlpatterns = [
-  url(r'^(?P<name>\w{0,120})/enroll$', views.enroll, name='enroll'),
+  url(r'^course/{course_id}/enroll/{student_id}', views.enroll_student_to_course, name='enroll'),
 ]
