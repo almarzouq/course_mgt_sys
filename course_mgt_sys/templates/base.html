@@ -66,6 +66,16 @@ other head content must come *after* these tags -->
     <!-- <div class="page-header">
 <h1>Sticky footer with fixed navbar</h1>
 </div> -->
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert{% if message.tags %} {{ message.tags}}{% endif %} .alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+    </button>
+            {{ message }}
+       </div>
+       {% endfor %}
+    {% endif %}
+
     {% block content %} {% endblock %}
   </div>
   <footer class="footer">
