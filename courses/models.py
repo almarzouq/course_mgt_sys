@@ -28,6 +28,8 @@ class Course(models.Model):
     completed = models.BooleanField(default=False)
     syllabusURL = models.URLField()
     student_registration_open = models.BooleanField(default=True)
+    students = models.ManyToManyField(Student)
+
 
 
 class GradeColumn(models.Model):
@@ -35,6 +37,7 @@ class GradeColumn(models.Model):
     total = models.DecimalField(max_digits=5, decimal_places=2)
     course = models.ForeignKey(Course)
     description = models.TextField(blank=True)
+
 
 
 class Grade(models.Model):

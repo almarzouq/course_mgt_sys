@@ -122,6 +122,13 @@ STATIC_URL = '/static/'
 SITE_ID = 1
 ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.StudentForm'
 
+from django.contrib.messages import constants as message_constants
+
+MESSAGE_TAGS = {
+    message_constants .SUCCESS: 'alert -success',
+    message_constants .ERROR: 'alert -danger',
+
+}
 # do not put anything under this line
 try:
     from local_settings import *
