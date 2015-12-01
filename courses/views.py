@@ -51,7 +51,7 @@ def post_student_grade(request):
         form = GradeForm()
     return render(
         request,
-        'course_create.html',
+        'post_student_grade.html',
         {
             "form": form,
         }

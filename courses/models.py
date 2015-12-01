@@ -29,8 +29,7 @@ class Course(models.Model):
     syllabusURL = models.URLField(null=True, blank=True)
     student_registration_open = models.BooleanField(default=True)
     students = models.ManyToManyField(Student, null=True, blank=True)
-    def __unicode__(self):
-		return self.name
+
 
 class GradeColumn(models.Model):
     name = models.CharField(max_length=120)
@@ -41,7 +40,7 @@ class GradeColumn(models.Model):
 
 class Grade(models.Model):
     column = models.ForeignKey(GradeColumn)
-    student = models.ForeignKey(Student)
+    course = models.ForeignKey(Course)
     value = models.DecimalField(max_digits=5, decimal_places=2)
 
 
