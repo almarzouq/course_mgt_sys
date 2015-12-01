@@ -63,3 +63,12 @@ def gradecolumn_edit(request, gradecolumn_id):
                       'gradecolumn': obj,
                       'form': form,
                   })
+
+def intructor_student_can_view_appoinment_detail(request, appointment_id):
+    appointment = get_object_or_404(Appointment, pk=appointment_id)
+
+    return render(request,
+                  'appointment_details.html',
+                  {
+                      'appointment': appointment,
+                  })
