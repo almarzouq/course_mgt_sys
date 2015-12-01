@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import ListView
+
 
 from .models import Instructor, Appointment
 from courses.models import Grade, GradeColumn
@@ -35,7 +37,7 @@ class InstructorEditProfile(UpdateView):
     context_object_name = "instructor"
 
 
-class AppointmentView(CreateView):
+class CreateAppointment(CreateView):
     model = Appointment
     fields = ('name', 'date_time', 'reason', 'email', 'phone',)
     template_name = 'take_appointment.html'
@@ -63,3 +65,8 @@ def gradecolumn_edit(request, gradecolumn_id):
                       'gradecolumn': obj,
                       'form': form,
                   })
+
+class AppointmentList(ListView):
+    model = Appointment
+    template_name = "appointment_list.html"
+    context_object_name = "appointment"

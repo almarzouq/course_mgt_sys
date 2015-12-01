@@ -10,10 +10,12 @@ urlpatterns = [
         views.InstructorEditProfile.as_view(), name='instructor_edit',),
     url(r'^instructor/(?P<pk>\d+)/$', views.instructor_view,
         name='instructor_view'),
-    url(r'^appointment/$', views.AppointmentView.as_view(),
+    url(r'^appointment/$', views.CreateAppointment.as_view(),
         name='take_appointment'),
     url(r'^grades/', views.GradesAdd.as_view(), name='instructor_grading',),
     url(r'^gradecolumn/(?P<gradecolumn_id>\d+)/$',
         views.gradecolumn_edit, name='gradecolumn_edit',),
+    url(r'^appointment/list/$', views.AppointmentList.as_view(),
+        name='appointment_list',),
 
 ]
