@@ -7,8 +7,9 @@ from .forms import StudentEditForm
 from .models import Student
 
 
-def student_profile(request, student_id):
-    qs = Student.objects.get(pk=student_id)
+@login_required
+def student_profile(request, pk):
+    qs = Student.objects.get(pk=pk)
     return render(
         request,
         'student_profile.html',
@@ -23,7 +24,6 @@ class StudentRegister(CreateView):
     # we require all fields since students will need register him/her self
     fields = '__all__'
     template_name = 'student_profile_create.html'
-
 
 
 @login_required
