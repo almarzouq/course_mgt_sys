@@ -31,7 +31,6 @@ class Course(models.Model):
     students = models.ManyToManyField(Student, null=True)
 
 
-
 class GradeColumn(models.Model):
     name = models.CharField(max_length=120)
     total = models.DecimalField(max_digits=5, decimal_places=2)
