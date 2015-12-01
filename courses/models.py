@@ -26,9 +26,9 @@ class Course(models.Model):
     semester = models.CharField(max_length=2, choices=SEMESTER)
     days = models.CharField(max_length=3, choices=DAYS)
     completed = models.BooleanField(default=False)
-    syllabusURL = models.URLField(null=True)
+    syllabusURL = models.URLField(null=True, blank=True)
     student_registration_open = models.BooleanField(default=True)
-    students = models.ManyToManyField(Student, null=True)
+    students = models.ManyToManyField(Student, null=True, blank=True)
 
 
 class GradeColumn(models.Model):
