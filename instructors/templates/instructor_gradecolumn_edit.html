@@ -1,15 +1,7 @@
 {%extends "base.html"%} {% block content %}
 <h1> Instructor Grading  Page </h1>
 <form method="post" action="{% url 'gradecolumn_edit' gradecolumn.pk %}"> {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
-  <style>
-    body {
-      background-color: DarkGrey;
-    }
 
-    p {
-      color: black;
-    }
-  </style>
   <input class="btn btn-default" type="submit" value="Done!"> </form>
 
 {% endblock %}
