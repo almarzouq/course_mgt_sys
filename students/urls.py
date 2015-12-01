@@ -5,7 +5,7 @@ urlpatterns = [
     url(r'^student/(?P<pk>\d+)$', views.student_profile, name='student_view',),
     url(r'^register/$', views.StudentRegister.as_view(),
         name="student_register",),
-    url(r'^student/edit/', views.edit_profile, name="student_edit",),
+    url(r'^student/edit/(?P<student_id>\d+)$', views.edit_profile, name="student_edit",),
     url(r'^student/list$', views.students_list, name='students_list',),
 
 
