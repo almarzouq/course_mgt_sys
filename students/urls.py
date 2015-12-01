@@ -7,6 +7,6 @@ urlpatterns = [
     url(r'^register/$', views.StudentRegister.as_view(),
         name="student_register",),
     url(r'^student/edit/', views.edit_profile, name="student_edit",),
-    url(r'^student/list',views.students_list, name='students_list',),
+    url(r'^student/list', views.students_list, name='students_list',),
 
 ]
