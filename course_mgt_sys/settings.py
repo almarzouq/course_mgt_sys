@@ -127,10 +127,9 @@ from django.contrib.messages import constants as message_constants
 MESSAGE_TAGS = {
     message_constants .SUCCESS: 'alert -success',
     message_constants .ERROR: 'alert -danger',
-
 }
 # do not put anything under this line
 try:
     from local_settings import *
-except ImportError, exp:
+except ImportError as exp:
     pass
