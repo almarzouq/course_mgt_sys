@@ -40,7 +40,7 @@ class GradeColumn(models.Model):
 
 class Grade(models.Model):
     column = models.ForeignKey(GradeColumn)
-    course = models.ForeignKey(Course)
+    student = models.ForeignKey(Student)
     value = models.DecimalField(max_digits=5, decimal_places=2)
 
 
