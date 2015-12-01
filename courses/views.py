@@ -32,8 +32,8 @@ class CourseGradeView(ListView):
     template_name = "course_grade.html"
 
 def enroll_student_to_course(request, course_id, student_id):
-    course = Course.objects.filter(course_id=Course.pk)
-    student = Student.objects.filter(student_id=Student.pk)
+    course = Course.objects.get(pk=course_id)
+    student = Student.objects.get(pk=student_id)
     student.courses.add(course)
     student.save()
     messages.success(request, 'The student is successfuly added.')
