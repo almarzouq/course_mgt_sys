@@ -1,6 +1,6 @@
 {%extends "base.html"%} {% block content %}
 <div>
-  <h1 style="color:grey"><b> Take Appointment </b></h1>
+  <h1> Take Appointment </h1>
   </br>
   <form method="post" action="{% url 'take_appointment' %}">
     {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
