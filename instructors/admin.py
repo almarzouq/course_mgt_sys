@@ -8,7 +8,7 @@ class InstructorAdmin (admin. ModelAdmin):
 
 
 class AnnouncementAdmin (admin. ModelAdmin):
-    list_display = ('name', 'comment', 'submitted_at')
+   list_display = ('name', 'comment', 'submitted_at')
 
 admin.site.register(Instructor, InstructorAdmin)
 admin.site.register(Announcement, AnnouncementAdmin)

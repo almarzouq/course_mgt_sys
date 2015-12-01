@@ -31,7 +31,6 @@ class Course(models.Model):
     students = models.ManyToManyField(Student)
 
 
-
 class GradeColumn(models.Model):
     name = models.CharField(max_length=120)
     total = models.DecimalField(max_digits=5, decimal_places=2)
@@ -39,8 +38,14 @@ class GradeColumn(models.Model):
     description = models.TextField(blank=True)
 
 
-
 class Grade(models.Model):
     column = models.ForeignKey(Student)
     course = models.ForeignKey(Course)
     value = models.DecimalField(max_digits=5, decimal_places=2)
+
+
+class CourseAnnouncement(models.Model):
+    name = models.CharField(max_length=120)
+    comment = models.TextField(blank=True)
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    course = models.ForeignKey(Course)
