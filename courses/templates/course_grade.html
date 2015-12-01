@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-<h1> {{ grade.course }} </h1>
-<li>
 
-  {{ grade.name }}
-  {{ grade.description }}
-  {{ grade.total }}
+<h1> {{ course.name }} </h1>
+<li>
+{% for g in qs %}
+  {{ gradecolumnn.name }}
+  {{ gradecolumnn.description }}
+  {{ gradecolumnn.total }}
 </li>
 
 {% endblock %}
