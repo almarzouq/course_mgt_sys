@@ -45,6 +45,8 @@ def edit_profile(request, student_id):
                       'form': form,
                   })
 
+
 def student_search(request, search_text):
-    qs = Students.objects.filter(Q(name=search_text) | Q(university_id=search_text))
-    return render(requst,'student_list.html',{'students' : qs})
+    qs = Student.objects.filter(
+        Q(name__icontains=search_text) | Q(university_id__icontains=search_text))
+    return render(request, 'student_list.html', {'students': qs})
