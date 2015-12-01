@@ -2,11 +2,18 @@
 <h1>Available Appointments</h1>
 ​
 <ul>
-  <a class="list-group-item">
-​    ​
-    <h4 class="list-group-item-heading">{{appointment.name}} ​
+  {% for a in appointments %}
+  <li class="list-group-item">
+
+    <h4 class="list-group-item-heading">Name: {{a.name}} ​
     </h4>
-    <p class="list-group-item-text">{{appointment.reason}} ​
+    <p class="list-group-item-text">Reason: {{a.reason}} ​
     </p>
 
+    <p class="list-group-item-text">Submitted at: {{a.date_time}} ​
+    </p>
+    ​
+  </li>
+  {% endfor %}
+<ul/>
   </a> {% endblock %}

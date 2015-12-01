@@ -69,4 +69,4 @@ def gradecolumn_edit(request, gradecolumn_id):
 class AppointmentList(ListView):
     model = Appointment
     template_name = "appointment_list.html"
-    context_object_name = "appointment"
+    context_object_name = "appointments"
