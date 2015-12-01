@@ -7,7 +7,6 @@ from .forms import StudentEditForm
 from .models import Student
 
 
-@login_required
 def student_profile(request, pk):
     qs = Student.objects.get(pk=pk)
     return render(
@@ -26,8 +25,8 @@ class StudentRegister(CreateView):
     template_name = 'student_profile_create.html'
 
 
-def edit_profile(request, student_id):
-    obj = Student.objects.get(pk=student_id)
+def edit_profile(request, pk):
+    obj = Student.objects.get(pk=pk)
     if request.method == 'POST':
         form = StudentEditForm(request.POST, instance=obj)
         if form.is_valid():
