@@ -6,7 +6,7 @@ urlpatterns = [
         name='course_create'),
     url(r'^course/grade/$', views.CourseGradeView.as_view(),
         name='course_grade'),
-    url(r'^course/{course_id}/enroll/{student_id}',
+    url(r'^course/(?P<course_id>\d+)/enroll/(?P<student_id>\d+)',
         views.enroll_student_to_course, name='enroll'),
 
 ]
