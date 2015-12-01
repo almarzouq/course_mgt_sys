@@ -16,8 +16,8 @@ urlpatterns = [
                                                  context_object_name='students',
                                                  queryset=Student.objects.order_by('university_id'),), name='student_list_order_uni'),
     url(r'^student/list/name/$', ListView.as_view(template_name='student_list.html',
-                                                     context_object_name='students',
-                                                     queryset=Student.objects.order_by('name'),), name='student_list_order_name'),
+                                                  context_object_name='students',
+                                                  queryset=Student.objects.order_by('name'),), name='student_list_order_name'),
 
 
 ]
