@@ -34,7 +34,7 @@ def list_course_grade_column(request, course_id):
     return render(request, "course_grade.html",
     {
         'course': course_obj,
-        'gradecolumn': qs,
+        'gradecolumns': qs,
     }
     )
 
