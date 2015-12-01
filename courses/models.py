@@ -38,7 +38,6 @@ class GradeColumn(models.Model):
     description = models.TextField(blank=True)
 
 
-
 class Grade(models.Model):
     column = models.ForeignKey(Student)
     course = models.ForeignKey(Course)

@@ -1,12 +1,15 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
-<h1> {{ course.name }} </h1>
-<li>
-{% for gradecolumn in gradecolumns %}
-  {{ gradecolumnn.name }}
-  {{ gradecolumnn.description }}
-  {{ gradecolumnn.total }}
-</li>
+<h1> Course Name: {{ course.name }} </h1>
+<h2> Section: {{ course.tag }} </h2>
+<h3> Semester: {{ course.semester }} {{ course.academic_year }} </p>
+
+<ul>
+  {% for gradecolumn in gradecolumns %}
+  <li>
+    {{ gradecolumnn.name }} {{ gradecolumnn.description }} {{ gradecolumnn.total }}
+  </li>
+  {% endfor %}
+</ul>
 
 {% endblock %}
