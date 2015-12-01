@@ -26,6 +26,7 @@ class Appointment(models.Model):
     sent_1st_reminder = models.BooleanField(default=False)
     sent_2nd_reminder = models.BooleanField(default=False)
 
+
 class Announcement(models.Model):
     name = models.CharField(max_length=120)
     comment = models.TextField(blank=True)

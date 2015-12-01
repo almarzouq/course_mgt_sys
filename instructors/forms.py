@@ -3,6 +3,7 @@ from django import forms
 from .models import Instructor, Announcement, Appointment
 from courses.models import GradeColumn
 
+
 class InstructorForm(forms.ModelForm):
 
     class Meta:

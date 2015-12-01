@@ -7,6 +7,7 @@ from .forms import GradeColumnEditForm
 
 # Create your views here.
 
+
 def instructor_view(request, pk=None):
     if pk:
         obj = get_object_or_404(Instructor, pk=pk)
@@ -21,11 +22,10 @@ def instructor_view(request, pk=None):
         })
 
 
-class InstructorRegister(CreateView):
+class InstructorCreate(CreateView):
     model = Instructor
     fields = '__all__'
     template_name = 'instructor_create_profile.html'
-    context_object_name = 'form'
 
 
 class InstructorEditProfile(UpdateView):
@@ -41,12 +41,14 @@ class AppointmentView(CreateView):
     template_name = 'take_appointment.html'
     success_url = "/"
 
+
 class GradesAdd(CreateView):
     model = Grade
     fields = '__all__'
     template_name = 'instructor_grading.html'
 
-def gradecolumn_edit (request, gradecolumn_id):
+
+def gradecolumn_edit(request, gradecolumn_id):
     obj = GradeColumn.objects.get(pk=gradecolumn_id)
     if request.method == 'POST':
         form = GradeColumnEditForm(request.POST, instance=obj)
