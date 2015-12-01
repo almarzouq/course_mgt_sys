@@ -29,6 +29,8 @@ class Course(models.Model):
     syllabusURL = models.URLField(null=True, blank=True)
     student_registration_open = models.BooleanField(default=True)
     students = models.ManyToManyField(Student, null=True, blank=True)
+    def __unicode__(self):
+		return self.name
 
 class GradeColumn(models.Model):
     name = models.CharField(max_length=120)
