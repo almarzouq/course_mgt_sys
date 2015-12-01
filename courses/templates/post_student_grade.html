@@ -1,0 +1,8 @@
+{% extends "base.html" %} {% block content %}
+<h1> Post Grade </h1>
+<form method="post" action="{% url 'post_student_grade' %}">
+  {% csrf_token %} {{ form.as_p }}
+
+  <input class="btn btn-default" type="submit" value="done!">
+</form>
+{% endblock %}
