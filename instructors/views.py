@@ -65,9 +65,10 @@ def gradecolumn_edit(request, gradecolumn_id):
                   })
 
 def intructor_student_can_view_appoinment_detail(request, appointment_id):
-    appointment = Appointment.objects.get(pk=appointment_id)
+    appointment = get_object_or_404(Appointment, pk=appointment_id)
+
     return render(request,
                   'appointment_details.html',
                   {
-                    'appointment': appointment,
+                      'appointment': appointment,
                   })
