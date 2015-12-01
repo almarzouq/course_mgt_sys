@@ -5,7 +5,7 @@ from django.contrib import messages
 from .forms import NewCourseForm
 from .models import GradeColumn
 
-from .models import Student
+from students.models import Student
 from courses.models import Course
 # Create your views here.
 
@@ -31,10 +31,11 @@ class CourseGradeView(ListView):
     model = GradeColumn
     template_name = "course_grade.html"
 
+
 def enroll_student_to_course(request, course_id, student_id):
-    course = Course.objects.filter(course_id=Course.pk)
-    student = Student.objects.filter(student_id=Student.pk)
-    student.courses.add(course)
-    student.save()
+    course = Course.objects.get(pk=course_id)
+    student = Student.objects.get(pk=student_id)
+    course.students.add(student)
+    course.save()
     messages.success(request, 'The student is successfuly added.')
-    return redirect('/some/url/')
+    return redirect('/')

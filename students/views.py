@@ -26,7 +26,6 @@ class StudentRegister(CreateView):
     template_name = 'student_profile_create.html'
 
 
-@login_required
 def edit_profile(request, student_id):
     obj = Student.objects.get(pk=student_id)
     if request.method == 'POST':
