@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import DetailView
 from django.contrib import messages
 
 from .forms import NewCourseForm
@@ -27,9 +27,10 @@ def course_create(request):
     )
 
 
-class CourseGradeView(ListView):
+class CourseGradeView(DetailView):
     model = GradeColumn
     template_name = "course_grade.html"
+    context_object_name = "grade"
 
 
 def enroll_student_to_course(request, course_id, student_id):
