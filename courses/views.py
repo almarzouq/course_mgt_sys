@@ -37,4 +37,4 @@ def enroll_student_to_course(request, course_id, student_id):
     student.courses.add(course)
     student.save()
     messages.success(request, 'The student is successfuly added.')
-    return redirect('/some/url/')
+    return redirect('/')
