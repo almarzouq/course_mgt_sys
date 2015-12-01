@@ -1,29 +1,15 @@
-{% extends "base.html" %}
-{% block content %}
-<head>
-<style>
-table {
-    width:100%;height: 100%;
-  }
-table#t01, th, td {
-    border: 1px solid blue;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 5px;
-    text-align: justify;
-    text-decoration-color: blue;
-}
-</style>
-</head>
-<body>
+{% extends "base.html" %} {% block content %}
 
-<table id="t01">
-<tr>
-    <th> <p class="lead"> course <br> </th>
-    <th> <p class="lead"> grade name <br> </th>
-    <th> <p class="lead"> total grade <br> </th>
-</table>
+<h1> Course Name: {{ course.name }} </h1>
+<h2> Section: {{ course.tag }} </h2>
+<h3> Semester: {{ course.semester }} {{ course.academic_year }} </p>
 
-</body>
+<ul>
+  {% for gradecolumn in gradecolumns %}
+  <li>
+    {{ gradecolumnn.name }} {{ gradecolumnn.description }} {{ gradecolumnn.total }}
+  </li>
+  {% endfor %}
+</ul>
+
 {% endblock %}
