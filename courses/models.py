@@ -38,8 +38,8 @@ class GradeColumn(models.Model):
 
 
 class Grade(models.Model):
-    column = models.ForeignKey(Student)
-    course = models.ForeignKey(Course)
+    column = models.ForeignKey(GradeColumn)
+    student = models.ForeignKey(Student)
     value = models.DecimalField(max_digits=5, decimal_places=2)
 
 
