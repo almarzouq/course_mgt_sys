@@ -43,3 +43,8 @@ def edit_profile(request, student_id):
                       'student': obj,
                       'form': form,
                   })
+
+                  
+def students_list (request):
+    obj = Student.objects.all()
+    return render (request, 'student_list.html',{'students' : obj })
