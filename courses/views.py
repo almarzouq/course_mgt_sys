@@ -6,7 +6,7 @@ from .forms import NewCourseForm, GradeForm
 from .models import GradeColumn
 
 from students.models import Student
-from courses.models import Course
+from courses.models import Course, CourseAnnouncement
 # Create your views here.
 
 
@@ -62,3 +62,15 @@ def post_student_grade(request):
             "form": form,
         }
     )
+
+def instructor_view_course_stundets_announcments(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    students = Student.objects.filter(course__pk=course_id)
+    announcments = CourseAnnouncement.objects.filter(course__pk=course_id)
+    return render(request, "course_details_announcments.html",
+                  {
+                      'course': course,
+                      'students': students,
+                      'announcments': announcments
+                  }
+                  )

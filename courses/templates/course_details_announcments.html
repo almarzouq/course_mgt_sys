@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block content %}
+<h1> Course Details: </h1>
+<a class="list-group-item">
+  <p class="list-group-item-text">Course Name: {{course.name}}
+  </p>
+  <p class="list-group-item-text">Section: {{ course.tag }}
+  </p>
+  <p class="list-group-item-text">Semester: {{ course.semester }} {{ course.academic_year }}
+  </p>
+  <p class="list-group-item-text">Days: {{course.days}}
+  </p>
+</a>
+<br>
+<h2> Student List: </h2>
+
+{% for student in students %}
+<br>
+<a class="list-group-item">
+  <p class="list-group-item-text">Student Name: {{student.name}}
+  </p>
+  <p class="list-group-item-text">Student ID: {{student.university_id}}
+  </p>
+  <p class="list-group-item-text">Student Email: {{student.email}}
+  </p>
+</a>
+{% endfor %}
+<br>
+<h3> Course Announcments: </h3>
+{% for announcment in announcments %}
+<br>
+<a class="list-group-item">
+  <p class="list-group-item-text">Announcment Name: {{announcment.name}}
+  </p>
+  <p class="list-group-item-text">Announcment Comment: {{announcment.comment}}
+  </p>
+  <p class="list-group-item-text">Submitted At: {{announcment.submitted_at}}
+  </p>
+</a>
+{% endfor %}
+{% endblock %}
