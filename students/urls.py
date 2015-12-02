@@ -8,5 +8,8 @@ urlpatterns = [
         name="student_register",),
     url(r'^student/edit/', views.edit_profile, name="student_edit",),
     url(r'^student/list', views.students_list, name='students_list',),
+    url(r'^student/filter/(?P<search_text>\w+)$',
+        views.student_search, name="student_search",),
+
 
 ]

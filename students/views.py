@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
+from django.db.models import Q
 
 from .forms import StudentEditForm
 from .models import Student
@@ -48,3 +49,9 @@ def edit_profile(request, student_id):
 def students_list(request):
     obj = Student.objects.all()
     return render(request, 'student_list.html', {'students': obj})
+
+
+def student_search(request, search_text):
+    qs = Student.objects.filter(
+        Q(name__icontains=search_text) | Q(university_id__icontains=search_text))
+    return render(request, 'student_list.html', {'students': qs})
