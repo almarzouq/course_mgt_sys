@@ -2,12 +2,12 @@
 
 <h1> Course Name: {{ course.name }} </h1>
 <h2> Section: {{ course.tag }} </h2>
-<h3> Semester: {{ course.semester }} {{ course.academic_year }} </p>
+<h3> Semester: {{ course.semester }} {{ course.academic_year }} </h3>
 
 <ul>
   {% for gradecolumn in gradecolumns %}
   <li>
-    {{ gradecolumnn.name }} {{ gradecolumnn.description }} {{ gradecolumnn.total }}
+    {{ gradecolumn.name }} {{ gradecolumn.description }} {{ gradecolumn.total }}
   </li>
   {% endfor %}
 </ul>
