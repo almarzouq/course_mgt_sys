@@ -34,7 +34,7 @@ def edit_profile(request, pk):
 
             form.save()
 
-            return redirect('student_view')
+            return redirect('students_list')
     else:
         form = StudentEditForm(instance=obj)
     return render(request,
