@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView
 from django.contrib import messages
 
 from .forms import NewCourseForm, GradeForm
-from .models import GradeColumn
+
 
 from students.models import Student
 from courses.models import Course
@@ -32,10 +31,10 @@ def list_course_grade_column(request, course_id):
     qs = course_obj.gradecolumn_set.all()
 
     return render(request, "course_grade.html",
-    {
-        'course': course_obj,
-        'gradecolumns': qs,
-    }
+        {
+            'course': course_obj,
+            'gradecolumns': qs,
+        }
     )
 
 
