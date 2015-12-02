@@ -2,6 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
+from django.views.generic import ListView
+
 
 from .forms import StudentEditForm
 from .models import Student
@@ -43,3 +45,17 @@ def edit_profile(request, student_id):
                       'student': obj,
                       'form': form,
                   })
+
+
+class StudentListUni(ListView):
+    model = Student
+    template_name = 'student_list.html'
+    context_object_name = 'students'
+    queryset = Student.objects.order_by('university_id')
+
+
+class StudentListName(ListView):
+    model = Student
+    template_name = 'student_list.html'
+    context_object_name = 'students'
+    queryset = Student.objects.order_by('name')
