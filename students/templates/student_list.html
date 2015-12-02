@@ -1,0 +1,11 @@
+{%extends "base.html"%} {% block content %} {% for s in students %}
+
+
+<li>
+  <p> University ID : {{s.university_id}} | Name : {{s.name}} </p>
+</li>
+
+
+
+
+{%endfor%} {% endblock %}
