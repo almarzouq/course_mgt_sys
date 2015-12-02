@@ -46,7 +46,7 @@ def enroll_student_to_course(request, course_id, student_id):
     messages.success(request, 'The student is successfuly added.')
     return redirect('/')
 
-def post_student_grade(request):
+def post_student_grade(request, course_id):
     if request.method == 'POST':
         form = GradeForm(request.POST)
         if form.is_valid():
