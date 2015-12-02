@@ -13,8 +13,8 @@ def course_create(request):
     if request.method == 'POST':
         form = NewCourseForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
-            return redirect()
+            obj = form.save()
+            return redirect("/")
     else:
         form = NewCourseForm()
     return render(

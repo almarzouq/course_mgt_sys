@@ -44,28 +44,6 @@ class CreateAppointment(CreateView):
     success_url = "/"
 
 
-class GradesAdd(CreateView):
-    model = Grade
-    fields = '__all__'
-    template_name = 'instructor_grading.html'
-
-
-def gradecolumn_edit(request, gradecolumn_id):
-    obj = GradeColumn.objects.get(pk=gradecolumn_id)
-    if request.method == 'POST':
-        form = GradeColumnEditForm(request.POST, instance=obj)
-        if form.is_valid():
-            form.save()
-            return redirect('instructor_profile')
-    else:
-        form = GradeColumnEditForm(instance=obj)
-    return render(request,
-                  'instructor_gradecolumn_edit.html',
-                  {
-                      'gradecolumn': obj,
-                      'form': form,
-                  })
-
 def intructor_student_can_view_appoinment_detail(request, appointment_id):
     appointment = get_object_or_404(Appointment, pk=appointment_id)
 

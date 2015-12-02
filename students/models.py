@@ -9,6 +9,6 @@ class Student(models.Model):
     university_id = models.BigIntegerField()
     email = models.EmailField()
     twitter_id = models.CharField(max_length=50, blank=True, default="")
-    
+
     def get_absolute_url(self):
-        return reverse('student_view', kwargs={'student_id': self.pk})
+        return reverse('student_view', kwargs={'pk': self.pk})
