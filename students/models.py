@@ -12,3 +12,6 @@ class Student(models.Model):
 
     def get_absolute_url(self):
         return reverse('student_view', kwargs={'pk': self.pk})
+        
+    def __unicode__(self):
+        return u"{}: {}".format(self.name, self.university_id)
