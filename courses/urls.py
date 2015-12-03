@@ -6,6 +6,8 @@ urlpatterns = [
         name='course_create'),
     url(r'^course/(?P<course_id>\d+)/gradecolumn/$', views.list_course_grade_column,
         name='list_course_grade_column'),
+    url(r'^course/gradecolumn/$', views.view_course_gradecolumn,
+        name='view_course_gradecolumn'),
     url(r'^course/(?P<course_id>\d+)/enroll/(?P<student_id>\d+)',
         views.enroll_student_to_course, name='enroll'),
     url(r'^course/post/grade/$', views.post_student_grade,

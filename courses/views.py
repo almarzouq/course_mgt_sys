@@ -1,9 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-
+from .models import GradeColumn
 from .forms import NewCourseForm, GradeForm
-
-
 from students.models import Student
 from courses.models import Course, CourseAnnouncement
 # Create your views here.
@@ -37,6 +35,21 @@ def list_course_grade_column(request, course_id):
         }
     )
 
+# def view_grade_column(request):
+# 	course = get_object_or_404(Course)
+# 	qs = course.gradecolumn_set.all()
+# 	return render(request, 'view_course_gradecolumn.html',
+#     {
+# 		'course': course,
+# 		'gradecolumns': qs,
+# 	}
+# )
+
+def view_course_gradecolumn(request):
+    course= Course.objects.all()
+    qs = GradeColumn.objects.all()
+    return render(request, "view_course_gradecolumn.html",{"gradecolumns":qs,
+        "course": course })
 
 def enroll_student_to_course(request, course_id, student_id):
     course = Course.objects.get(pk=course_id)
