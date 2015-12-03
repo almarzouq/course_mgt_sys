@@ -20,5 +20,7 @@ urlpatterns = [
         views.remove_student_from_course, name='remove_course'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/edit/$', views.edit_student_grade,
         name='edit_student_grade'),
+    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/view/$', views.view_student_grade,
+        name='view_student_grade'),
 
 ]
