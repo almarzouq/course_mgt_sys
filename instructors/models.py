@@ -25,6 +25,7 @@ class Appointment(models.Model):
     approved = models.BooleanField(default=False)
     sent_1st_reminder = models.BooleanField(default=False)
     sent_2nd_reminder = models.BooleanField(default=False)
+    instructor = models.ForeignKey(Instructor)
 
 
 class Announcement(models.Model):
