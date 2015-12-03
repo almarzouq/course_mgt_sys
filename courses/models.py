@@ -30,6 +30,12 @@ class Course(models.Model):
     student_registration_open = models.BooleanField(default=True)
     students = models.ManyToManyField(Student, null=True, blank=True)
 
+    def __unicode__(self):
+        return u" {} : {} : {} ".format(self.name, self.days, self.semester)
+
+    def __str__(self):
+        return u" {} : {} : {} ".format(self.name, self.days, self.semester)
+
 
 class GradeColumn(models.Model):
     name = models.CharField(max_length=120)
