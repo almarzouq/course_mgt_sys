@@ -1,11 +1,11 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 
 
 from .models import Instructor, Appointment
 from courses.models import Grade, GradeColumn
-from .forms import GradeColumnEditForm
+from .forms import GradeColumnEditForm, AppointmentForm
 
 # Create your views here.
 
@@ -37,11 +37,25 @@ class InstructorEditProfile(UpdateView):
     context_object_name = "instructor"
 
 
-class CreateAppointment(CreateView):
-    model = Appointment
-    fields = ('name', 'date_time', 'reason', 'email', 'phone',)
-    template_name = 'take_appointment.html'
+def appointment_create(request, pk):
+    inst = get_object_or_404(Instructor, pk=pk)
+    if request.method == 'POST':
+        form = AppointmentForm(request.POST, instance=inst)
+        if form.is_valid():
 
+            form.save()
+
+            return redirect('appointment_list')
+    else:
+        form = AppointmentForm(instance=inst)
+
+    return render(
+        request,
+        'take_appointment.html',
+        {
+            'instructor': inst,
+            'form': form
+        })
 
 
 def intructor_student_can_view_appoinment_detail(request, appointment_id):
