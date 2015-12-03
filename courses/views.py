@@ -67,6 +67,7 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
         }
     )
 
+
 def instructor_view_course_stundets_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     students = Student.objects.filter(course__pk=course_id)
@@ -86,4 +87,16 @@ def remove_student_from_course(request, course_id, student_id):
     course.students.remove(student)
     course.save()
     messages.success(request, 'The student is successfuly removed.')
+
+
+def student_can_add_course(request, course_id, student_id):
+    # this function is implemented incorrectly
+    # it should check the student_registration_open
+    # on course model, noura, open a ticket and fix this
+    if 'student_registration_open' in request.GET:
+        course = Course.objects.get(pk=course_id)
+        student = Student.objects.get(pk=student_id)
+        student.courses.add(course)
+        student.save()
+        messages.success(request, 'You are enrolled in %s' % (course))
     return redirect('/')
