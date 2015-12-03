@@ -1,21 +1,13 @@
 {% extends "base.html" %} {% block content %}
-<div>
-  <h1> Available Courses </h1>
+
 <h1> Course Name: {{ course.name }} </h1>
 <h2> Section: {{ course.tag }} </h2>
 <h3> Semester: {{ course.semester }} {{ course.academic_year }} </h3>
 
-<ul>
-  {% for gradecolumn in gradecolumns %}
   <li>
-    {{ gradecolumn.course }}
-    {{ gradecolumn.name }} {{ gradecolumn.description }} {{ gradecolumn.total }}
+    GradeColumn Name: {{ gradecolumn.name }}
+    <br> GradeColumn Description: {{ gradecolumn.description }}
+    <br> GradeColumn Total: {{ gradecolumn.total }}
   </li>
-  {% empty %}
-  <li>
-    <h2>
-      Not available
-{% endfor %}
-</ul>
-</div>
+
 {% endblock %}
