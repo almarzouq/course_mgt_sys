@@ -51,7 +51,6 @@ def create_course_announcment(request, course_id):
            return redirect('/')
    else:
        form = CourseAnnouncmentForm(instance=inst)
-
    return render(
        request,
        'create_course_announcment.html',
@@ -59,8 +58,3 @@ def create_course_announcment(request, course_id):
            'course': inst,
            'form': form
        })
-# class CreateCourseAnnouncment(CreateView):
-#     model = CourseAnnouncement
-#     fields = ('name', 'comment', 'course',)
-#     template_name = 'create_course_announcment.html'
-#     success_url = "/"
