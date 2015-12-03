@@ -66,19 +66,17 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
         }
     )
 def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
+    grade = get_object_or_404(Grade, pk=grade_id)
     if request.method == 'POST':
-        form = GradeForm(request.POST)
+        form = GradeForm(request.POST, instance=grade)
         if form.is_valid():
             form.save()
             return redirect('/')
     else:
-        form = GradeForm(initial={'column': gradecolumn_id,
-                                  'student': student_id},
-                                  )
-        form.fields['value'].queryset = Grade.objects.filter(value=grade_id)
+        form = GradeForm(instance=grade)
     return render(
         request,
-        'post_student_grade.html',
+        'edit_student_grade.html',
         {
             'form': form,
             'course_id': course_id,
@@ -87,6 +85,8 @@ def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
             'grade_id': grade_id,
         }
     )
+
+
 def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade,pk=grade_id)
     return render(
