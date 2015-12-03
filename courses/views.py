@@ -35,15 +35,6 @@ def list_course_grade_column(request, course_id):
         }
     )
 
-# def view_grade_column(request):
-# 	course = get_object_or_404(Course)
-# 	qs = course.gradecolumn_set.all()
-# 	return render(request, 'view_course_gradecolumn.html',
-#     {
-# 		'course': course,
-# 		'gradecolumns': qs,
-# 	}
-# )
 
 def view_course_gradecolumn(request):
     course= Course.objects.all()
