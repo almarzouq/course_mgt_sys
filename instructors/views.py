@@ -41,7 +41,7 @@ class CreateAppointment(CreateView):
     model = Appointment
     fields = ('name', 'date_time', 'reason', 'email', 'phone',)
     template_name = 'take_appointment.html'
-    success_url = "/"
+
 
 
 def intructor_student_can_view_appoinment_detail(request, appointment_id):
