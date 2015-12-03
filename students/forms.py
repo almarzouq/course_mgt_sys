@@ -1,6 +1,8 @@
 from .models import Student
 from django import forms
 
+from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget - See more at: http://django-datetime-widget.asaglimbeni.me/model_form_v3/#sthash.nfG5mu93.dpuf
+
 
 class StudentEditForm(forms.ModelForm):
 
