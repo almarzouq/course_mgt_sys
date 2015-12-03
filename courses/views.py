@@ -1,11 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import Http404
 from django.contrib import messages
-
 from .forms import NewCourseForm, GradeForm
-
-
 from students.models import Student
 from courses.models import Course, CourseAnnouncement
+from .models import GradeColumn
 # Create your views here.
 
 
@@ -31,10 +30,23 @@ def list_course_grade_column(request, course_id):
     qs = course_obj.gradecolumn_set.all()
 
     return render(request, "course_grade.html",
-        {
-            'course': course_obj,
-            'gradecolumns': qs,
-        }
+                  {
+                      'course': course_obj,
+                      'gradecolumns': qs,
+                  }
+                  )
+
+
+def view_course_gradecolumn(request, course_id, gradecolumn_id):
+    course_obj = get_object_or_404(Course, pk=course_id)
+    try:
+        gc_obj = course_obj.gradecolumn_set.get(pk=gradecolumn_id)
+    except GradeColumn.DoesNotExist as e:
+        raise Http404()
+    return render(request, "view_course_gradecolumn.html", {
+        "gradecolumn": gc_obj,
+        "course": course_obj
+    }
     )
 
 
