@@ -12,6 +12,7 @@ urlpatterns = [
         name='post_student_grade'),
     url(r'^course/(?P<course_id>\d+)/details/$',
         views.instructor_view_course_stundets_announcments, name='instructor_view_course_stundets_announcments'),
-
+    url(r'^student/(?P<student_id>\d+)/add/(?P<course_id>\d+)',
+        views.student_can_add_course, name='add_course'),
 
 ]
