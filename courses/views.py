@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
 from django.contrib import messages
@@ -41,8 +41,26 @@ def enroll_student_to_course(request, course_id, student_id):
     messages.success(request, 'The student is successfuly added.')
     return redirect('/')
 
-class CreateCourseAnnouncment(CreateView):
-    model = CourseAnnouncement
-    fields = ('name', 'comment', 'course',)
-    template_name = 'create_course_announcment.html'
-    success_url = "/"
+
+def create_course_announcment(request, course_id):
+   inst = get_object_or_404(Course, pk=course_id)
+   if request.method == 'POST':
+       form = CourseAnnouncmentForm(request.POST, instance=inst)
+       if form.is_valid():
+           form.save()
+           return redirect('/')
+   else:
+       form = CourseAnnouncmentForm(instance=inst)
+
+   return render(
+       request,
+       'create_course_announcment.html',
+       {
+           'course': inst,
+           'form': form
+       })
+# class CreateCourseAnnouncment(CreateView):
+#     model = CourseAnnouncement
+#     fields = ('name', 'comment', 'course',)
+#     template_name = 'create_course_announcment.html'
+#     success_url = "/"
