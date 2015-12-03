@@ -3,6 +3,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
 from django.db.models import Q
+from django.views.generic import ListView
 
 from .forms import StudentEditForm
 from .models import Student
@@ -54,3 +55,17 @@ def student_search(request, search_text):
     qs = Student.objects.filter(
         Q(name__icontains=search_text) | Q(university_id__icontains=search_text))
     return render(request, 'student_list.html', {'students': qs})
+
+
+class StudentListUni(ListView):
+    model = Student
+    template_name = 'student_list.html'
+    context_object_name = 'students'
+    queryset = Student.objects.order_by('university_id')
+
+
+class StudentListName(ListView):
+    model = Student
+    template_name = 'student_list.html'
+    context_object_name = 'students'
+    queryset = Student.objects.order_by('name')
