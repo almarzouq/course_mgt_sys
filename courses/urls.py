@@ -12,6 +12,7 @@ urlpatterns = [
         name='post_student_grade'),
     url(r'^course/(?P<course_id>\d+)/details/$',
         views.instructor_view_course_stundets_announcments, name='instructor_view_course_stundets_announcments'),
-
+    url(r'^course/(?P<course_id>\d+)/remove/(?P<student_id>\d+)',
+        views.remove_student_from_course, name='remove_course'),
 
 ]
