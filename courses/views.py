@@ -117,11 +117,14 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
-ef delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
+
+def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade, pk=grade_id)
     grade.delete()
-    messages.success(request , 'Grade was successfully deleteded.')
+    messages.success(request, 'Grade was successfully deleteded.')
     return redirect("/")
+
+
 def instructor_view_course_stundets_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     students = Student.objects.filter(course__pk=course_id)
