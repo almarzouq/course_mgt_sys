@@ -22,5 +22,7 @@ urlpatterns = [
         name='edit_student_grade'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/view/$', views.view_student_grade,
         name='view_student_grade'),
+    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/delete/$', views.delete_student_grade,
+        name='delete_student_grade'),
 
 ]
