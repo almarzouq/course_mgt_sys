@@ -8,5 +8,6 @@ urlpatterns = [
         name='course_grade'),
     url(r'^course/(?P<course_id>\d+)/enroll/(?P<student_id>\d+)',
         views.enroll_student_to_course, name='enroll'),
+    url(r'^course/create/announcement/$', views.CreateCourseAnnouncment.as_view(), name="create_course_announcment",),
 
 ]

@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
+from django.views.generic.edit import CreateView
 from django.contrib import messages
 
-from .forms import NewCourseForm
+from .forms import NewCourseForm, CourseAnnouncmentForm
 from .models import GradeColumn
 
 from students.models import Student
-from courses.models import Course
+from courses.models import Course, CourseAnnouncement
 # Create your views here.
 
 
@@ -39,3 +40,9 @@ def enroll_student_to_course(request, course_id, student_id):
     course.save()
     messages.success(request, 'The student is successfuly added.')
     return redirect('/')
+
+class CreateCourseAnnouncment(CreateView):
+    model = CourseAnnouncement
+    fields = ('name', 'comment', 'course',)
+    template_name = 'create_course_announcment.html'
+    success_url = "/"
