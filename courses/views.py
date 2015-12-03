@@ -77,3 +77,12 @@ def instructor_view_course_stundets_announcments(request, course_id):
                       'announcments': announcments
                   }
                   )
+
+
+def remove_student_from_course(request, course_id, student_id):
+    course = Course.objects.get(pk=course_id)
+    student = Student.objects.get(pk=student_id)
+    course.students.remove(student)
+    course.save()
+    messages.success(request, 'The student is successfuly removed.')
+    return redirect('/')
