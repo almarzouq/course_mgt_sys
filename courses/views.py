@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
-from .forms import NewCourseForm, GradeForm
-
+from .forms import NewCourseForm, GradeForm, GradeColumnEditForm
+from .models import GradeColumn
 
 from students.models import Student
 from courses.models import Course, CourseAnnouncement
@@ -36,6 +36,23 @@ def list_course_grade_column(request, course_id):
             'gradecolumns': qs,
         }
     )
+
+
+def gradecolumn_edit(request, gradecolumn_id):
+    obj = GradeColumn.objects.get(pk=gradecolumn_id)
+    if request.method == 'POST':
+        form = GradeColumnEditForm(request.POST, instance=obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'gradecolumn is successfuly edited.')
+            return redirect('')
+    else:
+        form = GradeColumnEditForm(instance=obj)
+    return render(request,
+                  'instructor_gradecolumn_edit.html',
+                  {
+                      'gradecolumn': obj,
+                  })
 
 
 def enroll_student_to_course(request, course_id, student_id):
