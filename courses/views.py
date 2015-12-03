@@ -44,7 +44,8 @@ def enroll_student_to_course(request, course_id, student_id):
     course.students.add(student)
     course.save()
     messages.success(request, 'The student is successfuly added.')
-    return redirect('/')
+    return redirect('/courses/course/{}/details'.format(course_id))
+
 
 def post_student_grade(request):
     if request.method == 'POST':
