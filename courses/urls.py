@@ -12,6 +12,8 @@ urlpatterns = [
         name='post_student_grade'),
     url(r'^course/(?P<course_id>\d+)/details/$',
         views.instructor_view_course_stundets_announcments, name='instructor_view_course_stundets_announcments'),
+    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/view/$', views.view_student_grade,
+        name='view_student_grade'),
 
 
 ]
