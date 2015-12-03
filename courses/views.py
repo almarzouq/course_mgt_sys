@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 from .forms import NewCourseForm, GradeForm
 
@@ -44,7 +45,7 @@ def enroll_student_to_course(request, course_id, student_id):
     course.students.add(student)
     course.save()
     messages.success(request, 'The student is successfuly added.')
-    return redirect('/courses/course/{}/details'.format(course_id))
+    return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
 def post_student_grade(request):
