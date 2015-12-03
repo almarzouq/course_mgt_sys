@@ -46,19 +46,23 @@ def enroll_student_to_course(request, course_id, student_id):
     messages.success(request, 'The student is successfuly added.')
     return redirect('/')
 
-def post_student_grade(request):
+def post_student_grade(request, course_id, student_id, gradecolumn_id):
     if request.method == 'POST':
         form = GradeForm(request.POST)
         if form.is_valid():
             form.save(commit=False)
             return redirect('/')
     else:
-        form = GradeForm()
+        form = GradeForm(initial={'column': gradecolumn_id,
+                                  'student': student_id})
     return render(
         request,
         'post_student_grade.html',
         {
-            "form": form,
+            'form': form,
+            'course_id': course_id,
+            'student_id': student_id,
+            'gradecolumn_id': gradecolumn_id,
         }
     )
 

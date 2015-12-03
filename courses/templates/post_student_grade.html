@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <h1> Post Grade </h1>
-<form method="post" action="{% url 'post_student_grade' %}">
+<form method="post" action="{% url 'post_student_grade' course_id student_id gradecolumn_id %}">
   {% csrf_token %} {{ form.as_p }}
 
   <input class="btn btn-default" type="submit" value="done!">
