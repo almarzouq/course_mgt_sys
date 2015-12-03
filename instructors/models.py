@@ -26,6 +26,9 @@ class Appointment(models.Model):
     sent_1st_reminder = models.BooleanField(default=False)
     sent_2nd_reminder = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return reverse('appointment_list')
+
 
 class Announcement(models.Model):
     name = models.CharField(max_length=120)
