@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
-from .forms import NewCourseForm, GradeForm
+from .forms import NewCourseForm, GradeForm, Grade
 
 
 from students.models import Student
@@ -65,7 +65,8 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
             'gradecolumn_id': gradecolumn_id,
         }
     )
-
+def list_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
+    grade =
 def instructor_view_course_stundets_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     students = Student.objects.filter(course__pk=course_id)
