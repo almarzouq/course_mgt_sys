@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block content %}
+<h1> {{grade.column}} Grade</h1>
+<a class="list-group-item">
+  <p class="list-group-item-text">Student Name: {{grade.student}}
+  </p>
+<p class="list-group-item-text">Student Grade: <b>{{grade.value}}</b> Out of <b>{{grade.column.total}}</b>
+</p>
+</a>
+
+ {% endblock %}

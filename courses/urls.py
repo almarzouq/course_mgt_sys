@@ -14,5 +14,7 @@ urlpatterns = [
         views.instructor_view_course_stundets_announcments, name='instructor_view_course_stundets_announcments'),
     url(r'^course/(?P<course_id>\d+)/remove/(?P<student_id>\d+)',
         views.remove_student_from_course, name='remove_course'),
+        url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/view/$', views.view_student_grade,
+            name='view_student_grade'),
 
 ]
