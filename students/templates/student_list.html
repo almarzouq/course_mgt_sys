@@ -1,11 +1,13 @@
-{%extends "base.html"%} {% block content %} <div class="list-group">{% for s in students %}
+{%extends "base.html"%} {% block content %}
+<div class="list-group">{% for s in students %}
 
 
-<li>
-  <p> University ID : {{s.university_id}} | Name : {{s.name}} </p>
-</li>
-<li><a  href="{% url 'student_edit' s.pk %}"> Edit Student </a></li>
+  <li>
+    <p> University ID : {{s.university_id}} | Name : {{s.name}} </p>
+  </li>
+  <li><a href="{% url 'student_edit' s.pk %}"> Edit Student </a></li>
+  {% empty %}
+  <h2>No Students Available </h2>
 
 
-
-{%endfor%} </div>{% endblock %}
+  {%endfor%} </div>{% endblock %}
