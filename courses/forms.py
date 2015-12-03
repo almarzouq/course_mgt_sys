@@ -17,10 +17,3 @@ class GradeForm(forms.ModelForm):
             'column': forms.HiddenInput,
             'student': forms.HiddenInput,
         }
-
-# InlineCourseFormSet = inlineformset_factory(
-# Grade,
-# Course,
-# fields=('name',)
-#
-# )
