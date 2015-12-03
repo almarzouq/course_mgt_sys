@@ -1,11 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
+from django.views.generic import ListView
 from django.contrib import messages
 
 from .forms import NewCourseForm, GradeForm
-
+from .models import GradeColumn
 
 from students.models import Student
-from courses.models import Course, CourseAnnouncement
+from courses.models import Course
 # Create your views here.
 
 
@@ -13,8 +14,8 @@ def course_create(request):
     if request.method == 'POST':
         form = NewCourseForm(request.POST)
         if form.is_valid():
-            obj = form.save()
-            return redirect("/")
+            form.save(commit=False)
+            return redirect()
     else:
         form = NewCourseForm()
     return render(
@@ -26,16 +27,10 @@ def course_create(request):
     )
 
 
-def list_course_grade_column(request, course_id):
-    course_obj = get_object_or_404(Course, pk=course_id)
-    qs = course_obj.gradecolumn_set.all()
+class CourseGradeView(ListView):
+    model = GradeColumn
+    template_name = "course_grade.html"
 
-    return render(request, "course_grade.html",
-        {
-            'course': course_obj,
-            'gradecolumns': qs,
-        }
-    )
 
 
 def enroll_student_to_course(request, course_id, student_id):
@@ -49,7 +44,6 @@ def enroll_student_to_course(request, course_id, student_id):
 def post_student_grade(request, course_id, student_id, gradecolumn_id):
     if request.method == 'POST':
         form = GradeForm(request.POST)
-
         if form.is_valid():
             form.save(commit=False)
             return redirect('/')
@@ -60,23 +54,9 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
         request,
         'post_student_grade.html',
         {
-            "form": form,
+            'form': form,
             'course_id': course_id,
             'student_id': student_id,
             'gradecolumn_id': gradecolumn_id,
         }
     )
-
-
-
-def instructor_view_course_stundets_announcments(request, course_id):
-    course = get_object_or_404(Course, pk=course_id)
-    students = Student.objects.filter(course__pk=course_id)
-    announcments = CourseAnnouncement.objects.filter(course__pk=course_id)
-    return render(request, "course_details_announcments.html",
-                  {
-                      'course': course,
-                      'students': students,
-                      'announcments': announcments
-                  }
-                  )
