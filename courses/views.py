@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib import messages
+from django.views.generic.edit import UpdateView
 
 from .forms import NewCourseForm, GradeForm, Grade
 
@@ -117,7 +118,7 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
-ef delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
+def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade, pk=grade_id)
     grade.delete()
     messages.success(request , 'Grade was successfully deleteded.')
@@ -154,3 +155,10 @@ def student_can_add_course(request, course_id, student_id):
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
     return redirect('/')
+
+
+class CourseEdit(UpdateView):
+    model = Course
+    template_name = "course_edit.html"
+    # context_object_name = "course"
+    fields = '__all__'
