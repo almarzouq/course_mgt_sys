@@ -70,12 +70,15 @@ def list_student_grade(request, course_id, student_id):
     gradecolumns = course_obj.gradecolumn_set.all()
     student = get_object_or_404(Student, pk=student_id)
     grades = student.grade_set.all()
-    grade = get_list_or_404(Grade, student__course=course_id)
 
     student_grade_value = []
     student_grade_column = []
-    for g in gradecolumns:
-        student_grade_column.append(g.name)
+    for gc in gradecolumns:
+        student_grade_column.append(gc.name)
+        for g in grades:
+            if str(gc.name) == str(g.column):
+
+                student_grade_value.append(g.value)
     return render(
         request,
         'list_student_grade.html',
@@ -84,8 +87,9 @@ def list_student_grade(request, course_id, student_id):
             'course_id': course_id,
             'student_id': student_id,
             'student_grade_column': student_grade_column,
-            'student': student,
-            'grades': grades
+            'student_grade_value': student_grade_value,
+            'gradecolumns': gradecolumns,
+            'grades': grades,
         }
     )
 
