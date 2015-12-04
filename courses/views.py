@@ -73,13 +73,17 @@ def list_student_grade(request, course_id, student_id):
 
     student_grade_value = []
     student_grade_column = []
+
     for gc in gradecolumns:
+        if student_grade_column.count > student_grade_value.count:
+            student_grade_value.append(0)
         student_grade_column.append(gc.name)
+
         for g in grades:
             if gc.pk == g.column.pk:
                 student_grade_value.append(g.value)
-            else:
-                student_grade_value.append(g.value)
+
+
     return render(
         request,
         'list_student_grade.html',
@@ -93,6 +97,7 @@ def list_student_grade(request, course_id, student_id):
             'grades': grades,
         }
     )
+
 
 def instructor_view_course_stundets_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)

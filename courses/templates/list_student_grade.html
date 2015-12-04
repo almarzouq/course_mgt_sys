@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <h1> Student Grade list: </h1>
-{{grades}}
+
 Student Name: {{student.name}}
 <br>
 Student ID: {{student.university_id}}
@@ -16,7 +16,9 @@ Student ID: {{student.university_id}}
    </tr>
    <tr>
      {% for v in student_grade_value %}
+     
      <td> {{v}} </td>
+
      {% endfor %}
    </tr>
 
