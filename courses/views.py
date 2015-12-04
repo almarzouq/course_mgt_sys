@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-
+from django.core.urlresolvers import reverse
 from .forms import NewCourseForm, GradeForm, GradeColumnEditForm
 from .models import GradeColumn
 
@@ -45,8 +45,8 @@ def gradecolumn_edit(request, gradecolumn_id, course_id):
         form = GradeColumnEditForm(request.POST, instance=gc)
         if form.is_valid():
             form.save()
-            messages.success(request, 'gradecolumn is successfuly edited.')
-        return redirect('/')
+            messages.success(request, 'GradeColumn is successfully edited.')
+        return redirect(reverse('list_course_grade_column', kwargs={'course_id': course_id}))
     else:
         form = GradeColumnEditForm(instance=gc)
     return render(request,

@@ -4,7 +4,7 @@ from courses import views
 urlpatterns = [
     url(r'^course/create/$', views.course_create,
         name='course_create'),
-    url(r'^course/(?P<course_id>\d+)/gradecolumn/$', views.list_course_grade_column,
+    url(r'^course/(?P<course_id>\d+)/gradecolumn/list/$', views.list_course_grade_column,
         name='list_course_grade_column'),
     url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/edit/$',
         views.gradecolumn_edit, name='gradecolumn_edit'),
