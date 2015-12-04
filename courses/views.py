@@ -118,7 +118,7 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
-ef delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
+def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade, pk=grade_id)
     grade.delete()
     messages.success(request , 'Grade was successfully deleteded.')
@@ -145,10 +145,12 @@ def remove_student_from_course(request, course_id, student_id):
 
 
 def student_can_add_course(request, course_id, student_id):
-    if Course.objects.get(pk=course_id).student_registration_open:
-        course = Course.objects.get(pk=course_id)
-        student = Student.objects.get(pk=student_id)
-        course.students.remove(student)
+    course = Course.objects.get(pk=course_id)
+    student = Student.objects.get(pk=student_id)
+    if course.student_registration_open is True:
+        course.students.add(student)
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
+    else:
+        messages.success(request, 'You are not allowed to enroll in this course talk to your instructor')
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
