@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib import messages
 
-from .forms import NewCourseForm, GradeForm, Grade
+from .forms import NewCourseForm, GradeForm
 
 
 from students.models import Student
-from courses.models import Course, CourseAnnouncement
+from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 # Create your views here.
 
 
@@ -65,8 +65,30 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
             'gradecolumn_id': gradecolumn_id,
         }
     )
-def list_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
-    grade =
+def list_student_grade(request, course_id, student_id):
+    course_obj = get_object_or_404(Course, pk=course_id)
+    gradecolumns = course_obj.gradecolumn_set.all()
+    student = get_object_or_404(Student, pk=student_id)
+    grades = student.grade_set.all()
+    grade = get_list_or_404(Grade, student__course=course_id)
+
+    student_grade_value = []
+    student_grade_column = []
+    for g in gradecolumns:
+        student_grade_column.append(g.name)
+    return render(
+        request,
+        'list_student_grade.html',
+        {
+
+            'course_id': course_id,
+            'student_id': student_id,
+            'student_grade_column': student_grade_column,
+            'student': student,
+            'grades': grades
+        }
+    )
+
 def instructor_view_course_stundets_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     students = Student.objects.filter(course__pk=course_id)
