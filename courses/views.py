@@ -46,7 +46,7 @@ def create_course_announcment(request, course_id):
    if request.method == 'POST':
        form = CourseAnnouncmentForm(request.POST)
        if form.is_valid():
-           form.save
+           form.save()
            return redirect('/')
    else:
        form = CourseAnnouncmentForm(initial={'course': course_id,})
