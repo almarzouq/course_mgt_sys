@@ -19,3 +19,6 @@ class GradeColumnEditForm(forms.ModelForm):
     class Meta:
         model = GradeColumn
         fields = '__all__'
+        widgets = {
+            'course': forms.HiddenInput,
+        }

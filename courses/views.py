@@ -38,20 +38,25 @@ def list_course_grade_column(request, course_id):
     )
 
 
-def gradecolumn_edit(request, gradecolumn_id):
-    obj = GradeColumn.objects.get(pk=gradecolumn_id)
+def gradecolumn_edit(request, gradecolumn_id, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    gc = course.gradecolumn_set.get(pk=gradecolumn_id)
     if request.method == 'POST':
-        form = GradeColumnEditForm(request.POST, instance=obj)
+        form = GradeColumnEditForm(request.POST, instance=gc)
         if form.is_valid():
             form.save()
             messages.success(request, 'gradecolumn is successfuly edited.')
-            return redirect('')
+        return redirect('/')
     else:
-        form = GradeColumnEditForm(instance=obj)
+        form = GradeColumnEditForm(instance=gc)
     return render(request,
-                  'instructor_gradecolumn_edit.html',
+                  'course_gradecolumn_edit.html',
                   {
-                      'gradecolumn': obj,
+                      'gradecolumn_id': gradecolumn_id,
+                      'form': form,
+                      'course_id': course_id,
+                      'course': course,
+
                   })
 
 
