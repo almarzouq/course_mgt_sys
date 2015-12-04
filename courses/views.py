@@ -70,20 +70,23 @@ def list_student_grade(request, course_id, student_id):
     gradecolumns = course_obj.gradecolumn_set.all()
     student = get_object_or_404(Student, pk=student_id)
     grades = student.grade_set.all()
-
-    student_grade_value = []
-    student_grade_column = []
+    student_grade_value_list = []
+    student_grade_column_list = []
+    student_grade_value_dict = {}
+    student_grade_column_dict = {}
 
     for gc in gradecolumns:
-        if student_grade_column.count > student_grade_value.count:
-            student_grade_value.append(0)
-        student_grade_column.append(gc.name)
+
+        student_grade_column_dict[gc.pk] = gc.name
 
         for g in grades:
             if gc.pk == g.column.pk:
-                student_grade_value.append(g.value)
+                student_grade_value_dict[g.pk] = g.value
+        if len(student_grade_value_dict) < len(student_grade_column_dict):
+            student_grade_value_dict[gc.pk] = ""
 
-
+    student_grade_column_list.append(student_grade_column_dict)
+    student_grade_value_list.append(student_grade_value_dict)
     return render(
         request,
         'list_student_grade.html',
@@ -91,12 +94,16 @@ def list_student_grade(request, course_id, student_id):
 
             'course_id': course_id,
             'student_id': student_id,
-            'student_grade_column': student_grade_column,
-            'student_grade_value': student_grade_value,
+            'student_grade_column': student_grade_column_list,
+            'student_grade_value': student_grade_value_list,
             'student': student,
             'grades': grades,
         }
     )
+
+
+
+
 
 
 def instructor_view_course_stundets_announcments(request, course_id):

@@ -1,6 +1,5 @@
 {% extends "base.html" %} {% block content %}
 <h1> Student Grade list: </h1>
-
 Student Name: {{student.name}}
 <br>
 Student ID: {{student.university_id}}
@@ -10,15 +9,25 @@ Student ID: {{student.university_id}}
  <table border="1" style="width:100%">
 
    <tr>
-     {% for i in student_grade_column %}
-     <td>{{i}}</td>
+     {% for dict in student_grade_column %}
+     {% for key, value in dict.items %}
+     <td>{{value}}
+     </td>
+     {% endfor %}
      {% endfor %}
    </tr>
    <tr>
-     {% for v in student_grade_value %}
-     
-     <td> {{v}} </td>
+     {% for dict in student_grade_value %}
+     {% for key, value in dict.items %}
+     {% if value != "" %}
+      <td>{{value}}
+        <br>
+        <a href={% url ''}
+      </td>
 
+      {% endif %}
+
+     {% endfor %}
      {% endfor %}
    </tr>
 
