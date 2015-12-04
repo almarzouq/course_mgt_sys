@@ -50,7 +50,7 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
     if request.method == 'POST':
         form = GradeForm(request.POST)
         if form.is_valid():
-            form.save(commit=False)
+            form.save()
             return redirect('/')
     else:
         form = GradeForm(initial={'column': gradecolumn_id,
@@ -76,8 +76,9 @@ def list_student_grade(request, course_id, student_id):
     for gc in gradecolumns:
         student_grade_column.append(gc.name)
         for g in grades:
-            if str(gc.name) == str(g.column):
-
+            if gc.pk == g.column.pk:
+                student_grade_value.append(g.value)
+            else:
                 student_grade_value.append(g.value)
     return render(
         request,
@@ -88,7 +89,7 @@ def list_student_grade(request, course_id, student_id):
             'student_id': student_id,
             'student_grade_column': student_grade_column,
             'student_grade_value': student_grade_value,
-            'gradecolumns': gradecolumns,
+            'student': student,
             'grades': grades,
         }
     )
