@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 from .forms import NewCourseForm, GradeForm, Grade
 
@@ -141,7 +142,7 @@ def remove_student_from_course(request, course_id, student_id):
     course.students.remove(student)
     course.save()
     messages.success(request, 'The student is successfuly removed.')
-
+    return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 def student_can_add_course(request, course_id, student_id):
     # this function is implemented incorrectly
