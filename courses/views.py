@@ -43,18 +43,17 @@ def enroll_student_to_course(request, course_id, student_id):
 
 
 def create_course_announcment(request, course_id):
-   inst = get_object_or_404(Course, pk=course_id)
    if request.method == 'POST':
-       form = CourseAnnouncmentForm(request.POST, instance=inst)
+       form = CourseAnnouncmentForm(request.POST)
        if form.is_valid():
-           form.save()
+           form.save
            return redirect('/')
    else:
-       form = CourseAnnouncmentForm(instance=inst)
+       form = CourseAnnouncmentForm(initial={'course': course_id,})
    return render(
        request,
        'create_course_announcment.html',
        {
-           'course': inst,
-           'form': form
+           'form': form,
+           'course_id': course_id,
        })
