@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^course/(?P<course_id>\d+)/$',
         views.instructor_view_course_stundets_announcments, name='instructor_view_course_stundets_announcments'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/add/',
-        views.student_can_add_course, name='add_course'),
+        views.student_can_add_course, name='student_can_add_course'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/remove/',
         views.remove_student_from_course, name='remove_course'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/edit/$', views.edit_student_grade,

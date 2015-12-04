@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 from .forms import NewCourseForm, GradeForm, Grade
 
@@ -144,13 +145,10 @@ def remove_student_from_course(request, course_id, student_id):
 
 
 def student_can_add_course(request, course_id, student_id):
-    # this function is implemented incorrectly
-    # it should check the student_registration_open
-    # on course model, noura, open a ticket and fix this
-    if 'student_registration_open' in request.GET:
+    if Course.objects.get(pk=course_id).student_registration_open:
         course = Course.objects.get(pk=course_id)
         student = Student.objects.get(pk=student_id)
-        student.courses.add(course)
+        course.students.remove(student)
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
-    return redirect('/')
+    return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
