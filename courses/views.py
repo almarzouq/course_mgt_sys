@@ -117,7 +117,8 @@ def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         form = GradeForm(request.POST, instance=grade)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            messages.success(request, 'Grade was successfully Edited.')
+            return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
     else:
         form = GradeForm(instance=grade)
     return render(
