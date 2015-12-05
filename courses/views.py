@@ -212,16 +212,15 @@ def remove_student_from_course(request, course_id, student_id):
 
 
 def student_can_add_course(request, course_id, student_id):
-    # this function is implemented incorrectly
-    # it should check the student_registration_open
-    # on course model, noura, open a ticket and fix this
-    if 'student_registration_open' in request.GET:
-        course = Course.objects.get(pk=course_id)
-        student = Student.objects.get(pk=student_id)
-        student.courses.add(course)
+    course = Course.objects.get(pk=course_id)
+    student = Student.objects.get(pk=student_id)
+    if course.student_registration_open:
+        course.students.add(student)
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
-    return redirect('/')
+    else:
+        messages.success(request, 'You are not allowed to enroll in this course talk to your instructor')
+    return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
 def create_course_announcment(request, course_id):
