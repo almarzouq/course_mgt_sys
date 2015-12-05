@@ -5,6 +5,10 @@ from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.views.generic.edit import UpdateView
+
+from .forms import NewCourseForm, GradeForm, Grade
+
 
 from students.models import Student
 from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
@@ -238,3 +242,10 @@ def create_course_announcment(request, course_id):
             'form': form,
             'course_id': course_id,
         })
+
+
+class CourseEdit(UpdateView):
+    model = Course
+    template_name = "course_edit.html"
+    context_object_name = "course"
+    fields = '__all__'
