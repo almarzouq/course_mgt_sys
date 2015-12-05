@@ -15,6 +15,8 @@ urlpatterns = [
         name='appointment_details'),
     url(r'^appointment/list/$', views.AppointmentList.as_view(),
         name='appointment_list',),
+    url(r'^instructor/(?P<instructor_id>\d+)/create/announcement$', views.create_general_announcment,
+        name='create_general_announcment',),
 
 
 
