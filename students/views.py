@@ -34,12 +34,10 @@ def edit_profile(request, pk):
         if form.is_valid():
 
             form.save()
-<<<<<<< 9c5c1fffbe974df86dc6cbc53ed04f13c8071fc8
 
-=======
 # changed functionality to switch to the students list instead of view
 # that students own profile
->>>>>>> progress
+
             return redirect('students_list')
     else:
         form = StudentEditForm(instance=obj)
@@ -62,7 +60,7 @@ def student_search(request, search_text):
     return render(request, 'student_list.html', {'students': qs})
 
 
-<<<<<<< 9c5c1fffbe974df86dc6cbc53ed04f13c8071fc8
+
 class StudentListUni(ListView):
     model = Student
     template_name = 'student_list.html'
@@ -75,7 +73,7 @@ class StudentListName(ListView):
     template_name = 'student_list.html'
     context_object_name = 'students'
     queryset = Student.objects.order_by('name')
-=======
+
 
 
 def dateTimeViewBootstrap3(request):
@@ -84,10 +82,10 @@ def dateTimeViewBootstrap3(request):
 
         form = testFormBootstrap3(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            new_event = form.save()
-            form = testFormBootstrap3(instance=new_event)
+
+            form = testFormBootstrap3()
             return render(request, 'home.html', {
-               'datetime': new_event,
+
                 'form': form,'bootstrap':3,
             })
     else:
@@ -99,4 +97,3 @@ def dateTimeViewBootstrap3(request):
     return render(request, 'home.html', {
              'form': form,'bootstrap':3
             })
->>>>>>> progress
