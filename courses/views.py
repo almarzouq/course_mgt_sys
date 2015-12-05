@@ -228,7 +228,7 @@ def create_course_announcment(request, course_id):
         form = CourseAnnouncmentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect(reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': course_id}))
     else:
         form = CourseAnnouncmentForm(initial={'course': course_id, })
     return render(
