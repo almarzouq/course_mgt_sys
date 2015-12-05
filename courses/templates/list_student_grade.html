@@ -22,7 +22,7 @@ Student ID: {{student.university_id}}
      {% if value != "" %}
       <td>{{value}}
         <br>
-        <a href="{% url 'edit_student_grade' course_id student.pk 1 key %}"> Edit Grade </a>
+        <a href="{% url 'edit_student_grade' course_id student.pk 1 key %}"> Edit Grade </a> <a href="{% url 'delete_student_grade' course_id student.pk 1 key %}"> Delete Grade </a>
       </td>
 
       {% endif %}
