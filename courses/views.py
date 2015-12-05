@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.contrib import messages
+from django.core.urlresolvers import reverse
 
 from .forms import NewCourseForm, GradeForm, Grade
 
@@ -59,7 +60,7 @@ def enroll_student_to_course(request, course_id, student_id):
     course.students.add(student)
     course.save()
     messages.success(request, 'The student is successfuly added.')
-    return redirect('/courses/course/{}/details'.format(course_id))
+    return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
 def post_student_grade(request, course_id, student_id, gradecolumn_id):
@@ -116,12 +117,14 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
             'grade_id': grade_id,
         }
     )
-
+ 
 def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade, pk=grade_id)
     grade.delete()
-    messages.success(request , 'Grade was successfully deleteded.')
+    messages.success(request, 'Grade was successfully deleteded.')
     return redirect("/")
+
+
 def instructor_view_course_stundets_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     students = Student.objects.filter(course__pk=course_id)
@@ -141,7 +144,7 @@ def remove_student_from_course(request, course_id, student_id):
     course.students.remove(student)
     course.save()
     messages.success(request, 'The student is successfuly removed.')
-
+    return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 def student_can_add_course(request, course_id, student_id):
     # this function is implemented incorrectly
