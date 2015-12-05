@@ -160,5 +160,5 @@ def student_can_add_course(request, course_id, student_id):
 class CourseEdit(UpdateView):
     model = Course
     template_name = "course_edit.html"
-    # context_object_name = "course"
+    context_object_name = "course"
     fields = '__all__'
