@@ -147,7 +147,7 @@ def remove_student_from_course(request, course_id, student_id):
 def student_can_add_course(request, course_id, student_id):
     course = Course.objects.get(pk=course_id)
     student = Student.objects.get(pk=student_id)
-    if course.student_registration_open is True:
+    if course.student_registration_open:
         course.students.add(student)
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
