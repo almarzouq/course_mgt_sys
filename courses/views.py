@@ -2,15 +2,16 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib import messages
 from django.core.urlresolvers import reverse
-from .forms import (NewCourseForm, GradeForm,
-                    GradeColumnEditForm, CourseAnnouncmentForm)
-
-from .models import GradeColumn
 
 from students.models import Student
-from courses.models import Course, CourseAnnouncement
+from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
+
+from .forms import (NewCourseForm, GradeForm,
+                    GradeColumnEditForm, CourseAnnouncmentForm)
+from .models import GradeColumn
 # Create your views here.
 
 
@@ -87,12 +88,14 @@ def enroll_student_to_course(request, course_id, student_id):
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
+
 def post_student_grade(request, course_id, student_id, gradecolumn_id):
     if request.method == 'POST':
         form = GradeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
+
     else:
         form = GradeForm(initial={'column': gradecolumn_id,
                                   'student': student_id})
@@ -141,6 +144,37 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
             'student_id': student_id,
             'gradecolumn_id': gradecolumn_id,
             'grade_id': grade_id,
+def list_student_grade(request, course_id, student_id):
+    course_obj = get_object_or_404(Course, pk=course_id)
+    gradecolumns = course_obj.gradecolumn_set.all()
+    student = get_object_or_404(Student, pk=student_id)
+    grades = student.grade_set.all()
+
+    student_grade_value_list = []
+    student_grade_column_list = []
+    student_grade_value_dict = {}
+    student_grade_column_dict = {}
+
+    for gc in gradecolumns:
+        student_grade_value_dict = {}
+        student_grade_column_dict = {}
+        student_grade_column_dict[gc.pk] = gc.name
+        for g in grades:
+            if gc.pk == g.column.pk:
+                student_grade_value_dict[g.pk] = g.value
+        if len(student_grade_value_dict) < len(student_grade_column_dict):
+            student_grade_value_dict[gc.pk] = ''
+        student_grade_column_list.append(student_grade_column_dict)
+        student_grade_value_list.append(student_grade_value_dict)
+    return render(
+        request,
+        'list_student_grade.html',
+        {
+            'course_id': course_id,
+            'student_id': student_id,
+            'student_grade_column': student_grade_column_list,
+            'student_grade_value': student_grade_value_list,
+            'student': student,
         }
     )
 
