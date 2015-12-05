@@ -185,7 +185,7 @@ def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_i
     grade = get_object_or_404(Grade, pk=grade_id)
     grade.delete()
     messages.success(request, 'Grade was successfully deleteded.')
-    return redirect("/")
+    return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
 
 
 def instructor_view_course_stundets_announcments(request, course_id):
