@@ -5,7 +5,7 @@ from django.views.generic import ListView
 
 from .models import Instructor, Appointment
 from courses.models import Grade, GradeColumn
-from .forms import GradeColumnEditForm, AppointmentForm
+from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
 
 # Create your views here.
 
@@ -72,3 +72,19 @@ class AppointmentList(ListView):
     model = Appointment
     template_name = "appointment_list.html"
     context_object_name = "appointments"
+
+def create_general_announcment(request, instructor_id):
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = AnnouncementForm(initial={'instructor': instructor_id, })
+    return render(
+        request,
+        'create_general_announcment.html',
+        {
+            'form': form,
+            'instructor_id': instructor_id,
+        })
