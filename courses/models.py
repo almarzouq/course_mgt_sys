@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext as _
+from django.core.urlresolvers import reverse
 
 from students.models import Student
 
@@ -36,6 +37,8 @@ class Course(models.Model):
     def __str__(self):
         return u" {} : {} : {} ".format(self.name, self.days, self.semester)
 
+    def get_absolute_url(self):
+        return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.pk})
 
 class GradeColumn(models.Model):
     name = models.CharField(max_length=120)
