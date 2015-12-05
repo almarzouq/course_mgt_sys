@@ -4,10 +4,12 @@ from courses import views
 urlpatterns = [
     url(r'^course/create/$', views.course_create,
         name='course_create'),
-    url(r'^course/(?P<course_id>\d+)/gradecolumn/$', views.list_course_grade_column,
+    url(r'^course/(?P<course_id>\d+)/gradecolumn/list/$', views.list_course_grade_column,
         name='list_course_grade_column'),
     url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/$',
         views.view_course_gradecolumn, name='view_course_gradecolumn'),
+    url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/edit/$',
+        views.gradecolumn_edit, name='gradecolumn_edit'),
     url(r'^course/(?P<course_id>\d+)/enroll/(?P<student_id>\d+)',
         views.enroll_student_to_course, name='enroll'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/create$', views.post_student_grade,
@@ -24,5 +26,8 @@ urlpatterns = [
         name='view_student_grade'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/delete/$', views.delete_student_grade,
         name='delete_student_grade'),
+    url(r'^course/(?P<course_id>\d+)/announcement/create/$', views.create_course_announcment, name= 'create_course_announcment',),
 
+    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/grade/list/$', views.list_student_grade,
+        name='list_student_grade'),
 ]
