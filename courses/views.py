@@ -144,6 +144,9 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
             'student_id': student_id,
             'gradecolumn_id': gradecolumn_id,
             'grade_id': grade_id,
+        }
+    )
+
 def list_student_grade(request, course_id, student_id):
     course_obj = get_object_or_404(Course, pk=course_id)
     gradecolumns = course_obj.gradecolumn_set.all()
