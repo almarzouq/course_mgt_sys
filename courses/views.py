@@ -19,7 +19,7 @@ def course_create(request):
         form = NewCourseForm(request.POST)
         if form.is_valid():
             obj = form.save()
-            return redirect("/")
+            return redirect(obj)
     else:
         form = NewCourseForm()
     return render(
