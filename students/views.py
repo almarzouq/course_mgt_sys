@@ -84,8 +84,11 @@ def dateTimeViewBootstrap3(request):
 
         form = testFormBootstrap3(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
+            new_event = form.save()
+            form = testFormBootstrap3(instance=new_event)
             return render(request, 'home.html', {
-                'form': form,'bootstrap':3
+               'datetime': new_event,
+                'form': form,'bootstrap':3,
             })
     else:
         if request.GET.get('id',None):
