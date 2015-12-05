@@ -1,14 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 
 from .forms import NewCourseForm, GradeForm, Grade
 
+from .forms import NewCourseForm, CourseAnnouncmentForm
+from .models import GradeColumn
 
 from students.models import Student
 from courses.models import Course, CourseAnnouncement
-from .models import GradeColumn
 # Create your views here.
 
 
@@ -158,3 +161,20 @@ def student_can_add_course(request, course_id, student_id):
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
     return redirect('/')
+
+
+def create_course_announcment(request, course_id):
+   if request.method == 'POST':
+       form = CourseAnnouncmentForm(request.POST)
+       if form.is_valid():
+           form.save()
+           return redirect('/')
+   else:
+       form = CourseAnnouncmentForm(initial={'course': course_id,})
+   return render(
+       request,
+       'create_course_announcment.html',
+       {
+           'form': form,
+           'course_id': course_id,
+       })
