@@ -14,7 +14,4 @@ urlpatterns = [
         views.instructor_view_course_stundets_announcments, name='instructor_view_course_stundets_announcments'),
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/grade/list/$', views.list_student_grade,
         name='list_student_grade'),
-    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/grade/(?P<grade_id>\d+)/edit/$', views.edit_student_grade,
-        name='edit_student_grade'),
-
 ]

@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.core.urlresolvers import reverse
 from django.contrib import messages
 
 from .forms import NewCourseForm, GradeForm
@@ -31,11 +32,11 @@ def list_course_grade_column(request, course_id):
     qs = course_obj.gradecolumn_set.all()
 
     return render(request, "course_grade.html",
-        {
-            'course': course_obj,
-            'gradecolumns': qs,
-        }
-    )
+                  {
+                      'course': course_obj,
+                      'gradecolumns': qs,
+                  }
+                  )
 
 
 def enroll_student_to_course(request, course_id, student_id):
@@ -46,12 +47,14 @@ def enroll_student_to_course(request, course_id, student_id):
     messages.success(request, 'The student is successfuly added.')
     return redirect('/')
 
+
 def post_student_grade(request, course_id, student_id, gradecolumn_id):
     if request.method == 'POST':
         form = GradeForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
+
     else:
         form = GradeForm(initial={'column': gradecolumn_id,
                                   'student': student_id})
@@ -65,67 +68,41 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
             'gradecolumn_id': gradecolumn_id,
         }
     )
+
+
 def list_student_grade(request, course_id, student_id):
     course_obj = get_object_or_404(Course, pk=course_id)
     gradecolumns = course_obj.gradecolumn_set.all()
     student = get_object_or_404(Student, pk=student_id)
     grades = student.grade_set.all()
+
     student_grade_value_list = []
     student_grade_column_list = []
     student_grade_value_dict = {}
     student_grade_column_dict = {}
 
     for gc in gradecolumns:
-
+        student_grade_value_dict = {}
+        student_grade_column_dict = {}
         student_grade_column_dict[gc.pk] = gc.name
-
         for g in grades:
             if gc.pk == g.column.pk:
                 student_grade_value_dict[g.pk] = g.value
         if len(student_grade_value_dict) < len(student_grade_column_dict):
-            student_grade_value_dict[gc.pk] = ""
-
-    student_grade_column_list.append(student_grade_column_dict)
-    student_grade_value_list.append(student_grade_value_dict)
+            student_grade_value_dict[gc.pk] = ''
+        student_grade_column_list.append(student_grade_column_dict)
+        student_grade_value_list.append(student_grade_value_dict)
     return render(
         request,
         'list_student_grade.html',
         {
-
             'course_id': course_id,
             'student_id': student_id,
             'student_grade_column': student_grade_column_list,
             'student_grade_value': student_grade_value_list,
             'student': student,
-            'grades': grades,
         }
     )
-
-def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
-    grade = get_object_or_404(Grade, pk=grade_id)
-    if request.method == 'POST':
-        form = GradeForm(request.POST, instance=grade)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    else:
-        form = GradeForm(instance=grade)
-    return render(
-        request,
-        'edit_student_grade.html',
-        {
-            'form': form,
-            'course_id': course_id,
-            'student_id': student_id,
-            'gradecolumn_id': gradecolumn_id,
-            'grade_id': grade_id,
-        }
-    )
-
-
-
-
-
 
 
 def instructor_view_course_stundets_announcments(request, course_id):
