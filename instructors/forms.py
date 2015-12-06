@@ -26,6 +26,9 @@ class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = '__all__'
+        widgets = {
+            'instructor': forms.HiddenInput,
+        }
 
 
 class GradeColumnEditForm(forms.ModelForm):
