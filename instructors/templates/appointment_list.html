@@ -1,19 +1,21 @@
 {% extends "base.html" %} {% block content %}
-<h1>Available Appointments</h1>
-​
-<ul>
-  {% for a in appointments %}
-  <li class="list-group-item">
+  <h1>Available Appointments</h1>
+  <div class="list-group-item">
+    {% for a in appointments %}
 
-    <h4 class="list-group-item-heading">Name: {{a.name}} ​
-    </h4>
+    <p class="list-group-item-heading">Name: {{a.name}} ​
     <p class="list-group-item-text">Reason: {{a.reason}} ​
     </p>
 
     <p class="list-group-item-text">Submitted at: {{a.date_time}} ​
     </p>
-    ​
-  </li>
+    ​  </a>
+    {% empty %}
+
+  <h2>
+    no appointment available
+  </h2>
+
+  </ul>
   {% endfor %}
-<ul/>
-  </a> {% endblock %}
+   {% endblock %}

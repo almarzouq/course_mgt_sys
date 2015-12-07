@@ -17,7 +17,7 @@ class AnnouncementForm(forms.ModelForm):
         model = Announcement
         fields = '__all__'
         widgets = {
-            'instructor' : forms.HiddenInput,
+            'instructor': forms.HiddenInput,
         }
 
 
@@ -26,6 +26,11 @@ class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = '__all__'
+        widgets = {
+            'approved': forms.HiddenInput,
+            'sent_1st_reminder': forms.HiddenInput,
+            'sent_2nd_reminder': forms.HiddenInput,
+            }
 
 
 class GradeColumnEditForm(forms.ModelForm):
