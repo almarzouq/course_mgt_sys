@@ -3,6 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 
 
+
 from .models import Instructor, Appointment
 from courses.models import Grade, GradeColumn
 from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
@@ -88,3 +89,10 @@ def create_general_announcment(request, instructor_id):
             'form': form,
             'instructor_id': instructor_id,
         })
+
+
+class AppointmentEdit(UpdateView):
+    model = Appointment
+    template_name = 'appointment_edit.html'
+    context_object_name = 'appointment'
+    fields = ('name', 'date_time', 'reason', 'email', 'twitter_id', 'phone')
