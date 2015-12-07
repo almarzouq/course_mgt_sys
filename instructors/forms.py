@@ -30,6 +30,7 @@ class AppointmentForm(forms.ModelForm):
             'approved': forms.HiddenInput,
             'sent_1st_reminder': forms.HiddenInput,
             'sent_2nd_reminder': forms.HiddenInput,
+            'instructor': forms.HiddenInput,
             }
 
 
