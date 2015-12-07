@@ -58,3 +58,26 @@ class CourseAnnouncement(models.Model):
     comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course)
+
+
+class Lecture(models.Model):
+    name = models.CharField(max_length=120)
+    course = models.ForeignKey(Course)
+    time_of_lecture = models.DateTimeField(auto_now=True)
+    def __unicode__(self):
+        return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
+    def __str__(self):
+        return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
+
+
+class Attendance(models.Model):
+    lecture = models.ForeignKey(Lecture)
+    student = models.ForeignKey(Student)
+    attended = models.BooleanField(default = False )
+    def get_absolute_url(self):
+        return reverse('course_list_to_add')
+
+    def __unicode__(self):
+        return u"{} : {} : {} ".format(self.lecture.course.name, self.lecture.name, self.lecture.time_of_lecture)
+    def __str__(self):
+        return u"{} : {} : {} ".format(self.lecture.course.name, self.lecture.name, self.lecture.time_of_lecture)

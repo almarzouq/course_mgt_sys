@@ -1,6 +1,6 @@
 from django import forms
 from django.forms.models import inlineformset_factory
-from .models import Course, Grade, CourseAnnouncement, GradeColumn
+from .models import Course, Grade, CourseAnnouncement, GradeColumn , Attendance , Lecture
 
 
 class NewCourseForm(forms.ModelForm):
@@ -34,3 +34,16 @@ class GradeColumnEditForm(forms.ModelForm):
         widgets = {
             'course': forms.HiddenInput,
         }
+class AttendanceStudentForm(forms.ModelForm):
+    class Meta:
+        model =  Attendance
+        fields = '__all__'
+        widgets = {
+
+        'student': forms.HiddenInput,
+        }
+
+class InstructorLectureForm(forms.ModelForm):
+    class Meta:
+        model =  Lecture
+        fields = '__all__'

@@ -13,8 +13,8 @@ from .forms import NewCourseForm, GradeForm, Grade
 from students.models import Student
 from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 
-from .forms import (NewCourseForm, GradeForm,
-                    GradeColumnEditForm, CourseAnnouncmentForm)
+from .forms import (NewCourseForm, GradeForm,GradeColumnEditForm, CourseAnnouncmentForm, AttendanceStudentForm, InstructorLectureForm)
+
 from .models import GradeColumn
 # Create your views here.
 
@@ -263,3 +263,27 @@ def list_of_courses_to_add(request):
             'student_id': request.GET.get("student_id")
         }
     )
+
+def student_attendance(request, course_id, student_id):
+    if request.method == 'POST':
+        form = AttendanceStudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+            form = AttendanceStudentForm(initial={'course': course_id, 'student' : student_id })
+
+    return render(request,'lecture_attendance.html',{'form': form,'course_id': course_id,'student_id': student_id,})
+
+
+def instructor_lecture(request, course_id):
+    if request.method == 'POST':
+        form = InstructorLectureForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+
+        form = InstructorLectureForm(initial={'course': course_id,})
+
+    return render(request,'create_lecture.html',{'form': form,'course_id': course_id,})
