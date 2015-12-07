@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
+from django.core.urlresolvers import reverse
 
 
 from .models import Instructor, Appointment
@@ -78,7 +79,7 @@ def create_general_announcment(request, instructor_id):
         form = AnnouncementForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect(reverse('instructor_view', kwargs={'pk': instructor_id}))
     else:
         form = AnnouncementForm(initial={'instructor': instructor_id, })
     return render(

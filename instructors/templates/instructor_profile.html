@@ -22,6 +22,7 @@
     </p>
     ​
   </a>
+  <h2> Announcement </h2>
   <br/> {% for announcement in announcements %}
   <li class="list-group-item">
 
@@ -36,8 +37,8 @@
   </li>
   {% endfor %}
 </ul>
-
-<a class="btn btn-default" href="{% url 'take_appointment' instructor.pk %}">
+<br/>
+<!-- <a class="btn btn-default" href="{% url 'take_appointment' instructor.pk %}">
   Take an appointment
-</a>
+</a> -->
 {% endblock %}
