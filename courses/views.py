@@ -14,8 +14,7 @@ from students.models import Student
 from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 
 from .forms import (NewCourseForm, GradeForm,
-                    GradeColumnEditForm, CourseAnnouncmentForm,
-                    GradeColumnDeleteForm)
+                    GradeColumnEditForm, CourseAnnouncmentForm,GradeColumnDeleteForm)
 from .models import GradeColumn
 # Create your views here.
 
@@ -252,23 +251,10 @@ class CourseEdit(UpdateView):
     fields = '__all__'
 
 
-def gradecolumn_delete(request, gradecolumn_id, course_id):
+def gradecolumn_delete(request, course_id, gradecolumn_id):
     course = get_object_or_404(Course, pk=course_id)
-    gc = course.gradecolumn_set.get(pk=gradecolumn_id)
-    if request.method == 'POST':
-        form = GradeColumnDeleteForm(request.POST, instance=gc)
-        if form.is_valid():
-            form.delete()
-            messages.success(request, 'GradeColumn was successfully deleted.')
-        return redirect(reverse('list_course_grade_column', kwargs={'course_id': course_id}))
-    else:
-        form = GradeColumnDeleteForm(instance=gc)
-    return render(request,
-                  'gradecolumn_delete.html',
-                  {
-                      'gradecolumn_id': gradecolumn_id,
-                      'form': form,
-                      'course_id': course_id,
-                      'course': course,
-
-                  })
+    qs = course.gradecolumn_set.get(pk=gradecolumn_id)
+    qs.delete()
+    messages.success(request, 'Grade Column was successfully deleted.')
+    return redirect(reverse('list_course_grade_column', args=(
+        course_id, gradecolumn_id,)))
