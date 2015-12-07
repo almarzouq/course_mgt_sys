@@ -92,7 +92,6 @@ def enroll_student_to_course(request, course_id, student_id):
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
-
 def post_student_grade(request, course_id, student_id, gradecolumn_id):
     if request.method == 'POST':
         form = GradeForm(request.POST)
@@ -152,6 +151,7 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
+
 def list_student_grade(request, course_id, student_id):
     course_obj = get_object_or_404(Course, pk=course_id)
     gradecolumns = course_obj.gradecolumn_set.all()
@@ -185,6 +185,7 @@ def list_student_grade(request, course_id, student_id):
             'student': student,
         }
     )
+
 
 def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade, pk=grade_id)
@@ -223,7 +224,8 @@ def student_can_add_course(request, course_id, student_id):
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
     else:
-        messages.success(request, 'You are not allowed to enroll in this course talk to your instructor')
+        messages.success(
+            request, 'You are not allowed to enroll in this course talk to your instructor')
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
@@ -249,3 +251,15 @@ class CourseEdit(UpdateView):
     template_name = "course_edit.html"
     context_object_name = "course"
     fields = '__all__'
+
+
+def list_of_courses_to_add(request):
+    qs = Course.objects.all()
+    return render(
+        request,
+        'course_list_to_add.html',
+        {
+            'courses': qs,
+            'student_id': request.GET.get("student_id")
+        }
+    )
