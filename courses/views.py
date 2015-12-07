@@ -238,3 +238,16 @@ def create_course_announcment(request, course_id):
             'form': form,
             'course_id': course_id,
         })
+
+
+
+def list_of_courses_to_add(request):
+    qs = Course.objects.all()
+    return render(
+        request,
+        'course_list_to_add.html',
+        {
+            'courses': qs,
+            'student_id': request.GET.get("student_id")
+        }
+        )
