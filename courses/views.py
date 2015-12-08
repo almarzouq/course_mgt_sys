@@ -263,3 +263,11 @@ def list_of_courses_to_add(request):
             'student_id': request.GET.get("student_id")
         }
     )
+    
+def gradecolumn_delete(request, course_id, gradecolumn_id):
+    course = get_object_or_404(Course, pk=course_id)
+    qs = course.gradecolumn_set.get(pk=gradecolumn_id)
+    qs.delete()
+    messages.success(request, 'Grade Column was successfully deleted.')
+    return redirect(reverse('list_course_grade_column', args=(
+        course_id, gradecolumn_id,)))
