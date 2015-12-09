@@ -263,7 +263,7 @@ def list_of_courses_to_add(request):
             'student_id': request.GET.get("student_id")
         }
     )
-    
+
 def gradecolumn_delete(request, course_id, gradecolumn_id):
     course = get_object_or_404(Course, pk=course_id)
     qs = course.gradecolumn_set.get(pk=gradecolumn_id)
@@ -271,3 +271,37 @@ def gradecolumn_delete(request, course_id, gradecolumn_id):
     messages.success(request, 'Grade Column was successfully deleted.')
     return redirect(reverse('list_course_grade_column', args=(
         course_id, gradecolumn_id,)))
+
+
+def list_students_grades_in_course(request, course_id):
+    course_obj = get_object_or_404(Course, pk=course_id)
+    gradecolumns = course_obj.gradecolumn_set.all()
+    student = course_obj.students.all()
+    grades = Grade.objects.filter(column__course=course_id)
+
+    student_grade_value_list = []
+    student_grade_column_list = []
+    student_grade_value_dict = {}
+    student_grade_column_dict = {}
+
+    for gc in gradecolumns:
+        student_grade_value_dict = {}
+        student_grade_column_dict = {}
+        student_grade_column_dict[gc.total] = gc.name
+        for g in grades:
+            if gc.pk == g.column.pk:
+                student_grade_value_dict[g.pk] = [g.value, g.student.university_id]
+        if len(student_grade_value_dict) < len(student_grade_column_dict):
+            student_grade_value_dict[gc.pk] = ''
+        student_grade_column_list.append(student_grade_column_dict)
+        student_grade_value_list.append(student_grade_value_dict)
+    return render(
+        request,
+        'list_students_grades_in_course.html',
+        {
+            'course_id': course_id,
+            'student_grade_column': student_grade_column_list,
+            'student_grade_value': student_grade_value_list,
+            'student': student,
+        }
+    )

@@ -35,4 +35,6 @@ urlpatterns = [
     url(r'^course/list/$', views.list_of_courses_to_add, name='course_list_to_add',),
     url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/delete/$',
         views.gradecolumn_delete, name='gradecolumn_delete'),
+    url(r'^course/(?P<course_id>\d+)/students/grades/list/$', views.list_students_grades_in_course,
+        name='list_students_grades_in_course'),
 ]
