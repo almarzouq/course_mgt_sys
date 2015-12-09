@@ -166,7 +166,7 @@ def list_student_grade(request, course_id, student_id):
     for gc in gradecolumns:
         student_grade_value_dict = {}
         student_grade_column_dict = {}
-        student_grade_column_dict[gc.pk] = gc.name
+        student_grade_column_dict[gc.total] = gc.name
         for g in grades:
             if gc.pk == g.column.pk:
                 student_grade_value_dict[g.pk] = g.value
@@ -263,7 +263,7 @@ def list_of_courses_to_add(request):
             'student_id': request.GET.get("student_id")
         }
     )
-    
+
 def gradecolumn_delete(request, course_id, gradecolumn_id):
     course = get_object_or_404(Course, pk=course_id)
     qs = course.gradecolumn_set.get(pk=gradecolumn_id)
