@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 
-
-
 from .models import Instructor, Appointment
 from courses.models import Grade, GradeColumn
 from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
@@ -97,3 +95,15 @@ class AppointmentEdit(UpdateView):
     template_name = 'appointment_edit.html'
     context_object_name = 'appointment'
     fields = ('name', 'date_time', 'reason', 'email', 'twitter_id', 'phone')
+
+
+def appointment_view(request, pk):
+    inst = get_object_or_404(Instructor, pk=pk)
+    appoint = Appointment.objects.filter()
+    return render(
+        request,
+        'appointment_list.html',
+        {
+            'instructor': inst,
+            'appointments': appoint
+        })
