@@ -174,6 +174,7 @@ def list_student_grade(request, course_id, student_id):
             student_grade_value_dict[gc.pk] = ''
         student_grade_column_list.append(student_grade_column_dict)
         student_grade_value_list.append(student_grade_value_dict)
+        #cycle to change color background in table
     return render(
         request,
         'list_student_grade.html',
@@ -290,7 +291,8 @@ def list_students_grades_in_course(request, course_id):
         student_grade_column_dict[gc.total] = gc.name
         for g in grades:
             if gc.pk == g.column.pk:
-                student_grade_value_dict[g.pk] = [g.value, g.student.university_id]
+                student_grade_value_dict[g.pk] = [
+                    g.value, g.student.university_id]
         if len(student_grade_value_dict) < len(student_grade_column_dict):
             student_grade_value_dict[gc.pk] = ''
         student_grade_column_list.append(student_grade_column_dict)
