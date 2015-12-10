@@ -264,7 +264,7 @@ def list_of_courses_to_add(request):
             'student_id': request.GET.get("student_id")
         }
     )
-<<<<<<< HEAD
+
 
 def student_attendance(request, course_id, student_id):
     if request.method == 'POST':
@@ -279,6 +279,7 @@ def student_attendance(request, course_id, student_id):
 
 
 def instructor_lecture(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
     if request.method == 'POST':
         form = InstructorLectureForm(request.POST)
         if form.is_valid():
@@ -286,15 +287,20 @@ def instructor_lecture(request, course_id):
             return redirect('/')
     else:
 
-        form = InstructorLectureForm(initial={'course': course_id,})
+        form = InstructorLectureForm(initial={'course': course_id, })
 
-    return render(request,'create_lecture.html',{'form': form,'course_id': course_id,})
+    return render(request, 'create_lecture.html', {
+        'form': form,
+        'course_id': course_id,
+        'course': course,
+    })
+
 
 
 
 def lecture_details(request, pk):
     obj = Lecture.objects.get(pk=pk)
-    return render(request, 'lecture_details.html',{'lectures' : obj})
+    return render(request, 'lecture_details.html',{'lecture' : obj})
 
 
 def gradecolumn_delete(request, course_id, gradecolumn_id):
