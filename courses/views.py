@@ -270,8 +270,9 @@ def gradecolumn_delete(request, course_id, gradecolumn_id):
     qs = course.gradecolumn_set.get(pk=gradecolumn_id)
     qs.delete()
     messages.success(request, 'Grade Column was successfully deleted.')
-    return redirect(reverse('list_course_grade_column', args=(
-        course_id, gradecolumn_id,)))
+    return redirect(reverse('list_course_grade_column', kwargs={
+        'course_id': course.pk,
+    }))
 
 def gradecolumn_create(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
