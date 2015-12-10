@@ -14,7 +14,8 @@ from students.models import Student
 from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 
 from .forms import (NewCourseForm, GradeForm,
-                    GradeColumnEditForm, CourseAnnouncmentForm)
+                    GradeColumnEditForm, CourseAnnouncmentForm,
+                    GradeColumnCreateForm)
 from .models import GradeColumn
 # Create your views here.
 
@@ -263,7 +264,7 @@ def list_of_courses_to_add(request):
             'student_id': request.GET.get("student_id")
         }
     )
-    
+
 def gradecolumn_delete(request, course_id, gradecolumn_id):
     course = get_object_or_404(Course, pk=course_id)
     qs = course.gradecolumn_set.get(pk=gradecolumn_id)
@@ -271,3 +272,22 @@ def gradecolumn_delete(request, course_id, gradecolumn_id):
     messages.success(request, 'Grade Column was successfully deleted.')
     return redirect(reverse('list_course_grade_column', args=(
         course_id, gradecolumn_id,)))
+
+def gradecolumn_create(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    if request.method == 'POST':
+        form = GradeColumnCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('list_course_grade_column', kwargs={
+                'course_id': course_id}))
+    else:
+        form = GradeColumnCreateForm(initial={'course': course_id, })
+    return render(
+        request,
+        'gradecolumn_create.html',
+        {
+            'form': form,
+            'course': course
+        }
+    )
