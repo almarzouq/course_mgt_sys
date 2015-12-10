@@ -1,0 +1,9 @@
+{%extends "base.html"%}{%block content%}
+<h1> Lecture Details </h1>
+{% for l in lectures %}
+<h3>Name : {{l.name}}</h3>
+<p>Course : {{l.time_of_lecture}}</p>
+<p>Instrucotr : {{l.course.name}}</p>
+  <a class="btn btn-default" type="submit" value="done!"></a>
+{%endfor%}
+{%endblock%}
