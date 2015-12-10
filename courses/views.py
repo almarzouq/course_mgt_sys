@@ -167,7 +167,7 @@ def list_student_grade(request, course_id, student_id):
     for gc in gradecolumns:
         student_grade_value_dict = {}
         student_grade_column_dict = {}
-        student_grade_column_dict[gc.pk] = gc.name
+        student_grade_column_dict[gc.total] = gc.name
         for g in grades:
             if gc.pk == g.column.pk:
                 student_grade_value_dict[g.pk] = g.value
