@@ -42,19 +42,16 @@ def appointment_create(request, pk):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
-
             form.save()
-
             return redirect('appointment_list')
     else:
-        form = AppointmentForm()
-
+        form = AppointmentForm(initial={'instructor': inst, })
     return render(
         request,
         'take_appointment.html',
         {
             'instructor': inst,
-            'form': form
+            'form': form,
         })
 
 
