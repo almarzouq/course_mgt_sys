@@ -8,7 +8,9 @@
   <tr>
   <br>
   <h4> Grade Columns </h4>
-
+  <a class="btn btn-default" href="{% url 'gradecolumn_create' course.id %}">
+    Add Grade Column
+  </a>
 </tr><br>
 {% for gradecolumn in gradecolumns %}
 <br>
