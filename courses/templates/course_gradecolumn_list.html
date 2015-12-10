@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %}
+
+<h1> Course Name: {{ course.name }} </h1>
+<h2> Section: {{ course.tag }} </h2>
+<h3> Semester: {{ course.semester }} {{ course.academic_year }} </h3>
+
+<table>
+  <tr>
+  <br>
+  <h4> Grade Columns </h4>
+
+</tr><br>
+{% for gradecolumn in gradecolumns %}
+<br>
+<a class="list-group-item">
+  <p><b class="list-group-item-text">Grade Column Name: </b> {{ gradecolumn.name }}
+  </p>
+  <p><b class="list-group-item-text">Grade Column Description:</b> {{ gradecolumn.description }}
+  </p>
+  <p><b class="list-group-item-text">Grade Column Total:</b> {{ gradecolumn.total }}
+  </p>
+</a>
+  <tr>
+    <a class="btn btn-default" href="{% url 'gradecolumn_edit' course.id gradecolumn.id %}">
+    Edit
+  </a>
+
+  <a class="btn btn-default" href="{% url 'gradecolumn_delete' course.id gradecolumn.id %}">
+ Delete
+</a>
+</tr>
+<br>
+  {% endfor %}
+</table>
+{% endblock %}
