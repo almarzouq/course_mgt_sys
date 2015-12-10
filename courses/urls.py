@@ -40,4 +40,6 @@ urlpatterns = [
 
     url(r'^course/(?P<course_id>\d+)/lecture/$',views.instructor_lecture, name='lecture_create',),
 
+    url(r'^course/lecture/(?P<pk>\d+)/', views.lecture_details, name = 'lecture_details',),
+
 ]

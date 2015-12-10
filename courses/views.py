@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404, get_list_or_40
 from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import UpdateView
+from django.views.generic import DetailView
 
 from .forms import NewCourseForm, GradeForm, Grade
 
@@ -15,7 +16,7 @@ from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 
 from .forms import (NewCourseForm, GradeForm,GradeColumnEditForm, CourseAnnouncmentForm, AttendanceStudentForm, InstructorLectureForm)
 
-from .models import GradeColumn
+from .models import GradeColumn , Lecture
 # Create your views here.
 
 
@@ -287,3 +288,9 @@ def instructor_lecture(request, course_id):
         form = InstructorLectureForm(initial={'course': course_id,})
 
     return render(request,'create_lecture.html',{'form': form,'course_id': course_id,})
+
+
+
+def lecture_details(request, pk):
+    obj = Lecture.objects.get(pk=pk)
+    return render(request, 'lecture_details.html',{'lectures' : obj})
