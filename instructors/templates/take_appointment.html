@@ -2,8 +2,8 @@
 <div>
   <h1> Take Appointment </h1>
   </br>
-  <form method="post" action="{% url 'take_appointment' instructor %}">
-    {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
+  <form method="post" action="{% url 'take_appointment' instructor.pk %}">
+    {% csrf_token %} {{ form.as_p }} 
 
     <input class="btn btn-default" type="submit" value="Done!"> </form>
 </div>
