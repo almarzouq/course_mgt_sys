@@ -41,7 +41,7 @@ def list_course_grade_column(request, course_id):
     course_obj = get_object_or_404(Course, pk=course_id)
     qs = course_obj.gradecolumn_set.all()
 
-    return render(request, "course_grade.html",
+    return render(request, "course_gradecolumn_list.html",
                   {
                       'course': course_obj,
                       'gradecolumns': qs,
