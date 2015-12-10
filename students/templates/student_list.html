@@ -1,18 +1,12 @@
-{%extends "base.html"%} {% block content %} <div class="list-group">{% for s in students %}
-<style>
-  body {
-    background-color: LightGrey;
-  }
+{%extends "base.html"%} {% block content %}
+<div class="list-group">{% for s in students %}
 
-  p {
-    color: LightSkyBlublacke;
-  }
-</style>
-<ul>
-<li class="list-group-item" >
-  <p class="list-group-item-text"> University ID : {{s.university_id}} | Name : {{s.name}} </p>
-</li>
-<li><a  class="list-group-item-text" href="{% url 'student_edit' s.pk %}"> Edit Student </a></li>
-</ul>
+  <ul>
+    <li class="list-group-item">
+      <p class="list-group-item-text"> University ID : {{s.university_id}} | Name : {{s.name}} </p>  <a class="btn btn-default" href="{% url 'student_edit' s.pk %}"> Edit Student </a>
+    </li>
+
+  </ul>
+
 
   {%endfor%} </div>{% endblock %}

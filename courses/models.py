@@ -64,6 +64,7 @@ class Lecture(models.Model):
     name = models.CharField(max_length=120)
     course = models.ForeignKey(Course)
     time_of_lecture = models.DateTimeField(auto_now=True)
+    number_of_students = models.BigIntegerField(null = True , blank= True)
     def __unicode__(self):
         return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
     def __str__(self):

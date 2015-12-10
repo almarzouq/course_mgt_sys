@@ -264,6 +264,7 @@ def list_of_courses_to_add(request):
             'student_id': request.GET.get("student_id")
         }
     )
+<<<<<<< HEAD
 
 def student_attendance(request, course_id, student_id):
     if request.method == 'POST':
@@ -294,3 +295,12 @@ def instructor_lecture(request, course_id):
 def lecture_details(request, pk):
     obj = Lecture.objects.get(pk=pk)
     return render(request, 'lecture_details.html',{'lectures' : obj})
+
+
+def gradecolumn_delete(request, course_id, gradecolumn_id):
+    course = get_object_or_404(Course, pk=course_id)
+    qs = course.gradecolumn_set.get(pk=gradecolumn_id)
+    qs.delete()
+    messages.success(request, 'Grade Column was successfully deleted.')
+    return redirect(reverse('list_course_grade_column', args=(
+        course_id, gradecolumn_id,)))
