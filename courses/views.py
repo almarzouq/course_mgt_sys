@@ -267,7 +267,6 @@ def gradecolumn_create(request, course_id):
         'gradecolumn_create.html',
         {
             'form': form,
-            'course_id': course_id,
             'course': course
         }
     )
