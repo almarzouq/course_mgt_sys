@@ -111,5 +111,6 @@ def appointment_view(request, pk):
 
 
 def appointment_delete(request, pk):
-    qs = Appointment.objects.filter(pk=pk).delete()
-    return render(request, "appointment_list.html", {"appointment": qs})
+    appointment = get_object_or_404(Appointment, pk=pk)
+    appointment.delete()
+    return redirect(reverse('appointment_list'))
