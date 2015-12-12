@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 
 from .models import Instructor, Appointment
-from courses.models import Grade, GradeColumn
-from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
+from .forms import AppointmentForm, AnnouncementForm
 
 # Create your views here.
 
@@ -104,4 +104,50 @@ def appointment_view(request, pk):
         {
             'instructor': inst,
             'appointments': appoint
+        })
+
+
+def appointment_approve_decline(request, pk, appointment_id):
+    inst = get_object_or_404(Instructor, pk=pk)
+    appo = get_object_or_404(Appointment, pk=appointment_id)
+    if appointment.approved is True:
+        return redirect(reverse('appointment_approve',
+                                kwargs={'pk': appointment_id}))
+    else:
+        pass
+    return render(
+        request,
+        'appointment_decline.html',
+        {
+            'instructor': inst,
+            'appointment': appo, })
+
+
+def appointment_approve(request, pk, appointment_id):
+    inst = get_object_or_404(Instructor, pk=pk)
+    appo = get_object_or_404(Appointment, pk=appointment_id)
+    appr = Appointment.objects.get(approved=True)
+    messages.success(request, 'Your appointment was approved')
+    return render(
+        request,
+        'appointment_approve.html',
+        {
+            'instructor': inst,
+            'appointments': appo,
+            'approve': appr,
+        })
+
+
+def appointment_decline(request, pk, appointment_id):
+    inst = get_object_or_404(Instructor, pk=pk)
+    appo = get_object_or_404(Appointment, pk=appointment_id)
+    decl = Appointment.objects.get(approved=False)
+    messages.success(request, 'Your appointment was declined')
+    return render(
+        request,
+        'appointment_decline.html',
+        {
+            'instructor': inst,
+            'appointments': appo,
+            'decline': decl,
         })

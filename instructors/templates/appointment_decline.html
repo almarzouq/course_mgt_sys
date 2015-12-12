@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block content %}
+
+<h1> Appintment Approvel </h1>
+
+
+<p> Your appointment decline </p>
+<form method="post" action="{% url 'appointment_decline' appointment.pk %}">
+  {% csrf_token %} {{ form.as_p }}
+
+  <input class="btn btn-default" type="submit" value="Done!"> </form>
+{% endblock %}
