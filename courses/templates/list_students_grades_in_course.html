@@ -1,9 +1,10 @@
 {% extends "base.html" %} {% block content %}
+
 <style>
   table,
   th,
   td {
-    border: 1px solid black;
+    border: 0px solid black;
     border-collapse: collapse;
   }
 
@@ -13,14 +14,8 @@
     text-align: center;
   }
 </style>
-{{student}}
-<h1> Student Grade list: </h1>
-
-Student Name: {{student.name}}
-<br> Student ID: {{student.university_id}}
-
-<table border="1" style="width:100%">
-
+<h1> Students Grades list: </h1>
+<table class="table table-striped">
   <tr>
     <th>
       Student ID
@@ -31,18 +26,20 @@ Student Name: {{student.name}}
     {% endfor %} {% endfor %}
   </tr>
   <tr>
-    {% for dict in student_grade_value %} {% for key, value in dict.items %} {% if value != "" %}
-    <td align="center">{{value.0}}
+    {% for si in s%} {% for id, grades in si.items%}
+    <td align="center">{{id}}</td>
+    {% for grade in grades.0 %} {% for pk, value in grade.items %}{% if value != "" %}
+    <td align="center">{{value}}
       <br>
-      <a href=""> Edit Grade </a>
-      <br> <a href=""> Delete Grade </a>
+      <a href="{% url 'edit_student_grade' course_id grades.1 1 pk %}"> Edit Grade </a>
+      <br> <a href="{% url 'delete_student_grade' course_id 1 grades.1  pk %}"> Delete Grade </a>
     </td>
     {% else %}
     <td>
-      <a href=""> Add Grade </a>
+      <a href="{% url 'post_student_grade' course_id grades.1 pk %}"> Add Grade </a>
     </td>
-    {% endif %} {% endfor %} {% endfor %}
+    {% endif %} {% endfor %} {% endfor %} {% endfor %}
   </tr>
-
+  {% endfor %}
 </table>
 {% endblock %}
