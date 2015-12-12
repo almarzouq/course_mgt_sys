@@ -3,11 +3,17 @@
 <h1> Course Name: {{ course.name }} </h1>
 <h2> Section: {{ course.tag }} </h2>
 <h3> Semester: {{ course.semester }} {{ course.academic_year }} </h3>
+<br><br>
 
-  <li>
-    GradeColumn Name: {{ gradecolumn.name }}
-    <br> GradeColumn Description: {{ gradecolumn.description }}
-    <br> GradeColumn Total: {{ gradecolumn.total }}
-  </li>
+    <h4><b> GradeColumn Name:</b> {{ gradecolumn.name }}
+    <br><br>
+    <b> GradeColumn Description:</b> {{ gradecolumn.description }}
+    <br><br>
+    <b> GradeColumn Total:</b> {{ gradecolumn.total }}
+  </h4>
+  <br>
+  <a class="btn btn-default" href="{% url 'list_course_grade_column' course.id %}">
+  Back to GradeColumn List
+</a>
 
 {% endblock %}
