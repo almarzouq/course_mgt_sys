@@ -13,6 +13,10 @@ class Instructor(models.Model):
 
     def get_absolute_url(self):
         return reverse('instructor_view', kwargs={'pk': self.pk})
+    def __unicode__(self):
+        return u" {} : {} ".format(self.name, self.department)
+    def __str__(self):
+        return u"{} : {} ".format(self.name, self.department)
 
 
 class Appointment(models.Model):
