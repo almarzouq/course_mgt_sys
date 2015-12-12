@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView
 from django.db.models import Q
 from django.views.generic import ListView
 
-from .forms import StudentEditForm
+from .forms import StudentEditForm 
 from .models import Student
 
 
@@ -35,6 +35,9 @@ def edit_profile(request, pk):
 
             form.save()
 
+# changed functionality to switch to the students list instead of view
+# that students own profile
+
             return redirect('students_list')
     else:
         form = StudentEditForm(instance=obj)
@@ -55,6 +58,7 @@ def student_search(request, search_text):
     qs = Student.objects.filter(
         Q(name__icontains=search_text) | Q(university_id__icontains=search_text))
     return render(request, 'student_list.html', {'students': qs})
+
 
 
 class StudentListUni(ListView):

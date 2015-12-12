@@ -3,6 +3,8 @@ from django import forms
 from .models import Instructor, Announcement, Appointment
 from courses.models import GradeColumn
 
+from datetimewidget.widgets import DateTimeWidget
+
 
 class InstructorForm(forms.ModelForm):
 
@@ -32,6 +34,16 @@ class AppointmentForm(forms.ModelForm):
             'sent_2nd_reminder': forms.HiddenInput,
             'instructor': forms.HiddenInput,
             }
+
+        dateTimeOptions = {
+        'format': 'dd/mm/yyyy HH:ii P',
+        'autoclose': True,
+        'showMeridian' : True
+        }
+        widgets = {
+
+        'date_time': DateTimeWidget(options = dateTimeOptions)
+        }
 
 
 class GradeColumnEditForm(forms.ModelForm):
