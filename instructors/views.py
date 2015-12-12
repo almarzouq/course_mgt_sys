@@ -108,3 +108,8 @@ def appointment_view(request, pk):
             'instructor': inst,
             'appointments': appoint
         })
+
+
+def appointment_delete(request, pk):
+    qs = Appointment.objects.filter(pk=pk).delete()
+    return render(request, "appointment_list.html", {"appointment": qs})
