@@ -292,3 +292,14 @@ def gradecolumn_create(request, course_id):
             'course': course
         }
     )
+
+def student_view_course_announcments_grades(request, course_id, student_id):
+    course = get_object_or_404(Course, pk=course_id)
+    student = Student.objects.get(pk=student_id)
+    announcments = CourseAnnouncement.objects.filter(course__pk=course_id)
+    return render(request, "course_details_for_student.html",
+                  {
+                      'course': course,
+                      'announcments': announcments,
+                      'student': student,
+                  })
