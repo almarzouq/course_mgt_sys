@@ -110,44 +110,31 @@ def appointment_view(request, pk):
 def appointment_approve_decline(request, pk, appointment_id):
     inst = get_object_or_404(Instructor, pk=pk)
     appo = get_object_or_404(Appointment, pk=appointment_id)
-    if appointment.approved is True:
-        return redirect(reverse('appointment_approve',
-                                kwargs={'pk': appointment_id}))
+    if Appointment.approved:
+        appointment_approve()
     else:
-        pass
-    return render(
-        request,
-        'appointment_decline.html',
-        {
-            'instructor': inst,
-            'appointment': appo, })
+        appointment_decline()
+    return redirect(reverse('appointment_list', {
+        'instructor': inst,
+        'appointment': appo,
+    }))
 
 
 def appointment_approve(request, pk, appointment_id):
     inst = get_object_or_404(Instructor, pk=pk)
     appo = get_object_or_404(Appointment, pk=appointment_id)
-    appr = Appointment.objects.get(approved=True)
-    messages.success(request, 'Your appointment was approved')
-    return render(
-        request,
-        'appointment_approve.html',
-        {
-            'instructor': inst,
-            'appointments': appo,
-            'approve': appr,
-        })
+    messages.success(request, 'appointment approve')
+    return redirect(reverse('appointment_list', {
+        'instructor': inst,
+        'appointment': appo,
+    }))
 
 
 def appointment_decline(request, pk, appointment_id):
     inst = get_object_or_404(Instructor, pk=pk)
     appo = get_object_or_404(Appointment, pk=appointment_id)
-    decl = Appointment.objects.get(approved=False)
-    messages.success(request, 'Your appointment was declined')
-    return render(
-        request,
-        'appointment_decline.html',
-        {
-            'instructor': inst,
-            'appointments': appo,
-            'decline': decl,
-        })
+    messages.success(request, 'appointment decline')
+    return redirect(reverse('appointment_list', {
+        'instructor': inst,
+        'appointment': appo,
+    }))

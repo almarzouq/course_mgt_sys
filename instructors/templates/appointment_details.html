@@ -11,16 +11,13 @@
     <br>
     <p class="list-group-item-text">Reason: {{appointment.reason}}
     </p>
-    <br>
-    <p class="list-group-item-text">approved: {{appointment.approved}}
-    </p>
   </a>
-</br>
-  <a class="btn btn-default" href="{ % url 'appointment_approve' appointment.pk % }">
+  </br>
+  <a class="btn btn-default" href="{% url 'appointment_approve' appointment.pk %}">
   Approve
 </a>
 
-<a class="btn btn-default" href="{ % url 'appointment_decline' appointment.pk % }">
+  <a class="btn btn-default" href="{% url 'appointment_decline' appointment.pk %}">
   Decline
 </a>
 
