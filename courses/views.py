@@ -15,7 +15,7 @@ from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 
 from .forms import (NewCourseForm, GradeForm,
                     GradeColumnEditForm, CourseAnnouncmentForm,
-                    GradeColumnCreateForm)
+                    GradeColumnCreateForm, CourseAnnouncmentEditForm)
 from .models import GradeColumn
 # Create your views here.
 
@@ -303,3 +303,22 @@ def student_view_course_announcments_grades(request, course_id, student_id):
                       'announcments': announcments,
                       'student': student,
                   })
+
+
+def course_announcement_edit(request, course_id, courseannouncement_id):
+    course = get_object_or_404(Course, pk=course_id)
+    if request.method == 'POST':
+        form = CourseAnnouncmentEditForm(request.POST, instance=course)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': course_id}))
+    else:
+        form = CourseAnnouncmentEditForm(instance=course)
+    return render(
+        request,
+        'edit_course_announcments.html',
+        {
+            "course": course,
+            "form": form,
+        }
+    )
