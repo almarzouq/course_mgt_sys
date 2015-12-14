@@ -38,6 +38,6 @@ urlpatterns = [
         views.gradecolumn_delete, name='gradecolumn_delete'),
     url(r'^course/(?P<course_id>\d+)/gradecolumn/create/$',
         views.gradecolumn_create, name='gradecolumn_create',),
-    url(r'^course/announcement/(?P<pk>\d+)/edit/$', views.course_announcement_edit, name= 'edit_course_announcment',),
+    url(r'^course/announcement/(?P<pk>\d+)/edit/$', views.CourseAnnouncementEdit.as_view(), name= 'edit_course_announcment',),
 
 ]

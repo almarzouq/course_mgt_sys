@@ -59,3 +59,6 @@ class CourseAnnouncement(models.Model):
     comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course)
+
+    def get_absolute_url(self):
+        return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.pk})
