@@ -15,7 +15,12 @@
     <p class="list-group-item-text">approved: {{appointment.approved}}
     </p>
   </a>
+
 </body>
+</br>
+  <a class="btn btn-default" href="{% url 'appointment_delete' appointment.pk %}">
+    Delete Appointment
+  </a>
 
 </html>
 

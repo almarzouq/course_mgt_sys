@@ -21,6 +21,8 @@ urlpatterns = [
         name='appointment_edit',),
     url(r'^instructor/(?P<pk>\d+)/appointments$',
         views.appointment_view, name='appointment_view'),
+    url(r'^appointment/(?P<pk>\d+)/delete$',
+        views.appointment_delete, name='appointment_delete',),
 
 
 

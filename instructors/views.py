@@ -105,3 +105,9 @@ def appointment_view(request, pk):
             'instructor': inst,
             'appointments': appoint
         })
+
+
+def appointment_delete(request, pk):
+    appointment = get_object_or_404(Appointment, pk=pk)
+    appointment.delete()
+    return redirect(reverse('appointment_list'))
