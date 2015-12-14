@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block content %}
+
+<style>
+  table,
+  th,
+  td {
+    border: 0px solid black;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 5px;
+    text-align: center;
+  }
+</style>
+<h1> Students Grades list: </h1>
+<table class="table table-striped">
+  <tr>
+    <th>
+      Student ID
+    </th>
+    {% for dict in student_grade_column %} {% for key, value in dict.items %}
+    <th>{{value}} ({{key}})
+    </th>
+    {% endfor %} {% endfor %}
+  </tr>
+  <tr>
+    {% for si in s%} {% for id, grades in si.items%}
+    <td align="center">{{id}}</td>
+    {% for grade in grades.0 %} {% for pk, value in grade.items %}{% if value != "" %}
+    <td align="center">{{value}}
+      <br>
+      <a href="{% url 'edit_student_grade' course_id grades.1 1 pk %}"> Edit Grade </a>
+      <br> <a href="{% url 'delete_student_grade' course_id 1 grades.1  pk %}"> Delete Grade </a>
+    </td>
+    {% else %}
+    <td>
+      <a href="{% url 'post_student_grade' course_id grades.1 pk %}"> Add Grade </a>
+    </td>
+    {% endif %} {% endfor %} {% endfor %} {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
