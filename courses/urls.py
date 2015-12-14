@@ -41,7 +41,7 @@ urlpatterns = [
 
     url(r'^course/(?P<course_id>\d+)/lecture/$',views.instructor_lecture, name='lecture_create',),
 
-    url(r'^course/lecture/(?P<pk>\d+)/', views.lecture_details, name = 'lecture_details',),
+    url(r'^course/(?P<course_id>\d+)/lecture/(?P<lecture_id>\d+)/', views.lecture_details, name = 'lecture_details',),
 
 
     url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/delete/$',

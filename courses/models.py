@@ -74,6 +74,7 @@ class Lecture(models.Model):
 class Attendance(models.Model):
     lecture = models.ForeignKey(Lecture)
     student = models.ForeignKey(Student)
+    time_attended = models.DateTimeField(auto_now=True, null=True)
     attended = models.BooleanField(default = False )
     def get_absolute_url(self):
         return reverse('course_list_to_add')

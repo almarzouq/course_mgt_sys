@@ -3,5 +3,32 @@
 <h3>Name : {{lecture.name}}</h3>
 <p>Time of Lecture : {{lecture.time_of_lecture}}</p>
 <p>Course : {{lecture.course.name}}</p>
-  <a class="btn btn-default" type="submit" value="done!">done</a>
-{%endblock%}
+
+<table border="1" style="width:50%">
+  <tr>
+    <td>
+      Student name
+    </td>
+    <td>
+      Student ID
+    </td>
+    <td>
+      Time of attendance
+    </td>
+  </tr>
+  {% for s in attended %}
+  <tr>
+    <td>
+      <p>{{s.student.name}}</p>
+    </td>
+    <td>
+      <p>{{s.student.university_id}}</p>
+    </td>
+    <td>
+      {{ s.time_attended }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<a class="btn btn-default" type="submit" value="done!">done</a> {%endblock%}

@@ -12,11 +12,11 @@ from .forms import NewCourseForm, GradeForm, Grade
 
 
 from students.models import Student
-from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
+from courses.models import Course, CourseAnnouncement, Grade, GradeColumn, Lecture , Attendance
 
 from .forms import (NewCourseForm, GradeForm,GradeColumnEditForm, CourseAnnouncmentForm, AttendanceStudentForm, InstructorLectureForm)
 
-from .models import GradeColumn , Lecture
+
 # Create your views here.
 
 
@@ -298,9 +298,11 @@ def instructor_lecture(request, course_id):
 
 
 
-def lecture_details(request, pk):
-    obj = Lecture.objects.get(pk=pk)
-    return render(request, 'lecture_details.html',{'lecture' : obj})
+def lecture_details(request, lecture_id, course_id):
+    obj = Lecture.objects.get(pk=lecture_id)
+    qs = Course.objects.filter(pk=course_id)
+    qs2 = Attendance.objects.filter(lecture__pk=lecture_id)
+    return render(request, 'lecture_details.html',{'lecture' : obj,'attended' : qs2,})
 
 
 def gradecolumn_delete(request, course_id, gradecolumn_id):
