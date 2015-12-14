@@ -43,11 +43,3 @@ class GradeColumnCreateForm(forms.ModelForm):
         widgets = {
             'course': forms.HiddenInput,
         }
-
-class CourseAnnouncmentEditForm(forms.ModelForm):
-    class Meta:
-        model = CourseAnnouncement
-        fields = '__all__'
-        widgets = {
-            'course': forms.HiddenInput,
-        }

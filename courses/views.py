@@ -15,7 +15,7 @@ from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 
 from .forms import (NewCourseForm, GradeForm,
                     GradeColumnEditForm, CourseAnnouncmentForm,
-                    GradeColumnCreateForm, CourseAnnouncmentEditForm)
+                    GradeColumnCreateForm,)
 from .models import GradeColumn
 # Create your views here.
 
