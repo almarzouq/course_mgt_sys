@@ -45,3 +45,7 @@ code {
 ul {
 list-style-type: none;
 }
+
+#id_date_time {
+  width: 175px;
+}
