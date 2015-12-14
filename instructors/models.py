@@ -26,7 +26,7 @@ class Appointment(models.Model):
     email = models.EmailField()
     twitter_id = models.CharField(max_length=50, blank=True, default="")
     phone = models.CharField(max_length=20, blank=True, default="")
-    approved = models.BooleanField(default=False)
+    approved = models.NullBooleanField(null=True, blank=True)
     sent_1st_reminder = models.BooleanField(default=False)
     sent_2nd_reminder = models.BooleanField(default=False)
     instructor = models.ForeignKey(Instructor)
