@@ -1,10 +1,13 @@
-{%extends "base.html"%} {% block content %}
+{%extends "base.html"%}
+{% block media  %} {{ form.media }} {% endblock %}
+{% block content %}
 <div>
   <h1> Take Appointment </h1>
   </br>
   <form method="post" action="{% url 'take_appointment' instructor.pk %}">
-    {% csrf_token %} {{ form.as_p }} 
+    {% csrf_token %} {{ form.as_p }}
 
     <input class="btn btn-default" type="submit" value="Done!"> </form>
+  </body>
 </div>
 {% endblock %}
