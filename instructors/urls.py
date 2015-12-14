@@ -20,14 +20,10 @@ urlpatterns = [
         name='appointment_edit',),
     url(r'^instructor/(?P<pk>\d+)/appointments$',
         views.appointment_view, name='appointment_view'),
-    url(r'^appointment/(?P<pk>\d+)/approvel/$',
-        views.appointment_approve_decline, name='appointment_approvel'),
     url(r'^appointment/(?P<pk>\d+)/approve/$',
         views.appointment_approve, name='appointment_approve'),
     url(r'^appointment/(?P<pk>\d+)/decline/$',
         views.appointment_decline, name='appointment_decline'),
-
-
 
 
 ]

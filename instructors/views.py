@@ -107,34 +107,21 @@ def appointment_view(request, pk):
         })
 
 
-def appointment_approve_decline(request, pk, appointment_id):
-    inst = get_object_or_404(Instructor, pk=pk)
-    appo = get_object_or_404(Appointment, pk=appointment_id)
-    if Appointment.approved:
-        appointment_approve()
-    else:
-        appointment_decline()
-    return redirect(reverse('appointment_list', {
-        'instructor': inst,
-        'appointment': appo,
-    }))
-
-
-def appointment_approve(request, pk, appointment_id):
-    inst = get_object_or_404(Instructor, pk=pk)
-    appo = get_object_or_404(Appointment, pk=appointment_id)
+def appointment_approve(request, pk):
+    appo = get_object_or_404(Appointment, pk=pk)
+    appo.approved = True
+    appo.save()
     messages.success(request, 'appointment approve')
-    return redirect(reverse('appointment_list', {
-        'instructor': inst,
-        'appointment': appo,
+    return redirect(reverse('appointment_details', kwargs={
+        'appointment_id': appo.pk,
     }))
 
 
-def appointment_decline(request, pk, appointment_id):
-    inst = get_object_or_404(Instructor, pk=pk)
-    appo = get_object_or_404(Appointment, pk=appointment_id)
+def appointment_decline(request, pk):
+    appo = get_object_or_404(Appointment, pk=pk)
+    appo.approved = False
+    appo.save()
     messages.success(request, 'appointment decline')
-    return redirect(reverse('appointment_list', {
-        'instructor': inst,
-        'appointment': appo,
+    return redirect(reverse('appointment_details', kwargs={
+        'appointment_id': appo.pk,
     }))
