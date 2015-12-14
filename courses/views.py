@@ -284,7 +284,9 @@ def instructor_lecture(request, course_id):
         form = InstructorLectureForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            obj = form.save()
+
+            return redirect(reverse('lecture_details',kwargs = {'course_id' : course_id, 'lecture_id' : obj.pk }))
     else:
 
         form = InstructorLectureForm(initial={'course': course_id, })
@@ -302,7 +304,7 @@ def lecture_details(request, lecture_id, course_id):
     obj = Lecture.objects.get(pk=lecture_id)
     qs = Course.objects.filter(pk=course_id)
     qs2 = Attendance.objects.filter(lecture__pk=lecture_id)
-    return render(request, 'lecture_details.html',{'lecture' : obj,'attended' : qs2,})
+    return render(request, 'lecture_details.html',{'lecture' : obj,'attended' : qs2,'course' : qs,})
 
 
 def gradecolumn_delete(request, course_id, gradecolumn_id):

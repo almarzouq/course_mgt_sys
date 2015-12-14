@@ -65,10 +65,15 @@ class Lecture(models.Model):
     course = models.ForeignKey(Course)
     time_of_lecture = models.DateTimeField(auto_now=True)
     number_of_students = models.BigIntegerField(null = True , blank= True)
+
     def __unicode__(self):
         return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
+
     def __str__(self):
         return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
+
+    def get_absolute_url(self):
+        return reverse('lecture_details',kwargs={'lecture_id' : self.pk ,'course_id' : self.course.pk})
 
 
 class Attendance(models.Model):
