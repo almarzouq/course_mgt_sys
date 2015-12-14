@@ -305,20 +305,20 @@ def student_view_course_announcments_grades(request, course_id, student_id):
                   })
 
 
-def course_announcement_edit(request, course_id, courseannouncement_id):
-    course = get_object_or_404(Course, pk=course_id)
+def course_announcement_edit(request, pk):
+    obj = get_object_or_404(CourseAnnouncement, pk=pk)
     if request.method == 'POST':
-        form = CourseAnnouncmentEditForm(request.POST, instance=course)
+        form = CourseAnnouncmentEditForm(request.POST, instance=obj)
         if form.is_valid():
             form.save()
             return redirect(reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': course_id}))
     else:
-        form = CourseAnnouncmentEditForm(instance=course)
+        form = CourseAnnouncmentEditForm(instance=obj)
     return render(
         request,
         'edit_course_announcments.html',
         {
-            "course": course,
+            "course_announcement": obj,
             "form": form,
         }
     )
