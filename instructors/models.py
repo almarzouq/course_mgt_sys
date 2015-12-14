@@ -40,3 +40,5 @@ class Announcement(models.Model):
     comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     instructor = models.ForeignKey(Instructor)
+    def get_absolute_url(self):
+        return reverse('instructor_view', kwargs={'pk': self.pk})

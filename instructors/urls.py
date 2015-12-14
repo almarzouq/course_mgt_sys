@@ -23,6 +23,7 @@ urlpatterns = [
         views.appointment_view, name='appointment_view'),
     url(r'^appointment/(?P<pk>\d+)/delete$',
         views.appointment_delete, name='appointment_delete',),
+    url(r'^announcement/(?P<pk>\d+)/edit/$', views.AnnouncementEdit.as_view(), name= 'edit_general_announcment',),
 
 
 
