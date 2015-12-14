@@ -15,7 +15,7 @@ from courses.models import Course, CourseAnnouncement, Grade, GradeColumn
 
 from .forms import (NewCourseForm, GradeForm,
                     GradeColumnEditForm, CourseAnnouncmentForm,
-                    GradeColumnCreateForm)
+                    GradeColumnCreateForm,)
 from .models import GradeColumn
 # Create your views here.
 
@@ -358,3 +358,10 @@ def list_students_grades_in_course(request, course_id):
             'g': lists
         }
     )
+
+
+class CourseAnnouncementEdit(UpdateView):
+    model = CourseAnnouncement
+    template_name = 'edit_course_announcments.html'
+    context_object_name = 'course_announcement'
+    fields = ('name', 'comment')

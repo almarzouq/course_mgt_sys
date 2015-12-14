@@ -40,4 +40,6 @@ urlpatterns = [
         views.gradecolumn_create, name='gradecolumn_create',)
     url(r'^course/(?P<course_id>\d+)/students/grades/list/$', views.list_students_grades_in_course,
         name='list_students_grades_in_course'),
+    url(r'^course/announcement/(?P<pk>\d+)/edit/$', views.CourseAnnouncementEdit.as_view(), name= 'edit_course_announcment',),
+
 ]
