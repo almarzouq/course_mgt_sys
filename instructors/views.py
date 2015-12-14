@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 
-from .models import Instructor, Appointment
+from .models import Instructor, Appointment, Announcement
 from courses.models import Grade, GradeColumn
 from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
 
@@ -105,3 +105,9 @@ def appointment_view(request, pk):
             'instructor': inst,
             'appointments': appoint
         })
+
+class AnnouncementEdit(UpdateView):
+    model = Announcement
+    template_name = 'edit_general_announcement.html'
+    context_object_name = 'announcement'
+    fields = ('name', 'comment')
