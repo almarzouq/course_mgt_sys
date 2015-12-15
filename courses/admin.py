@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Course, GradeColumn, CourseAnnouncement
+from .models import Course, GradeColumn, CourseAnnouncement , Lecture
 # Register your models here.
 
 
@@ -21,3 +21,4 @@ class CourseAnnouncementAdmin(admin.ModelAdmin):
 
 admin.site.register(Course, CourseAdmin)
 admin.site.register(CourseAnnouncement, CourseAnnouncementAdmin)
+admin.site.register(Lecture)

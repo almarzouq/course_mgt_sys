@@ -1,0 +1,9 @@
+{%extends "base.html"%}{%block content%}
+<h1> Lecture Creation  </h1>
+<h2> {{course.name}} {{ course.tag }}</h2>
+<form method="post" action="{% url 'lecture_create' course_id   %}">
+  {% csrf_token %} {{ form.as_p }}
+
+  <input class="btn btn-default" type="submit" value="done!">
+</form>
+{%endblock%}

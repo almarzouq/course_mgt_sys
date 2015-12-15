@@ -42,6 +42,11 @@ class AppointmentForm(forms.ModelForm):
             'date_time': DateTimeWidget(options=dateTimeOptions, usel10n = True, bootstrap_version=3)
         }
 
+        widget = {
+        'date_time' :  DateTimeWidget(attrs={'id':"yourdatetimeid"}, usel10n = True, bootstrap_version=3)
+        }
+
+
 
 class GradeColumnEditForm(forms.ModelForm):
 
