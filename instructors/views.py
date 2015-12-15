@@ -111,6 +111,7 @@ def appointment_view(request, pk):
 def appointment_delete(request, pk):
     appointment = get_object_or_404(Appointment, pk=pk)
     appointment.delete()
+    messages.success(request, 'appointment was successfully deleted')
     return redirect(reverse('appointment_list'))
 
 
