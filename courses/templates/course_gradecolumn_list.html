@@ -1,37 +1,34 @@
 {% extends "base.html" %} {% block content %}
 
-<h1> Course Name: {{ course.name }} </h1>
-<h2> Section: {{ course.tag }} </h2>
-<h3> Semester: {{ course.semester }} {{ course.academic_year }} </h3>
-
+<h3> Course Name: {{ course.name }} </h3>
+<h4> Section: {{ course.tag }} </h4>
+<h4> Semester: {{ course.semester }} {{ course.academic_year }} </h4>
+<div class="page-header">
+  <h4>
+    <span class="glyphicon glyphicon-list"></span> {% block title %}Grade Columns{% endblock %}</h4>
+</div>
 <table>
   <tr>
+    <a class="btn btn-primary btn-sm glyphicon glyphicon-plus-sign" href="{% url 'gradecolumn_create' course.id %}">
+    Add GradeColumn
+  </a>
+  </tr>
   <br>
-  <h4> Grade Columns </h4>
-  <a class="btn btn-default" href="{% url 'gradecolumn_create' course.id %}">
-    Add Grade Column
-  </a>
-</tr><br>
-{% for gradecolumn in gradecolumns %}
-<br>
-<a class="list-group-item">
-  <p><b class="list-group-item-text">Grade Column Name: </b> {{ gradecolumn.name }}
-  </p>
-  <p><b class="list-group-item-text">Grade Column Description:</b> {{ gradecolumn.description }}
-  </p>
-  <p><b class="list-group-item-text">Grade Column Total:</b> {{ gradecolumn.total }}
-  </p>
-</a>
-  <tr>
-    <a class="btn btn-default" href="{% url 'gradecolumn_edit' course.id gradecolumn.id %}">
-    Edit
-  </a>
-
-  <a class="btn btn-default" href="{% url 'gradecolumn_delete' course.id gradecolumn.id %}">
- Delete
-</a>
-</tr>
-<br>
-  {% endfor %}
-</table>
-{% endblock %}
+  <br>
+  <table class="table table-striped table-condensed">
+    <tr>
+      <th class="text-center col-md-1">View Details</th>
+      <th class="text-center col-md-1">GradeColumn Name</th>
+    </tr>
+    {% for gradecolumn in gradecolumns %}
+    <tr>
+      <td class="text-center">
+        <a href="{% url 'view_course_gradecolumn' course.id gradecolumn.id %}">
+          <span class="btn btn-primary btn-xs glyphicon glyphicon-zoom-in" class="badge"></span>
+        </a>
+      </td>
+      <td class="text-center">{{ gradecolumn.name }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endblock %}
