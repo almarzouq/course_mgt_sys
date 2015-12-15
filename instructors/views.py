@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 
 from .models import Instructor, Appointment
 from courses.models import Grade, GradeColumn
@@ -113,4 +114,5 @@ def appointment_view(request, pk):
 def appointment_delete(request, pk):
     appointment = get_object_or_404(Appointment, pk=pk)
     appointment.delete()
+    messages.success(request, 'appointment was successfully deleted')
     return redirect(reverse('appointment_list'))
