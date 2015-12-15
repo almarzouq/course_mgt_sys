@@ -15,5 +15,12 @@
   <a class="btn btn-default" href="{% url 'list_course_grade_column' course.id %}">
   Back to GradeColumn List
 </a>
+<a class="btn btn-default" href="{% url 'gradecolumn_edit' course.id gradecolumn.id %}">
+    Edit
+  </a>
+
+  <a class="btn btn-default" href="{% url 'gradecolumn_delete' course.id gradecolumn.id %}">
+ Delete
+</a>
 
 {% endblock %}
