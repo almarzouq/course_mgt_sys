@@ -61,4 +61,4 @@ class CourseAnnouncement(models.Model):
     course = models.ForeignKey(Course)
 
     def get_absolute_url(self):
-        return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.pk})
+        return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.course_id})

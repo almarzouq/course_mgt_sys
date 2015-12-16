@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block content %}
 <div>
-  <h1> Course Edit </h1>
+  <h1> Edit Course Announcement </h1>
   </br>
   <form method="post" action="{% url 'edit_course_announcment' course_announcement.pk %}">
     {% csrf_token %} {{ form.as_p }}
