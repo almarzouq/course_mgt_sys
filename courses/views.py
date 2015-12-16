@@ -226,9 +226,9 @@ def student_can_add_course(request, course_id, student_id):
         student.save()
         messages.success(request, 'You are enrolled in %s' % (course))
     else:
-        messages.success(
+        messages.error(
             request, 'You are not allowed to enroll in this course talk to your instructor')
-    return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
+    return redirect(reverse('student_view_course_announcments', args=[course_id]))
 
 
 def create_course_announcment(request, course_id):
