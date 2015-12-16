@@ -23,6 +23,11 @@
   <p class="list-group-item-text">Student Email: {{student.email}}
   </p>
 </a>
+{% empty %}
+    <h4>
+    Sorry only instructor can see this list
+  </h4>
+
 {% endfor %}
 <br>
 <h3> Course Announcments: </h3>
