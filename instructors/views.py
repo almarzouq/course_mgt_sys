@@ -5,10 +5,15 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 
 from .models import Instructor, Appointment, Announcement
-from courses.models import Grade, GradeColumn
-from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
+from .forms import AppointmentForm, AnnouncementForm
 
 # Create your views here.
+
+
+class InstructorCreate(CreateView):
+    model = Instructor
+    fields = '__all__'
+    template_name = 'instructor_create_profile.html'
 
 
 def instructor_view(request, pk=None):
@@ -25,17 +30,36 @@ def instructor_view(request, pk=None):
         })
 
 
-class InstructorCreate(CreateView):
-    model = Instructor
-    fields = '__all__'
-    template_name = 'instructor_create_profile.html'
-
-
 class InstructorEditProfile(UpdateView):
     model = Instructor
     fields = ['phone', 'email', 'office_hours', 'twitter_id', ]
     template_name = 'instructor_profile_edit.html'
     context_object_name = "instructor"
+
+
+def create_general_announcment(request, instructor_id):
+    if request.method == 'POST':
+        form = AnnouncementForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('instructor_view',
+                                    kwargs={'pk': instructor_id}))
+    else:
+        form = AnnouncementForm(initial={'instructor': instructor_id, })
+    return render(
+        request,
+        'create_general_announcment.html',
+        {
+            'form': form,
+            'instructor_id': instructor_id,
+        })
+
+
+class AnnouncementEdit(UpdateView):
+    model = Announcement
+    template_name = 'edit_general_announcement.html'
+    context_object_name = 'announcement'
+    fields = ('name', 'comment')
 
 
 def appointment_create(request, pk):
@@ -72,23 +96,6 @@ class AppointmentList(ListView):
     context_object_name = "appointments"
 
 
-def create_general_announcment(request, instructor_id):
-    if request.method == 'POST':
-        form = AnnouncementForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect(reverse('instructor_view', kwargs={'pk': instructor_id}))
-    else:
-        form = AnnouncementForm(initial={'instructor': instructor_id, })
-    return render(
-        request,
-        'create_general_announcment.html',
-        {
-            'form': form,
-            'instructor_id': instructor_id,
-        })
-
-
 class AppointmentEdit(UpdateView):
     model = Appointment
     template_name = 'appointment_edit.html'
@@ -113,13 +120,6 @@ def appointment_delete(request, pk):
     appointment.delete()
     messages.success(request, 'appointment was successfully deleted')
     return redirect(reverse('appointment_list'))
-
-
-class AnnouncementEdit(UpdateView):
-    model = Announcement
-    template_name = 'edit_general_announcement.html'
-    context_object_name = 'announcement'
-    fields = ('name', 'comment')
 
 
 def appointment_approve(request, pk):
