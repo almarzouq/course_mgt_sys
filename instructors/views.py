@@ -3,15 +3,22 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.utils.decorators import method_decorator
+from django.http import Http404
 from .models import Instructor, Appointment, Announcement
 from courses.models import Grade, GradeColumn
 from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
 
+
 # Create your views here.
 
-
+@login_required
 def instructor_view(request, pk=None):
+
+    if request.user.is_instructor() == False:
+        raise Http404
+
     if pk:
         obj = get_object_or_404(Instructor, pk=pk)
     else:
@@ -36,6 +43,15 @@ class InstructorEditProfile(UpdateView):
     fields = ['phone', 'email', 'office_hours', 'twitter_id', ]
     template_name = 'instructor_profile_edit.html'
     context_object_name = "instructor"
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if self.request.user.is_instructor() == False:
+            raise Http404
+        else:
+            return super(InstructorEditProfile, self).dispatch(*args, **kwargs)
+
+
 
 
 def appointment_create(request, pk):
