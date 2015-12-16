@@ -57,12 +57,14 @@ other head content must come *after* these tags -->
           {% block nav %}
           <li class="active"><a href="index"> Home </a></li>
           {% if user.is_authenticated %}
-
+          <li><a href="{% url 'instructor_create' %}"> instructor register </a></li>
+          <li><a href="{% url 'students_list' %}"> Student List </a></li>
           <li><a href="{% url 'account_logout' %}"> Sign Out </a></li>
 
           {% else %}
           <li><a href="{% url 'account_login' %}"> Sign In </a></li>
           <li><a href="{% url 'account_signup' %}"> SignUp </a></li>
+
           {% endif %}
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
