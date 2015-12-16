@@ -136,7 +136,7 @@ def appointment_decline(request, pk):
     appo = get_object_or_404(Appointment, pk=pk)
     appo.approved = False
     appo.save()
-    messages.success(request, '%s appointment declined' % appo.name)
+    messages.error(request, '%s appointment declined' % appo.name)
     return redirect(reverse('appointment_details', kwargs={
         'appointment_id': appo.pk,
     }))
