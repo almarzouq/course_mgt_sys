@@ -30,6 +30,13 @@ def instructor_view(request, pk=None):
         })
 
 
+def instructors_list(request):
+    obj = Instructor.objects.all()
+    return render(request, 'instructor_list.html', {'instructor': obj})
+
+
+
+
 class InstructorEditProfile(UpdateView):
     model = Instructor
     fields = ['phone', 'email', 'office_hours', 'twitter_id', ]

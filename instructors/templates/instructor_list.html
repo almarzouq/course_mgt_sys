@@ -1,0 +1,38 @@
+{%extends "base.html"%} {% block content %}
+<h1> Instructor List </h1>
+
+<div class="list-group">
+  {% for instructor in instructor %}
+
+  <ul>
+    <li class="list-group-item">
+      <p class="list-group-item-heading">Instructor Name: {{instructor.name}}
+      </p>
+
+      <p class="list-group-item-text">Email: {{instructor.email}}
+      </p>
+
+      <p class="list-group-item-text">Phone: {{instructor.phone}}
+      </p>
+
+      <p class="list-group-item-text">Office Hours: {{instructor.office_hours}}
+      </p>
+
+      <p class="list-group-item-text">Department: {{instructor.department}}
+      </p>
+
+      <p class="list-group-item-text">School: {{instructor.school}}
+      </p>
+
+      <p class="list-group-item-text">Twitter Username: {{instructor.twitter_id}}
+      </p>
+    </br>
+       <a class="btn btn-default" href="{% url 'instructor_edit' instructor.pk %}"> Edit Instructor </a>
+    </li>
+
+  </ul>
+
+  {%endfor%}
+
+</div>
+  {% endblock %}

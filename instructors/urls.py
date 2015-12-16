@@ -6,6 +6,8 @@ urlpatterns = [
         name='instructor_create',),
     url(r'^instructor/(?P<pk>\d+)/$', views.instructor_view,
         name='instructor_view'),
+    url(r'^instructor/list/$', views.instructors_list,
+        name='instructor_list'),
     url(r'^instructor/(?P<pk>\d+)/edit/$',
         views.InstructorEditProfile.as_view(), name='instructor_edit',),
     url(r'^instructor/(?P<instructor_id>\d+)/announcement/create/$',
