@@ -13,8 +13,10 @@ class Instructor(models.Model):
 
     def get_absolute_url(self):
         return reverse('instructor_view', kwargs={'pk': self.pk})
+
     def __unicode__(self):
         return u" {} : {} ".format(self.name, self.department)
+
     def __str__(self):
         return u"{} : {} ".format(self.name, self.department)
 
@@ -40,5 +42,6 @@ class Announcement(models.Model):
     comment = models.TextField(blank=True)
     submitted_at = models.DateTimeField(auto_now_add=True)
     instructor = models.ForeignKey(Instructor)
+
     def get_absolute_url(self):
         return reverse('instructor_view', kwargs={'pk': self.instructor_id})

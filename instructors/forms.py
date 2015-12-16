@@ -39,7 +39,8 @@ class AppointmentForm(forms.ModelForm):
             'sent_1st_reminder': forms.HiddenInput,
             'sent_2nd_reminder': forms.HiddenInput,
             'instructor': forms.HiddenInput,
-            'date_time': DateTimeWidget(options=dateTimeOptions, usel10n = True, bootstrap_version=3)
+            'date_time': DateTimeWidget(options=dateTimeOptions,
+                                        usel10n=True, bootstrap_version=3)
         }
 
 
