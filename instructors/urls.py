@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from instructors import views
 
 urlpatterns = [
@@ -19,8 +18,15 @@ urlpatterns = [
         name='create_general_announcment',),
     url(r'^appointment/(?P<pk>\d+)/edit/$', views.AppointmentEdit.as_view(),
         name='appointment_edit',),
-
-
+    url(r'^instructor/(?P<pk>\d+)/appointments$',
+        views.appointment_view, name='appointment_view'),
+    url(r'^appointment/(?P<pk>\d+)/delete$',
+        views.appointment_delete, name='appointment_delete',),
+    url(r'^announcement/(?P<pk>\d+)/edit/$', views.AnnouncementEdit.as_view(), name= 'edit_general_announcment',),
+    url(r'^appointment/(?P<pk>\d+)/approve/$',
+        views.appointment_approve, name='appointment_approve'),
+    url(r'^appointment/(?P<pk>\d+)/decline/$',
+        views.appointment_decline, name='appointment_decline'),
 
 
 ]

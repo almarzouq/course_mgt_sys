@@ -3,7 +3,7 @@ from django.utils.translation import ugettext as _
 from django.core.urlresolvers import reverse
 
 from students.models import Student
-
+from instructors.models import Instructor
 # Create your models here.
 
 
@@ -30,12 +30,13 @@ class Course(models.Model):
     syllabusURL = models.URLField(null=True, blank=True)
     student_registration_open = models.BooleanField(default=True)
     students = models.ManyToManyField(Student, null=True, blank=True)
+    instructor = models.ForeignKey(Instructor, blank = True )
 
     def __unicode__(self):
-        return u" {} : {} : {} ".format(self.name, self.days, self.semester)
+        return u" {} : {} : {} : {} ".format(self.name, self.instructor.name, self.days, self.semester)
 
     def __str__(self):
-        return u" {} : {} : {} ".format(self.name, self.days, self.semester)
+        return u" {} : {} : {} : {} ".format(self.name, self.instructor.name,  self.days, self.semester)
 
     def get_absolute_url(self):
         return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.pk})
@@ -59,6 +60,8 @@ class CourseAnnouncement(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
     course = models.ForeignKey(Course)
 
+    def get_absolute_url(self):
+        return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.pk})
 
 class Lecture(models.Model):
     name = models.CharField(max_length=120)

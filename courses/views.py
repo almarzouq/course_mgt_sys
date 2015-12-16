@@ -14,9 +14,10 @@ from .forms import NewCourseForm, GradeForm, Grade
 from students.models import Student
 from courses.models import Course, CourseAnnouncement, Grade, GradeColumn, Lecture , Attendance
 
-from .forms import (NewCourseForm, GradeForm,GradeColumnEditForm, CourseAnnouncmentForm, AttendanceStudentForm, InstructorLectureForm)
-
-
+from .forms import (NewCourseForm, GradeForm,
+                    GradeColumnEditForm, CourseAnnouncmentForm,
+                    GradeColumnCreateForm,AttendanceStudentForm, InstructorLectureForm)
+from .models import GradeColumn
 # Create your views here.
 
 
@@ -41,7 +42,7 @@ def list_course_grade_column(request, course_id):
     course_obj = get_object_or_404(Course, pk=course_id)
     qs = course_obj.gradecolumn_set.all()
 
-    return render(request, "course_grade.html",
+    return render(request, "course_gradecolumn_list.html",
                   {
                       'course': course_obj,
                       'gradecolumns': qs,
@@ -167,7 +168,7 @@ def list_student_grade(request, course_id, student_id):
     for gc in gradecolumns:
         student_grade_value_dict = {}
         student_grade_column_dict = {}
-        student_grade_column_dict[gc.pk] = gc.name
+        student_grade_column_dict[gc.total] = gc.name
         for g in grades:
             if gc.pk == g.column.pk:
                 student_grade_value_dict[g.pk] = g.value
@@ -175,6 +176,7 @@ def list_student_grade(request, course_id, student_id):
             student_grade_value_dict[gc.pk] = ''
         student_grade_column_list.append(student_grade_column_dict)
         student_grade_value_list.append(student_grade_value_dict)
+        # cycle to change color background in table
     return render(
         request,
         'list_student_grade.html',
@@ -312,5 +314,96 @@ def gradecolumn_delete(request, course_id, gradecolumn_id):
     qs = course.gradecolumn_set.get(pk=gradecolumn_id)
     qs.delete()
     messages.success(request, 'Grade Column was successfully deleted.')
-    return redirect(reverse('list_course_grade_column', args=(
-        course_id, gradecolumn_id,)))
+    return redirect(reverse('list_course_grade_column', kwargs={
+        'course_id': course.pk,
+    }))
+
+
+def gradecolumn_create(request, course_id):
+    course = get_object_or_404(Course, pk=course_id)
+    if request.method == 'POST':
+        form = GradeColumnCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('list_course_grade_column', kwargs={
+                'course_id': course_id}))
+    else:
+        form = GradeColumnCreateForm(initial={'course': course_id, })
+    return render(
+        request,
+        'gradecolumn_create.html',
+        {
+            'form': form,
+            'course': course
+        }
+    )
+
+
+def student_view_course_announcments_grades(request, course_id, student_id):
+    course = get_object_or_404(Course, pk=course_id)
+    student = Student.objects.get(pk=student_id)
+    announcments = CourseAnnouncement.objects.filter(course__pk=course_id)
+    return render(request, "course_details_for_student.html",
+                  {
+                      'course': course,
+                      'announcments': announcments,
+                      'student': student,
+                  })
+
+
+def list_students_grades_in_course(request, course_id):
+    course_obj = get_object_or_404(Course, pk=course_id)
+    gradecolumns = course_obj.gradecolumn_set.all()
+    student = course_obj.students.all()
+    grades = Grade.objects.filter(column__course=course_id)
+
+    student_grade_value_list = []
+    student_info_dict = {}
+    student_grade_id_list = []
+    student_grade_value_dict = {}
+    student_grade_column_dict = {}
+    big = []
+    lists = []
+    for s in student:
+        student_info_dict = {}
+        student_grade_column_list = []
+        student_grade_value_list = []
+        for gc in gradecolumns:
+            student_grade_value_dict = {}
+            student_grade_column_dict = {}
+            student_grade_column_dict[gc.total] = gc.name
+            for g in grades:
+                if gc.pk == g.column.pk:
+                    if s.pk == g.student.pk:
+                        student_grade_value_dict[g.pk] = g.value
+            if len(student_grade_value_dict) < len(student_grade_column_dict):
+                student_grade_value_dict[gc.pk] = ''
+            student_grade_column_list.append(student_grade_column_dict)
+            student_grade_value_list.append(student_grade_value_dict)
+        student_info_dict[s.university_id] = [student_grade_value_list, s.pk]
+        big.append(student_info_dict)
+
+    for grade in grades:
+        lists.append(grade.pk)
+        lists.append(grade.value)
+        lists.append(grade.student.university_id)
+        lists.append(grade.column.name)
+
+    return render(
+        request,
+        'list_students_grades_in_course.html',
+        {
+            'course_id': course_id,
+            'student_grade_column': student_grade_column_list,
+            'student_grade_value': student_grade_id_list,
+            's': big,
+            'g': lists
+        }
+    )
+
+
+class CourseAnnouncementEdit(UpdateView):
+    model = CourseAnnouncement
+    template_name = 'edit_course_announcments.html'
+    context_object_name = 'course_announcement'
+    fields = ('name', 'comment')

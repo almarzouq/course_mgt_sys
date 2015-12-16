@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
+from django.core.urlresolvers import reverse
+from django.contrib import messages
 
-
-
-from .models import Instructor, Appointment
+from .models import Instructor, Appointment, Announcement
 from courses.models import Grade, GradeColumn
 from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
 
@@ -43,19 +43,16 @@ def appointment_create(request, pk):
     if request.method == 'POST':
         form = AppointmentForm(request.POST)
         if form.is_valid():
-
             form.save()
-
             return redirect('appointment_list')
     else:
-        form = AppointmentForm()
-
+        form = AppointmentForm(initial={'instructor': inst, })
     return render(
         request,
         'take_appointment.html',
         {
             'instructor': inst,
-            'form': form
+            'form': form,
         })
 
 
@@ -80,7 +77,7 @@ def create_general_announcment(request, instructor_id):
         form = AnnouncementForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            return redirect(reverse('instructor_view', kwargs={'pk': instructor_id}))
     else:
         form = AnnouncementForm(initial={'instructor': instructor_id, })
     return render(
@@ -97,3 +94,49 @@ class AppointmentEdit(UpdateView):
     template_name = 'appointment_edit.html'
     context_object_name = 'appointment'
     fields = ('name', 'date_time', 'reason', 'email', 'twitter_id', 'phone')
+
+
+def appointment_view(request, pk):
+    inst = get_object_or_404(Instructor, pk=pk)
+    appoint = Appointment.objects.filter()
+    return render(
+        request,
+        'appointment_list.html',
+        {
+            'instructor': inst,
+            'appointments': appoint
+        })
+
+
+def appointment_delete(request, pk):
+    appointment = get_object_or_404(Appointment, pk=pk)
+    appointment.delete()
+    messages.success(request, 'appointment was successfully deleted')
+    return redirect(reverse('appointment_list'))
+
+
+class AnnouncementEdit(UpdateView):
+    model = Announcement
+    template_name = 'edit_general_announcement.html'
+    context_object_name = 'announcement'
+    fields = ('name', 'comment')
+
+
+def appointment_approve(request, pk):
+    appo = get_object_or_404(Appointment, pk=pk)
+    appo.approved = True
+    appo.save()
+    messages.success(request, '%s appointment approved' % appo.name)
+    return redirect(reverse('appointment_details', kwargs={
+        'appointment_id': appo.pk,
+    }))
+
+
+def appointment_decline(request, pk):
+    appo = get_object_or_404(Appointment, pk=pk)
+    appo.approved = False
+    appo.save()
+    messages.success(request, '%s appointment declined' % appo.name)
+    return redirect(reverse('appointment_details', kwargs={
+        'appointment_id': appo.pk,
+    }))

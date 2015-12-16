@@ -30,10 +30,18 @@ urlpatterns = [
         views.create_course_announcment, name='create_course_announcment',),
     url(r'^course/(?P<pk>\d+)/edit/$', views.CourseEdit.as_view(),
         name='course_edit',),
-
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/grade/list/$', views.list_student_grade,
         name='list_student_grade'),
     url(r'^course/list/$', views.list_of_courses_to_add, name='course_list_to_add',),
+    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)$',
+        views.student_view_course_announcments_grades, name='student_view_course_announcments_grades'),
+    url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/delete/$',
+        views.gradecolumn_delete, name='gradecolumn_delete'),
+    url(r'^course/(?P<course_id>\d+)/gradecolumn/create/$',
+        views.gradecolumn_create, name='gradecolumn_create'),
+    url(r'^course/(?P<course_id>\d+)/students/grades/list/$', views.list_students_grades_in_course,
+        name='list_students_grades_in_course'),
+    url(r'^course/announcement/(?P<pk>\d+)/edit/$', views.CourseAnnouncementEdit.as_view(), name= 'edit_course_announcment',),
 
 
     url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/attendance/$',

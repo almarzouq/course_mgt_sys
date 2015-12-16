@@ -21,7 +21,7 @@ Student Name: {{student.name}}
 
   <tr>
     {% for dict in student_grade_column %} {% for key, value in dict.items %}
-    <th>{{value}}
+    <th>{{value}} ({{key}})
     </th>
     {% endfor %} {% endfor %}
   </tr>

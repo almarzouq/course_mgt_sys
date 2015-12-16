@@ -19,6 +19,14 @@ other head content must come *after* these tags -->
   <!-- Bootstrap core CSS -->
   <!-- <link href="../../dist/css/bootstrap.min.css" rel=" stylesheet"> -->
   <!-- Custom styles for this template -->
+
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
   <link href="{% static 'css/sticky-footer-navbar.css' %}" rel=" stylesheet">
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive- file-warning.js"></script><![endif]-->
@@ -28,6 +36,7 @@ other head content must come *after* these tags -->
 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv. min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min. js"></script>
 <![endif]-->
+{% block media  %} {% endblock %}
 </head>
 
 <body>
@@ -36,7 +45,7 @@ other head content must come *after* these tags -->
     <div class="container">
       <!-- Make sure it is added above the content block, and not inside! -->
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data -toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -55,7 +64,18 @@ other head content must come *after* these tags -->
           <li><a href="{% url 'account_signup' %}"> SignUp</a></li>
           {% endif %}
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle=" dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a> {% endblock %}
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          {% endblock %}
         </ul>
       </div>
       <!--/.nav-collapse -->

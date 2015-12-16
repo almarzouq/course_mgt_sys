@@ -7,13 +7,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('courses', '0010_auto_20151207_1927'),
+        ('instructors', '0005_appointment_instructor'),
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name='lecture',
-            old_name='lecture',
-            new_name='name',
+        migrations.AlterField(
+            model_name='appointment',
+            name='approved',
+            field=models.NullBooleanField(),
         ),
     ]
