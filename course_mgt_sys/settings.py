@@ -117,10 +117,17 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+ACCOUNT_LOGOUT_REDIRECT_URL = "Home"
+
+LOGIN_REDIRECT_URL = "Home"
+
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
 
 SITE_ID = 1
 ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.StudentForm'

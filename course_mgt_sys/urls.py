@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^instructors/', include('instructors.urls')),
     url(r'^courses/', include('courses.urls')),
     url(r'^accounts/', include('allauth.urls',)),
-    url(r'^home/', TemplateView.as_view(template_name='index.html'), name="Home",)
+    url(r'^', TemplateView.as_view(template_name='index.html'), name="Home",)
 ]
