@@ -331,7 +331,10 @@ def lectures_list(request, course_id):
     return render(request, 'lecture_list.html', {'lectures': qs, 'course': obj, 'course_id': course_id})
 
 
+@login_required
 def gradecolumn_delete(request, course_id, gradecolumn_id):
+    if not request.user.is_instructor():
+        raise Http404
     course = get_object_or_404(Course, pk=course_id)
     qs = course.gradecolumn_set.get(pk=gradecolumn_id)
     qs.delete()
@@ -341,7 +344,10 @@ def gradecolumn_delete(request, course_id, gradecolumn_id):
     }))
 
 
+@login_required
 def gradecolumn_create(request, course_id):
+    if not request.user.is_instructor():
+        raise Http404
     course = get_object_or_404(Course, pk=course_id)
     if request.method == 'POST':
         form = GradeColumnCreateForm(request.POST)
