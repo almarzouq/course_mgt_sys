@@ -1,0 +1,10 @@
+{%extends "base.html"%} {% block content %}
+<div>
+  <h1> General Announcement </h1>
+  </br>
+  <form method="post" action="{% url 'create_general_announcment' instructor_id %}">
+    {% csrf_token %} {{ form.as_p }}
+
+    <input class="btn btn-default" type="submit" value="done!"> </form>
+</div>
+{% endblock %}

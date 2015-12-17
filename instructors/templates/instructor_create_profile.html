@@ -1,0 +1,7 @@
+{%extends "base.html"%} {% block content %}
+<h1> Instructor Registration Page </h1>
+<form method="post" action="{% url 'instructor_create' %}"> {% csrf_token %} {{ form.as_p }}
+
+  <input class="btn btn-default" type="submit" value="Done!"> </form>
+
+{% endblock %}
