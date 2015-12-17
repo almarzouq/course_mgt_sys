@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% block content %}
+<div class="list-group">
+  <h2>Course : {{course.name}}</h2>
+  {% for l in lectures %}
+
+  <a href="{%url 'lecture_details' course_id l.pk %}" class="list-group-item">
+    <p> Name of Lecture : {{l.name}}</p>
+    <p> Number of Students : {{l.number_of_students}}<p>
+    <p> Time of Lecture : {{l.time_of_lecture}}</p>
+  </a>
+
+
+
+
+
+
+
+
+
+
+  {% endfor%}
+</div>
+{%endblock%}

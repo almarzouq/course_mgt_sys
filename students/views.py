@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 from django.db.models import Q
 from django.views.generic import ListView
 
-from .forms import StudentEditForm
+from .forms import StudentEditForm 
 from .models import Student
 
 def student_profile(request, pk):

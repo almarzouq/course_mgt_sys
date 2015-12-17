@@ -1,0 +1,35 @@
+{%extends "base.html"%}{%block content%}
+<h1> Lecture Details </h1>
+<h3>Name : {{lecture.name}}</h3>
+<p>Time of Lecture : {{lecture.time_of_lecture}}</p>
+<p>Course : {{lecture.course.name}}</p>
+<p>Instructor : {{lecture.course.instructor.name}}</p>
+<a href="{% url 'student_attendance' course_id  lecture_id %}">Student Check-in</a>
+<table class="table">
+  <tr>
+    <th>
+      Student name
+    </th>
+    <th>
+      Student ID
+    </th>
+    <th>
+      Time of attendance
+    </th>
+  </tr>
+  {% for s in attended %}
+  <tr>
+    <td>
+      <p>{{s.student.name}}</p>
+    </td>
+    <td>
+      <p>{{s.student.university_id}}</p>
+    </td>
+    <td>
+      {{ s.time_attended }}
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+ {%endblock%}

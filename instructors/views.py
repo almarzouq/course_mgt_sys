@@ -142,7 +142,6 @@ def appointment_delete(request, pk):
     messages.success(request, 'appointment was successfully deleted')
     return redirect(reverse('appointment_list'))
 
-
 def appointment_approve(request, pk):
     appo = get_object_or_404(Appointment, pk=pk)
     appo.approved = True

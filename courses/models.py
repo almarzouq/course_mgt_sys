@@ -62,3 +62,31 @@ class CourseAnnouncement(models.Model):
 
     def get_absolute_url(self):
         return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.course_id})
+
+class Lecture(models.Model):
+    name = models.CharField(max_length=120)
+    course = models.ForeignKey(Course)
+    time_of_lecture = models.DateTimeField(auto_now=True)
+    number_of_students = models.BigIntegerField(null = True , blank= True)
+
+    def __unicode__(self):
+        return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
+
+    def __str__(self):
+        return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
+
+    def get_absolute_url(self):
+        return reverse('lecture_details',kwargs={'lecture_id' : self.pk ,'course_id' : self.course.pk})
+
+
+class Attendance(models.Model):
+    lecture = models.ForeignKey(Lecture)
+    student = models.ForeignKey(Student)
+    time_attended = models.DateTimeField(auto_now=True, null=True)
+    attended = models.BooleanField(default = False )
+
+    def __unicode__(self):
+        return u"{} : {} : {} ".format(self.lecture.course.name, self.lecture.name, self.lecture.time_of_lecture)
+
+    def __str__(self):
+        return u"{} : {} : {} ".format(self.lecture.course.name, self.lecture.name, self.lecture.time_of_lecture)
