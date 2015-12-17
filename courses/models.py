@@ -53,7 +53,7 @@ class Course(models.Model):
 
 
 class CourseStudent(models.Model):
-    course = models.ForeignKey(Instructor)
+    course = models.ForeignKey(Course)
     student = models.ForeignKey(Student)
 
     # student cannot register in same course twice
