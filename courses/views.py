@@ -268,16 +268,23 @@ def list_of_courses_to_add(request):
     )
 
 
-def student_attendance(request, course_id, student_id):
+def student_attendance(request, course_id, student_id, lecture_id):
+    lecture = Lecture.objects.get(pk=lecture_id)
     if request.method == 'POST':
         form = AttendanceStudentForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            messages.success(request, 'Student has successfully checked in.')
+            return redirect(reverse('lecture_details', kwargs={'course_id' : course_id, 'lecture_id' : lecture_id}))
     else:
-            form = AttendanceStudentForm(initial={'course': course_id, 'student' : student_id })
+            form = AttendanceStudentForm(initial={'course': course_id, 'student' : student_id, 'lecture' : lecture_id,})
 
-    return render(request,'lecture_attendance.html',{'form': form,'course_id': course_id,'student_id': student_id,})
+    return render(request,'lecture_attendance.html',{'form': form,'course_id': course_id,
+                                                    'student_id': student_id,'lecture_id' : lecture_id,
+                                                    'lecture':lecture,})
+
+    return
+
 
 
 def instructor_lecture(request, course_id):

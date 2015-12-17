@@ -59,6 +59,8 @@ class AttendanceStudentForm(forms.ModelForm):
         widgets = {
 
             'student': forms.HiddenInput,
+            'lecture' : forms.HiddenInput,
+            
         }
 
 

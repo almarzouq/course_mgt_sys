@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^course/announcement/(?P<pk>\d+)/edit/$', views.CourseAnnouncementEdit.as_view(), name= 'edit_course_announcment',),
 
 
-    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/attendance/$',
+    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/lecture/(?P<lecture_id>\d+)/attendance/$',
         views.student_attendance, name='student_attendance'),
 
     url(r'^course/(?P<course_id>\d+)/lecture/$',views.instructor_lecture, name='lecture_create',),
