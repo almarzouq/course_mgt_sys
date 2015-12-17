@@ -56,8 +56,8 @@ other head content must come *after* these tags -->
         <ul class="nav navbar-nav">
           {% block nav %}
           <li><a href="{% url 'index' %}"> Home </a></li>
-          <li><a href="{% url 'students_list' %}"> Student List </a></li>
-          <li><a href="{% url 'appointment_list' %}"> Appointment List </a></li>
+          <li><a href="{% url 'students_list' %}"> Student </a></li>
+          <li><a href="{% url 'instructor_list' %}"> Faculty </a></li>
           {% if user.is_authenticated %}
           <li><a href="{% url 'account_logout' %}"> Sign Out </a></li>
 
