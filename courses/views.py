@@ -207,7 +207,10 @@ def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_i
     return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
 
 
+@login_required
 def instructor_view_course_stundets_announcments(request, course_id):
+    if not request.user.is_instructor():
+        raise Http404
     course = get_object_or_404(Course, pk=course_id)
     students = Student.objects.filter(course__pk=course_id)
     announcments = CourseAnnouncement.objects.filter(course__pk=course_id)
@@ -220,7 +223,10 @@ def instructor_view_course_stundets_announcments(request, course_id):
                   )
 
 
+@login_required
 def remove_student_from_course(request, course_id, student_id):
+    if not request.user.is_instructor():
+        raise Http404
     course = Course.objects.get(pk=course_id)
     student = Student.objects.get(pk=student_id)
     course.students.remove(student)
@@ -246,7 +252,10 @@ def student_can_add_course(request, course_id, student_id):
     return redirect(reverse('student_view_course_announcments', args=[course_id]))
 
 
+@login_required
 def create_course_announcment(request, course_id):
+    if not request.user.is_instructor():
+        raise Http404
     if request.method == 'POST':
         form = CourseAnnouncmentForm(request.POST)
         if form.is_valid():
