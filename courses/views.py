@@ -273,12 +273,21 @@ def list_of_courses_to_add(request):
 
 def student_attendance(request, course_id, lecture_id):
     obj = Lecture.objects.get(pk=lecture_id)
-    student = Student.objects.get(pk=request.user.pk)
-    Attend = Attendance.objects.create(
-        lecture=obj, student=student, attended=True)
-    Attend.save()
-    messages.success(
-        request, 'the student {} have successfully checked in'.format(student.name))
+    try:
+        student = Student.objects.get(user=request.user)
+    except Student.DoesNotExist as e:
+        raise Http404
+    try:
+        Attendance.objects.create(
+            lecture=obj, student=student, attended=True)
+    except:
+        messages.error(
+            request,
+            'You have already checked in'.format(student.name))
+    else:
+        messages.success(
+            request,
+            'the student {} have successfully checked in'.format(student.name))
     return redirect(reverse('lecture_details', kwargs={'course_id': course_id, 'lecture_id': lecture_id, }))
 
 
@@ -287,14 +296,10 @@ def instructor_lecture(request, course_id):
     if request.method == 'POST':
         form = InstructorLectureForm(request.POST)
         if form.is_valid():
-            form.save()
             obj = form.save()
-
             return redirect(reverse('lecture_details', kwargs={'course_id': course_id, 'lecture_id': obj.pk}))
     else:
-
         form = InstructorLectureForm(initial={'course': course_id, })
-
     return render(request, 'create_lecture.html', {
         'form': form,
         'course_id': course_id,
@@ -417,12 +422,12 @@ class CourseAnnouncementEdit(UpdateView):
 
 def student_view_course_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
-    students = Student.objects.filter(course__pk=course_id)
     announcments = CourseAnnouncement.objects.filter(course__pk=course_id)
-    return render(request, "course_details_announcments.html",
-                  {
-                      'course': course,
-                      'students': None,
-                      'announcments': announcments
-                  }
-                  )
+    return render(
+        request,
+        "course_details_announcments.html",
+        {
+            'course': course,
+            'students': None,
+            'announcments': announcments
+        })

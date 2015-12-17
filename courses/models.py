@@ -85,6 +85,9 @@ class Attendance(models.Model):
     time_attended = models.DateTimeField(auto_now=True, null=True)
     attended = models.BooleanField(default = False )
 
+    class Meta:
+        unique_together = ('lecture', 'student')
+
     def __unicode__(self):
         return u"{} : {} : {} ".format(self.lecture.course.name, self.lecture.name, self.lecture.time_of_lecture)
 
