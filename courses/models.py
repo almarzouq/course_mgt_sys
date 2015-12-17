@@ -29,17 +29,37 @@ class Course(models.Model):
     completed = models.BooleanField(default=False)
     syllabusURL = models.URLField(null=True, blank=True)
     student_registration_open = models.BooleanField(default=True)
-    students = models.ManyToManyField(Student, null=True, blank=True)
-    instructor = models.ForeignKey(Instructor, blank = True )
+    students = models.ManyToManyField(Student, through='CourseStudent')
+    instructor = models.ForeignKey(Instructor, blank=True)
 
     def __unicode__(self):
-        return u" {} : {} : {} : {} ".format(self.name, self.instructor.name, self.days, self.semester)
+        return u" {} : {} : {} : {} ".format(
+            self.name,
+            self.instructor.name,
+            self.days,
+            self.semester)
 
     def __str__(self):
-        return u" {} : {} : {} : {} ".format(self.name, self.instructor.name,  self.days, self.semester)
+        return u" {} : {} : {} : {} ".format(
+            self.name,
+            self.instructor.name,
+            self.days,
+            self.semester)
 
     def get_absolute_url(self):
-        return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.pk})
+        return reverse(
+            'instructor_view_course_stundets_announcments',
+            kwargs={'course_id': self.pk})
+
+
+class CourseStudent(models.Model):
+    course = models.ForeignKey(Instructor)
+    student = models.ForeignKey(Student)
+
+    # student cannot register in same course twice
+    class Meta:
+        unique_together = ('course', 'student')
+
 
 class GradeColumn(models.Model):
     name = models.CharField(max_length=120)
@@ -61,13 +81,16 @@ class CourseAnnouncement(models.Model):
     course = models.ForeignKey(Course)
 
     def get_absolute_url(self):
-        return reverse('instructor_view_course_stundets_announcments', kwargs={'course_id': self.course_id})
+        return reverse(
+            'instructor_view_course_stundets_announcments',
+            kwargs={'course_id': self.course_id})
+
 
 class Lecture(models.Model):
     name = models.CharField(max_length=120)
     course = models.ForeignKey(Course)
     time_of_lecture = models.DateTimeField(auto_now=True)
-    number_of_students = models.BigIntegerField(null = True , blank= True)
+    number_of_students = models.BigIntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
@@ -76,14 +99,14 @@ class Lecture(models.Model):
         return u"{} : {} : {} ".format(self.course.name, self.name, self.time_of_lecture)
 
     def get_absolute_url(self):
-        return reverse('lecture_details',kwargs={'lecture_id' : self.pk ,'course_id' : self.course.pk})
+        return reverse('lecture_details', kwargs={'lecture_id': self.pk, 'course_id': self.course.pk})
 
 
 class Attendance(models.Model):
     lecture = models.ForeignKey(Lecture)
     student = models.ForeignKey(Student)
     time_attended = models.DateTimeField(auto_now=True, null=True)
-    attended = models.BooleanField(default = False )
+    attended = models.BooleanField(default=False)
 
     class Meta:
         unique_together = ('lecture', 'student')
