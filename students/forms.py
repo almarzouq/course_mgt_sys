@@ -9,16 +9,16 @@ class StudentEditForm(forms.ModelForm):
         exclude = ['name', 'university_id']
 
 
-class StudentForm(forms.ModelForm):
+class SignupForm(forms.Form):
 
-    class Meta:
-        model = Student
-        exclude = ('name',)
+    # university_id = forms.CharField(required=False)
+    # twitter_id = forms.CharField(required=False)
 
     def signup(self, request, user):
         Student.objects.create(
-            name=user,
-            email=self.cleaned_data.get('email'),
+            user=user,
+            name=user.username,
+            email=user.email,
             university_id=self.cleaned_data.get('university_id'),
             twitter_id=self.cleaned_data.get('twitter_id')
         )

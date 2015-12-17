@@ -38,29 +38,27 @@ def instructors_list(request):
     return render(request, 'instructor_list.html', {'instructor': obj})
 
 
-
-
 class InstructorEditProfile(UpdateView):
     model = Instructor
     fields = ['phone', 'email', 'office_hours', 'twitter_id', ]
     template_name = 'instructor_profile_edit.html'
     context_object_name = "instructor"
 
+    # Protect Example: This is how to protect a GenericView
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_instructor():
-            raise Http404
+            raise Http404# or redirect
         else:
             return super(InstructorEditProfile, self).dispatch(*args, **kwargs)
 
 
-
-
-
 @login_required
 def create_general_announcment(request, instructor_id):
+    # Protect Example: how to protect a view function
     if not request.user.is_instructor():
-        raise Http404
+        raise Http404# or redirect
+
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
         if form.is_valid():
