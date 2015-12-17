@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import Http404
 from .models import Instructor, Appointment, Announcement
@@ -12,12 +12,8 @@ from .forms import GradeColumnEditForm, AppointmentForm, AnnouncementForm
 
 
 # Create your views here.
-
 @login_required
 def instructor_view(request, pk=None):
-
-    if request.user.is_instructor() == False:
-        raise Http404
 
     if pk:
         obj = get_object_or_404(Instructor, pk=pk)
@@ -46,10 +42,11 @@ class InstructorEditProfile(UpdateView):
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
-        if self.request.user.is_instructor() == False:
+        if not self.request.user.is_instructor():
             raise Http404
         else:
             return super(InstructorEditProfile, self).dispatch(*args, **kwargs)
+
 
 
 
@@ -87,8 +84,11 @@ class AppointmentList(ListView):
     template_name = "appointment_list.html"
     context_object_name = "appointments"
 
-
+@login_required
 def create_general_announcment(request, instructor_id):
+    if not request.user.is_instructor():
+        raise Http404
+
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
         if form.is_valid():
