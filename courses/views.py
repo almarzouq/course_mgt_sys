@@ -91,9 +91,16 @@ def gradecolumn_edit(request, gradecolumn_id, course_id):
 def enroll_student_to_course(request, course_id, student_id):
     course = Course.objects.get(pk=course_id)
     student = Student.objects.get(pk=student_id)
-    course.students.add(student)
-    course.save()
-    messages.success(request, 'The student is successfuly added.')
+    try:
+        course.students.add(student)
+        # no need to save when using add
+        # because student record already exists
+    except:
+        # will through exception if duplicate
+        messages.error(request, 'The student is already enrolled')
+    else:
+        messages.success(request, 'The student is successfuly added.')
+
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
@@ -226,9 +233,13 @@ def student_can_add_course(request, course_id, student_id):
     course = Course.objects.get(pk=course_id)
     student = Student.objects.get(pk=student_id)
     if course.student_registration_open:
-        course.students.add(student)
-        student.save()
-        messages.success(request, 'You are enrolled in %s' % (course))
+        try:
+            course.students.add(student)
+        except:
+            # will through exception if duplicate
+            messages.error(request, 'You are already enrolled in this course')
+        else:
+            messages.success(request, 'You are enrolled in %s' % (course))
     else:
         messages.error(
             request, 'You are not allowed to enroll in this course talk to your instructor')
