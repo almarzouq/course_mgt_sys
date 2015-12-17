@@ -124,7 +124,12 @@ STATIC_URL = '/static/'
 
 
 SITE_ID = 1
-ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.StudentForm'
+#ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.StudentForm'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'None'
+LOGIN_REDIRECT_URL = "/"
 
 from django.contrib.messages import constants as message_constants
 

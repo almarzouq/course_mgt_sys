@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
+from django.conf import settings
 
 class Instructor(models.Model):
     name = models.CharField(max_length=120)
@@ -10,6 +10,7 @@ class Instructor(models.Model):
     department = models.CharField(max_length=120, blank=True, default="")
     school = models.CharField(max_length=120, blank=True, default="")
     twitter_id = models.CharField(max_length=50, blank=True, default="")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
 
     def get_absolute_url(self):
         return reverse('instructor_view', kwargs={'pk': self.pk})

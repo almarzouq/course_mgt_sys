@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
+from django.conf import settings
 # Create your models here.
 
 
@@ -9,7 +9,8 @@ class Student(models.Model):
     university_id = models.BigIntegerField()
     email = models.EmailField()
     twitter_id = models.CharField(max_length=50, blank=True, default="")
-    
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+
     def get_absolute_url(self):
         return reverse('student_view', kwargs={'pk': self.pk})
 
