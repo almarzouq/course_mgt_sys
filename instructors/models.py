@@ -11,7 +11,7 @@ class Instructor(models.Model):
     department = models.CharField(max_length=120, blank=True, default="")
     school = models.CharField(max_length=120, blank=True, default="")
     twitter_id = models.CharField(max_length=50, blank=True, default="")
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('instructor_view', kwargs={'pk': self.pk})

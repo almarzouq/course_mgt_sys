@@ -6,10 +6,10 @@ from django.conf import settings
 
 class Student(models.Model):
     name = models.CharField(max_length=120)
-    university_id = models.BigIntegerField()
+    university_id = models.BigIntegerField(null=True, blank=True)
     email = models.EmailField()
-    twitter_id = models.CharField(max_length=50, blank=True, default="")
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    twitter_id = models.CharField(max_length=50, null=True, blank=True, default="")
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('student_view', kwargs={'pk': self.pk})

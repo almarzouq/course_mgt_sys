@@ -2,7 +2,7 @@
 <h1> Instructor List </h1>
 
 <div class="list-group">
-  {% for instructor in instructor %}
+  {% for instructor in instructors %}
   <ul>
     <a class="list-group-item" href="{% url 'instructor_view' instructor.pk %}">
 

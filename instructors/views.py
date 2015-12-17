@@ -34,8 +34,8 @@ def instructor_view(request, pk=None):
 
 
 def instructors_list(request):
-    obj = Instructor.objects.all()
-    return render(request, 'instructor_list.html', {'instructor': obj})
+    objects = Instructor.objects.all()
+    return render(request, 'instructor_list.html', {'instructors': objects})
 
 
 class InstructorEditProfile(UpdateView):
