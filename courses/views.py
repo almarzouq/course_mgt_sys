@@ -70,7 +70,8 @@ def gradecolumn_edit(request, gradecolumn_id, course_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'GradeColumn is successfully edited.')
-        return redirect(reverse('list_course_grade_column', kwargs={'course_id': course_id}))
+        return redirect(reverse('view_course_gradecolumn', kwargs={
+            'course_id': course_id, 'gradecolumn_id': gradecolumn_id}))
     else:
         form = GradeColumnEditForm(instance=gc)
     return render(request,
