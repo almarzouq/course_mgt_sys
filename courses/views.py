@@ -268,22 +268,14 @@ def list_of_courses_to_add(request):
     )
 
 
-def student_attendance(request, course_id, student_id, lecture_id):
-    lecture = Lecture.objects.get(pk=lecture_id)
-    if request.method == 'POST':
-        form = AttendanceStudentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Student has successfully checked in.')
-            return redirect(reverse('lecture_details', kwargs={'course_id' : course_id, 'lecture_id' : lecture_id}))
-    else:
-            form = AttendanceStudentForm(initial={'course': course_id, 'student' : student_id, 'lecture' : lecture_id,})
+def student_attendance(request, course_id,lecture_id):
+    obj = Lecture.objects.get(pk=lecture_id)
+    student = Student.objects.get(pk=request.user.pk)
+    Attend = Attendance.objects.create(lecture=obj,student=student,attended = True)
+    Attend.save()
+    messages.success(request, 'the student {} have successfully checked in'.format(student.name))
+    return redirect(reverse('lecture_details',kwargs = {'course_id' : course_id, 'lecture_id' : lecture_id, }))
 
-    return render(request,'lecture_attendance.html',{'form': form,'course_id': course_id,
-                                                    'student_id': student_id,'lecture_id' : lecture_id,
-                                                    'lecture':lecture,})
-
-    return
 
 
 
@@ -313,7 +305,13 @@ def lecture_details(request, lecture_id, course_id):
     obj = Lecture.objects.get(pk=lecture_id)
     qs = Course.objects.filter(pk=course_id)
     qs2 = Attendance.objects.filter(lecture__pk=lecture_id)
-    return render(request, 'lecture_details.html',{'lecture' : obj,'attended' : qs2,'course' : qs,})
+    return render(request, 'lecture_details.html',{'lecture' : obj,'attended' : qs2,'course' : qs,'lecture_id' : lecture_id,'course_id' : course_id,})
+
+
+def lectures_list(request,course_id):
+    obj = Course.objects.get(pk=course_id)
+    qs = Lecture.objects.filter(course=obj)
+    return render(request,'lecture_list.html',{'lectures' : qs , 'course' : obj,'course_id' : course_id})
 
 
 def gradecolumn_delete(request, course_id, gradecolumn_id):

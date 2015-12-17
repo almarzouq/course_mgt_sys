@@ -43,14 +43,14 @@ urlpatterns = [
         name='list_students_grades_in_course'),
     url(r'^course/announcement/(?P<pk>\d+)/edit/$', views.CourseAnnouncementEdit.as_view(), name= 'edit_course_announcment',),
 
-
-    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/lecture/(?P<lecture_id>\d+)/attendance/$',
+    url(r'^course/(?P<course_id>\d+)/lecture/(?P<lecture_id>\d+)/attendance/$',
         views.student_attendance, name='student_attendance'),
 
     url(r'^course/(?P<course_id>\d+)/lecture/$',views.instructor_lecture, name='lecture_create',),
 
     url(r'^course/(?P<course_id>\d+)/lecture/(?P<lecture_id>\d+)/', views.lecture_details, name = 'lecture_details',),
 
+    url(r'^course/(?P<course_id>\d+)/lecture/list/$',views.lectures_list,name='lecture_list',),
 
     url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/delete/$',
         views.gradecolumn_delete, name='gradecolumn_delete'),
