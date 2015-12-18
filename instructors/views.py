@@ -12,7 +12,8 @@ from .forms import AppointmentForm, AnnouncementForm
 
 class InstructorCreate(CreateView):
     model = Instructor
-    fields = '__all__'
+    fields = ('name', 'email', 'phone', 'office_hours', 'department',
+              'school', 'twitter_id',)
     template_name = 'instructor_create_profile.html'
 
 
@@ -48,7 +49,7 @@ class InstructorEditProfile(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_instructor():
-            raise Http404# or redirect
+            raise Http404  # or redirect
         else:
             return super(InstructorEditProfile, self).dispatch(*args, **kwargs)
 
@@ -57,7 +58,7 @@ class InstructorEditProfile(UpdateView):
 def create_general_announcment(request, instructor_id):
     # Protect Example: how to protect a view function
     if not request.user.is_instructor():
-        raise Http404# or redirect
+        raise Http404  # or redirect
 
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
@@ -141,6 +142,7 @@ def appointment_delete(request, pk):
     appointment.delete()
     messages.success(request, 'appointment was successfully deleted')
     return redirect(reverse('appointment_list'))
+
 
 def appointment_approve(request, pk):
     appo = get_object_or_404(Appointment, pk=pk)
