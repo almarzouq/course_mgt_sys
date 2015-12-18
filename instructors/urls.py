@@ -1,5 +1,8 @@
 from django.conf.urls import url
+from django.contrib.auth.decorators import login_required
+
 from instructors import views
+
 
 urlpatterns = [
     url(r'^instructor/create/$', views.InstructorCreate.as_view(),
@@ -23,7 +26,8 @@ urlpatterns = [
         views.appointment_view, name='appointment_view'),
     url(r'^appointment/list/$', views.AppointmentList.as_view(),
         name='appointment_list',),
-    url(r'^appointment/(?P<pk>\d+)/edit/$', views.AppointmentEdit.as_view(),
+    url(r'^appointment/(?P<pk>\d+)/edit/$',
+        login_required(views.AppointmentEdit.as_view()),
         name='appointment_edit',),
     url(r'^appointment/(?P<pk>\d+)/delete/$',
         views.appointment_delete, name='appointment_delete',),

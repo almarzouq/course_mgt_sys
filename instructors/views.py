@@ -48,7 +48,7 @@ class InstructorEditProfile(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_instructor():
-            raise Http404# or redirect
+            raise Http404  # or redirect
         else:
             return super(InstructorEditProfile, self).dispatch(*args, **kwargs)
 
@@ -57,7 +57,7 @@ class InstructorEditProfile(UpdateView):
 def create_general_announcment(request, instructor_id):
     # Protect Example: how to protect a view function
     if not request.user.is_instructor():
-        raise Http404# or redirect
+        raise Http404  # or redirect
 
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
@@ -83,6 +83,7 @@ class AnnouncementEdit(UpdateView):
     fields = ('name', 'comment')
 
 
+@login_required
 def appointment_create(request, pk):
     inst = get_object_or_404(Instructor, pk=pk)
     if request.method == 'POST':
@@ -136,11 +137,13 @@ def appointment_view(request, pk):
         })
 
 
+@login_required
 def appointment_delete(request, pk):
     appointment = get_object_or_404(Appointment, pk=pk)
     appointment.delete()
     messages.success(request, 'appointment was successfully deleted')
     return redirect(reverse('appointment_list'))
+
 
 def appointment_approve(request, pk):
     appo = get_object_or_404(Appointment, pk=pk)
