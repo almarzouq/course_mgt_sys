@@ -23,7 +23,10 @@ from .models import GradeColumn
 # Create your views here.
 
 
+@login_required
 def course_create(request):
+    if not request.user.is_instructor():
+        raise Http404
     if request.method == 'POST':
         form = NewCourseForm(request.POST)
         if form.is_valid():
@@ -88,7 +91,10 @@ def gradecolumn_edit(request, gradecolumn_id, course_id):
                   })
 
 
+@login_required
 def enroll_student_to_course(request, course_id, student_id):
+    if not request.user.is_instructor():
+        raise Http404
     course = Course.objects.get(pk=course_id)
     student = Student.objects.get(pk=student_id)
     try:
@@ -104,7 +110,10 @@ def enroll_student_to_course(request, course_id, student_id):
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
+@login_required
 def post_student_grade(request, course_id, student_id, gradecolumn_id):
+    if not request.user.is_instructor():
+        raise Http404
     if request.method == 'POST':
         form = GradeForm(request.POST)
         if form.is_valid():
@@ -126,7 +135,10 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
     )
 
 
+@login_required
 def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
+    if not request.user.is_instructor():
+        raise Http404
     grade = get_object_or_404(Grade, pk=grade_id)
     if request.method == 'POST':
         form = GradeForm(request.POST, instance=grade)
@@ -200,7 +212,10 @@ def list_student_grade(request, course_id, student_id):
     )
 
 
+@login_required
 def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
+    if not request.user.is_instructor():
+        raise Http404
     grade = get_object_or_404(Grade, pk=grade_id)
     grade.delete()
     messages.success(request, 'Grade was successfully deleteded.')
