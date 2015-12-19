@@ -60,8 +60,10 @@ def list_course_grade_column(request, course_id):
                   }
                   )
 
-
+@login_required
 def view_course_gradecolumn(request, course_id, gradecolumn_id):
+    if not request.user.is_instructor():
+        raise Http404
     course_obj = get_object_or_404(Course, pk=course_id)
     try:
         gc_obj = course_obj.gradecolumn_set.get(pk=gradecolumn_id)
