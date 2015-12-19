@@ -17,7 +17,9 @@ from students.models import Student
 
 from instructors.models import Instructor
 
-from courses.models import Course, CourseAnnouncement, Grade, GradeColumn, Lecture, Attendance
+from courses.models import (Course, CourseAnnouncement, Grade,
+                            GradeColumn, Lecture, Attendance,
+                            CourseStudent)
 
 from .forms import (NewCourseForm, GradeForm,
                     GradeColumnEditForm, CourseAnnouncmentForm,
@@ -100,16 +102,57 @@ def gradecolumn_edit(request, gradecolumn_id, course_id):
 
                   })
 
+@login_required
+def student_join_course(request, course_id):
+    ''' this is used for a student to add himself to a course '''
+    if request.user.is_instructor():
+        # only student accounts
+        raise Http404
+
+    course = Course.objects.get(pk=course_id)
+    # use current user student profile
+    student = request.user.student
+    if course.student_registration_open:
+        try:
+            # When using through models
+            # This is how you add a relation
+            # The through model is CourseStudent
+            CourseStudent.objects.create(
+                course=course,
+                student=student)
+
+            # this is how you add a relation
+            # when you dont have a through model
+            #course.students.add(student)
+        except:
+            # will through exception if duplicate
+            messages.error(request, 'You are already enrolled in this course')
+        else:
+            messages.success(request, 'You are enrolled in %s' % (course))
+    else:
+        messages.error(
+            request, 'You are not allowed to enroll in this course talk to your instructor')
+    return redirect(reverse('student_view_course_announcments', args=[course_id]))
 
 
 @login_required
-def enroll_student_to_course(request, course_id, student_id):
+def instructor_add_student_to_course(request, course_id, student_id):
+    ''' This is used by instructor to add student to course '''
     if not request.user.is_instructor():
         raise Http404
     course = Course.objects.get(pk=course_id)
     student = Student.objects.get(pk=student_id)
     try:
-        course.students.add(student)
+        # When using through models
+        # This is how you add a relation
+        # The through model is CourseStudent
+        CourseStudent.objects.create(
+            course=course,
+            student=student)
+
+        # this is how you add a relation
+        # when you dont have a through model
+        #course.students.add(student)
         # no need to save when using add
         # because student record already exists
     except:
@@ -117,7 +160,6 @@ def enroll_student_to_course(request, course_id, student_id):
         messages.error(request, 'The student is already enrolled')
     else:
         messages.success(request, 'The student is successfuly added.')
-
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
 
 
@@ -260,23 +302,6 @@ def remove_student_from_course(request, course_id, student_id):
     course.save()
     messages.success(request, 'The student is successfuly removed.')
     return redirect(reverse('instructor_view_course_stundets_announcments', args=[course_id]))
-
-
-def student_can_add_course(request, course_id, student_id):
-    course = Course.objects.get(pk=course_id)
-    student = Student.objects.get(pk=student_id)
-    if course.student_registration_open:
-        try:
-            course.students.add(student)
-        except:
-            # will through exception if duplicate
-            messages.error(request, 'You are already enrolled in this course')
-        else:
-            messages.success(request, 'You are enrolled in %s' % (course))
-    else:
-        messages.error(
-            request, 'You are not allowed to enroll in this course talk to your instructor')
-    return redirect(reverse('student_view_course_announcments', args=[course_id]))
 
 
 @login_required
