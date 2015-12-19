@@ -14,6 +14,9 @@ from .forms import NewCourseForm, GradeForm, Grade
 
 
 from students.models import Student
+
+from instructors.models import Instructor
+
 from courses.models import Course, CourseAnnouncement, Grade, GradeColumn, Lecture, Attendance
 
 from .forms import (NewCourseForm, GradeForm,
@@ -33,7 +36,8 @@ def course_create(request):
             obj = form.save()
             return redirect(obj)
     else:
-        form = NewCourseForm()
+        instructor = Instructor.objects.get(name=request.user)
+        form = NewCourseForm(initial={'instructor': instructor})
     return render(
         request,
         'course_create.html',
