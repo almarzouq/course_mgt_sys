@@ -67,8 +67,10 @@ def view_course_gradecolumn(request, course_id, gradecolumn_id):
     }
     )
 
-
+@login_required
 def gradecolumn_edit(request, gradecolumn_id, course_id):
+    if not request.user.is_instructor():
+        raise Http404
     course = get_object_or_404(Course, pk=course_id)
     gc = course.gradecolumn_set.get(pk=gradecolumn_id)
     if request.method == 'POST':
@@ -89,6 +91,7 @@ def gradecolumn_edit(request, gradecolumn_id, course_id):
                       'course': course,
 
                   })
+
 
 
 @login_required
