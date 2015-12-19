@@ -160,7 +160,7 @@ def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
-
+@login_required
 def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade, pk=grade_id)
     return render(
