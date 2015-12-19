@@ -129,6 +129,7 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
         form = GradeForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Grade was successfully posted.')
             return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
 
     else:
