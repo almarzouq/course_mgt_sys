@@ -15,7 +15,8 @@
       <p class="list-group-item-text">Semester: {{ course.semester }} {{ course.academic_year }} </p>
 
       <a class="btn btn-default" href="{% url 'list_course_grade_column' course.pk %}"> Grade Column </a>
-      <a class="btn btn-default" href="{% url 'instructor_view_course_stundets_announcments' course.pk %}"> Details </a>
+      <a class="btn btn-default" href="{% url 'instructor_view_course_stundets_announcments' course.pk %}"> Course Details </a>
+      <a class="btn btn-default" href="{% url 'list_students_grades_in_course' course.pk %}"> Grades in Course  </a>
 
 
 </li>
