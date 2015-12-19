@@ -42,8 +42,10 @@ def course_create(request):
         }
     )
 
-
+@login_required
 def list_course_grade_column(request, course_id):
+    if not request.user.is_instructor():
+        raise Http404
     course_obj = get_object_or_404(Course, pk=course_id)
     qs = course_obj.gradecolumn_set.all()
 
