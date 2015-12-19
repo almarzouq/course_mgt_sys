@@ -293,7 +293,7 @@ class CourseEdit(UpdateView):
     context_object_name = "course"
     fields = '__all__'
 
-
+@login_required
 def list_of_courses_to_add(request):
     qs = Course.objects.all()
     return render(
