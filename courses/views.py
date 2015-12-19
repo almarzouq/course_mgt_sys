@@ -310,6 +310,7 @@ class CourseEdit(UpdateView):
         else:
             return super(CourseEdit, self).dispatch(*args, **kwargs)
 
+@login_required
 def list_of_courses_to_add(request):
     qs = Course.objects.all()
     return render(
