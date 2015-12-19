@@ -360,7 +360,9 @@ def list_of_courses_to_add(request):
             }
         )
 
-def my_list_of_courses_to_add(request):
+
+@login_required
+def my_list_of_courses(request):
     if not request.user.is_instructor():
         qs = Course.objects.filter(students=request.user.student)
         student = get_object_or_404(Student, name=request.user)
