@@ -142,6 +142,7 @@ def appointment_view(request, pk):
         })
 
 
+@login_required
 def appointment_delete(request, pk):
     appointment = get_object_or_404(Appointment, pk=pk)
     appointment.delete()
