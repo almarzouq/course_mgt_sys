@@ -130,15 +130,15 @@ class AppointmentEdit(UpdateView):
     fields = ('name', 'date_time', 'reason', 'email', 'twitter_id', 'phone')
 
 
-def appointment_view(request, pk):
+def appointment_view__for_specific_instructor(request, pk):
     inst = get_object_or_404(Instructor, pk=pk)
-    appoint = Appointment.objects.filter()
+    qs = inst.appointment_set.all()
     return render(
         request,
         'appointment_list.html',
         {
             'instructor': inst,
-            'appointments': appoint
+            'appointments': qs
         })
 
 
