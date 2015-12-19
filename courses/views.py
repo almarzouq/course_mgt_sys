@@ -428,6 +428,7 @@ def list_students_grades_in_course(request, course_id):
     student = course_obj.students.all()
     grades = Grade.objects.filter(column__course=course_id)
 
+    student_grade_column_list = []
     student_grade_value_list = []
     student_info_dict = {}
     student_grade_id_list = []
@@ -435,30 +436,38 @@ def list_students_grades_in_course(request, course_id):
     student_grade_column_dict = {}
     big = []
     lists = []
-    for s in student:
-        student_info_dict = {}
-        student_grade_column_list = []
-        student_grade_value_list = []
+    if not student:
         for gc in gradecolumns:
             student_grade_value_dict = {}
             student_grade_column_dict = {}
             student_grade_column_dict[gc.total] = gc.name
-            for g in grades:
-                if gc.pk == g.column.pk:
-                    if s.pk == g.student.pk:
-                        student_grade_value_dict[g.pk] = g.value
-            if len(student_grade_value_dict) < len(student_grade_column_dict):
-                student_grade_value_dict[gc.pk] = ''
             student_grade_column_list.append(student_grade_column_dict)
-            student_grade_value_list.append(student_grade_value_dict)
-        student_info_dict[s.university_id] = [student_grade_value_list, s.pk]
-        big.append(student_info_dict)
+    else:
 
-    for grade in grades:
-        lists.append(grade.pk)
-        lists.append(grade.value)
-        lists.append(grade.student.university_id)
-        lists.append(grade.column.name)
+        for s in student:
+            student_info_dict = {}
+            student_grade_column_list = []
+            student_grade_value_list = []
+            for gc in gradecolumns:
+                student_grade_value_dict = {}
+                student_grade_column_dict = {}
+                student_grade_column_dict[gc.total] = gc.name
+                for g in grades:
+                    if gc.pk == g.column.pk:
+                        if s.pk == g.student.pk:
+                            student_grade_value_dict[g.pk] = g.value
+                if len(student_grade_value_dict) < len(student_grade_column_dict):
+                    student_grade_value_dict[gc.pk] = ''
+                student_grade_column_list.append(student_grade_column_dict)
+                student_grade_value_list.append(student_grade_value_dict)
+            student_info_dict[s.university_id] = [student_grade_value_list, s.pk]
+            big.append(student_info_dict)
+
+        for grade in grades:
+            lists.append(grade.pk)
+            lists.append(grade.value)
+            lists.append(grade.student.university_id)
+            lists.append(grade.column.name)
 
     return render(
         request,
@@ -468,7 +477,8 @@ def list_students_grades_in_course(request, course_id):
             'student_grade_column': student_grade_column_list,
             'student_grade_value': student_grade_id_list,
             's': big,
-            'g': lists
+            'g': lists,
+            'ss': student
         }
     )
 
