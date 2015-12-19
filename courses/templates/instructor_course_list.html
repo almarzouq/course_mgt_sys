@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %}
+<div class="page-header">
+  <h1>
+    <span class="glyphicon glyphicon-list"></span> {% block title %}Courses{% endblock %}</h1>
+</div>
+<table class="table table-bordered table-striped">
+  <tr>
+    <th>#</th>
+    <th>Course Name</th>
+    <th>View</th>
+  </tr>
+  {% for c in courses %}
+
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><a href="{% url 'student_view_course_announcments' c.pk %}">{{ c.name }}</a></td>
+    <td>
+      <a href="{% url 'student_view_course_announcments' c.pk %}">
+        <span class="btn btn-primary btn-xs glyphicon glyphicon-zoom-in"> Detail</span>
+      </a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

@@ -339,18 +339,48 @@ class CourseEdit(UpdateView):
 
 @login_required
 def list_of_courses_to_add(request):
-    qs = Course.objects.all()
-    student = get_object_or_404(Student, name=request.user)
-    return render(
-        request,
-        'course_list_to_add.html',
-        {
-            'courses': qs,
-            'student_id': student.pk
-        }
-    )
+    if not request.user.is_instructor():
+        qs = Course.objects.all()
+        student = get_object_or_404(Student, name=request.user)
+        return render(
+            request,
+            'course_list_to_add.html',
+            {
+                'courses': qs,
+                'student_id': student.pk
+            }
+        )
+    else:
+        qs = Course.objects.all()
+        return render(
+            request,
+            'instructor_course_list.html',
+            {
+                'courses': qs,
+            }
+        )
 
-
+def my_list_of_courses_to_add(request):
+    if not request.user.is_instructor():
+        qs = Course.objects.filter(students=request.user.student)
+        student = get_object_or_404(Student, name=request.user)
+        return render(
+            request,
+            'student_course_list.html',
+            {
+                'courses': qs,
+                'student_id': student.pk
+            }
+        )
+    else:
+        qs = Course.objects.filter(instructor=request.user.instructor)
+        return render(
+            request,
+            'instructor_course_list.html',
+            {
+                'courses': qs,
+            }
+        )
 
 def student_attendance(request, course_id, lecture_id):
     obj = Lecture.objects.get(pk=lecture_id)

@@ -12,12 +12,14 @@
     <th>Add</th>
   </tr>
   {% for c in courses %}
+  {% if c.student_registration_open %}
     <tr>
       <td>{{ forloop.counter }}</td>
       <td><a href="{% url 'student_view_course_announcments' c.pk %}">{{ c.name }}</a></td>
       <td><a href="{% url 'student_view_course_announcments' c.pk %}"><span class="btn btn-primary btn-xs glyphicon glyphicon-zoom-in">  Detail</span></a></td>
       <td><a href="{% url 'student_join_course' c.pk %}"><span class="btn btn-default" type="submit" value="add"> Add</span></a></td>
     </tr>
+    {% endif %}
   {% endfor %}
 </table>
 {% endblock %}
