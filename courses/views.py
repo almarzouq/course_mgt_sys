@@ -175,7 +175,7 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
-
+@login_required
 def list_student_grade(request, course_id, student_id):
     course_obj = get_object_or_404(Course, pk=course_id)
     gradecolumns = course_obj.gradecolumn_set.all()
@@ -198,7 +198,7 @@ def list_student_grade(request, course_id, student_id):
             student_grade_value_dict[gc.pk] = ''
         student_grade_column_list.append(student_grade_column_dict)
         student_grade_value_list.append(student_grade_value_dict)
-        # cycle to change color background in table
+
     return render(
         request,
         'list_student_grade.html',
@@ -210,6 +210,7 @@ def list_student_grade(request, course_id, student_id):
             'student': student,
         }
     )
+
 
 
 @login_required
