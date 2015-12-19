@@ -10,7 +10,7 @@ urlpatterns = [
         views.view_course_gradecolumn, name='view_course_gradecolumn'),
     url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/edit/$',
         views.gradecolumn_edit, name='gradecolumn_edit'),
-    url(r'^course/(?P<course_id>\d+)/enroll/(?P<student_id>\d+)/$',
+    url(r'^course/(?P<course_id>\d+)/student/(?P<student_id>\d+)/add/$',
         views.instructor_add_student_to_course, name='instructor_add_student_to_course'),
     url(r'^course/(?P<course_id>\d+)/join/$',
         views.student_join_course, name='student_join_course'),
