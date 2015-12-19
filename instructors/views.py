@@ -83,7 +83,6 @@ class AnnouncementEdit(UpdateView):
     fields = ('name', 'comment')
 
 
-@login_required
 def appointment_create(request, pk):
     inst = get_object_or_404(Instructor, pk=pk)
     if request.method == 'POST':
