@@ -48,7 +48,7 @@ class InstructorEditProfile(UpdateView):
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
         if not self.request.user.is_instructor():
-            raise Http404# or redirect
+            raise Http404  # or redirect
         else:
             return super(InstructorEditProfile, self).dispatch(*args, **kwargs)
 
@@ -57,8 +57,7 @@ class InstructorEditProfile(UpdateView):
 def create_general_announcment(request, instructor_id):
     # Protect Example: how to protect a view function
     if not request.user.is_instructor():
-        raise Http404# or redirect
-
+        raise Http404  # or redirect
     if request.method == 'POST':
         form = AnnouncementForm(request.POST)
         if form.is_valid():
@@ -81,6 +80,13 @@ class AnnouncementEdit(UpdateView):
     template_name = 'edit_general_announcement.html'
     context_object_name = 'announcement'
     fields = ('name', 'comment')
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_instructor():
+            raise Http404
+        else:
+            return super(AnnouncementEdit, self).dispatch(*args, **kwargs)
 
 
 def appointment_create(request, pk):
@@ -142,7 +148,11 @@ def appointment_delete(request, pk):
     messages.success(request, 'appointment was successfully deleted')
     return redirect(reverse('appointment_list'))
 
+
+@login_required
 def appointment_approve(request, pk):
+    if not request.user.is_instructor():
+        raise Http404
     appo = get_object_or_404(Appointment, pk=pk)
     appo.approved = True
     appo.save()
@@ -152,7 +162,10 @@ def appointment_approve(request, pk):
     }))
 
 
+@login_required
 def appointment_decline(request, pk):
+    if not request.user.is_instructor():
+        raise Http404
     appo = get_object_or_404(Appointment, pk=pk)
     appo.approved = False
     appo.save()
