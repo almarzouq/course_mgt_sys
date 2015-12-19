@@ -1,0 +1,27 @@
+{%extends "base.html"%} {% block content %}
+<h1> Course List </h1>
+
+<div class="list-group">
+  {% for course in courses %}
+  <ul>
+    <li class="list-group-item">
+
+      <p class="list-group-item-heading"> Course Name: {{ course.name }}  </p>
+
+      <p class="list-group-item-text">Year: {{course.academic_year}} </p>
+      <p class="list-group-item-text">Section: {{ course.tag }} </p>
+
+
+      <p class="list-group-item-text">Semester: {{ course.semester }} {{ course.academic_year }} </p>
+
+      <a class="btn btn-default" href="{% url 'list_course_grade_column' course.pk %}"> Grade Column </a>
+      <a class="btn btn-default" href="{% url 'instructor_view_course_stundets_announcments' course.pk %}"> Details </a>
+
+
+</li>
+
+      </ul>
+
+  {%endfor%}
+</div>
+  {% endblock %}

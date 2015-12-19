@@ -58,6 +58,8 @@ other head content must come *after* these tags -->
           <li><a href="{% url 'index' %}"> Home </a></li>
           <li><a href="{% url 'students_list' %}"> Student </a></li>
           <li><a href="{% url 'instructor_list' %}"> Faculty </a></li>
+          <li><a href="{% url 'course_list' %}"> Course </a></li>
+
           {% if user.is_authenticated %}
           <li><a href="{% url 'account_logout' %}"> Sign Out </a></li>
 
