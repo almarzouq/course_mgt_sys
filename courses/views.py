@@ -293,6 +293,12 @@ class CourseEdit(UpdateView):
     context_object_name = "course"
     fields = '__all__'
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_instructor():
+            raise Http404
+        else:
+            return super(CourseEdit, self).dispatch(*args, **kwargs)
 
 def list_of_courses_to_add(request):
     qs = Course.objects.all()
