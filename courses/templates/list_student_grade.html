@@ -3,7 +3,7 @@
   table,
   th,
   td {
-    border: 1px solid black;
+    border: 0px solid black;
     border-collapse: collapse;
   }
 
@@ -17,7 +17,7 @@
 Student Name: {{student.name}}
 <br> Student ID: {{student.university_id}}
 
-<table border="1" style="width:100%">
+<table class="table table-striped">
 
   <tr>
     {% for dict in student_grade_column %} {% for key, value in dict.items %}
@@ -26,7 +26,7 @@ Student Name: {{student.name}}
     {% endfor %} {% endfor %}
   </tr>
   <tr>
-    {% for dict in student_grade_value %} {% for key, value in dict.items %} {% if value != "" %}
+    {% for dict in student_grade_value %} {% for key, value in dict.items %} {% if user.is_instructor %} {% if value != "" %}
     <td align="center">{{value}}
       <br>
       <a href="{% url 'edit_student_grade' course_id student.pk 1 key %}"> Edit Grade </a>
@@ -36,6 +36,10 @@ Student Name: {{student.name}}
     <td>
       <a href="{% url 'post_student_grade' course_id student.pk key %}"> Add Grade </a>
     </td>
+    {% endif %}
+    {% else %}
+    <td align="center">{{value}}
+      </td>
     {% endif %} {% endfor %} {% endfor %}
   </tr>
 

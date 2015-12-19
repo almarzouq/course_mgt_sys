@@ -8,6 +8,10 @@ class NewCourseForm(forms.ModelForm):
     class Meta:
         model = Course
         fields = '__all__'
+        widgets = {
+            'students': forms.HiddenInput,
+            'instructor': forms.HiddenInput,
+        }
 
 
 class GradeForm(forms.ModelForm):

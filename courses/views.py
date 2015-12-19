@@ -14,6 +14,9 @@ from .forms import NewCourseForm, GradeForm, Grade
 
 
 from students.models import Student
+
+from instructors.models import Instructor
+
 from courses.models import Course, CourseAnnouncement, Grade, GradeColumn, Lecture, Attendance
 
 from .forms import (NewCourseForm, GradeForm,
@@ -33,7 +36,8 @@ def course_create(request):
             obj = form.save()
             return redirect(obj)
     else:
-        form = NewCourseForm()
+        instructor = Instructor.objects.get(name=request.user)
+        form = NewCourseForm(initial={'instructor': instructor})
     return render(
         request,
         'course_create.html',
@@ -42,8 +46,10 @@ def course_create(request):
         }
     )
 
-
+@login_required
 def list_course_grade_column(request, course_id):
+    if not request.user.is_instructor():
+        raise Http404
     course_obj = get_object_or_404(Course, pk=course_id)
     qs = course_obj.gradecolumn_set.all()
 
@@ -54,8 +60,10 @@ def list_course_grade_column(request, course_id):
                   }
                   )
 
-
+@login_required
 def view_course_gradecolumn(request, course_id, gradecolumn_id):
+    if not request.user.is_instructor():
+        raise Http404
     course_obj = get_object_or_404(Course, pk=course_id)
     try:
         gc_obj = course_obj.gradecolumn_set.get(pk=gradecolumn_id)
@@ -67,8 +75,10 @@ def view_course_gradecolumn(request, course_id, gradecolumn_id):
     }
     )
 
-
+@login_required
 def gradecolumn_edit(request, gradecolumn_id, course_id):
+    if not request.user.is_instructor():
+        raise Http404
     course = get_object_or_404(Course, pk=course_id)
     gc = course.gradecolumn_set.get(pk=gradecolumn_id)
     if request.method == 'POST':
@@ -89,6 +99,7 @@ def gradecolumn_edit(request, gradecolumn_id, course_id):
                       'course': course,
 
                   })
+
 
 
 @login_required
@@ -160,7 +171,7 @@ def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
-
+@login_required
 def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
     grade = get_object_or_404(Grade, pk=grade_id)
     return render(
@@ -175,7 +186,7 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         }
     )
 
-
+@login_required
 def list_student_grade(request, course_id, student_id):
     course_obj = get_object_or_404(Course, pk=course_id)
     gradecolumns = course_obj.gradecolumn_set.all()
@@ -198,7 +209,7 @@ def list_student_grade(request, course_id, student_id):
             student_grade_value_dict[gc.pk] = ''
         student_grade_column_list.append(student_grade_column_dict)
         student_grade_value_list.append(student_grade_value_dict)
-        # cycle to change color background in table
+
     return render(
         request,
         'list_student_grade.html',
@@ -210,6 +221,7 @@ def list_student_grade(request, course_id, student_id):
             'student': student,
         }
     )
+
 
 
 @login_required
@@ -293,7 +305,14 @@ class CourseEdit(UpdateView):
     context_object_name = "course"
     fields = '__all__'
 
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        if not self.request.user.is_instructor():
+            raise Http404
+        else:
+            return super(CourseEdit, self).dispatch(*args, **kwargs)
 
+@login_required
 def list_of_courses_to_add(request):
     qs = Course.objects.all()
     return render(
