@@ -3,7 +3,7 @@
   <h1>
     <span class="glyphicon glyphicon-list"></span> {% block title %}Courses{% endblock %}</h1>
 {% if user.is_instructor %}
-    <a class="btn btn-default" href="{% url 'course_create' %}"> Create Course  </a>
+    <a class="btn btn-default btn-primary" href="{% url 'course_create' %}"> Create Course  </a>
 {% endif %}
 
 </div>
