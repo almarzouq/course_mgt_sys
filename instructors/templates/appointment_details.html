@@ -20,7 +20,7 @@
   <h4>This appointment was declined </h4> {% else %}
   {% if user.is_instructor %}
   </br>
-  <a class="btn btn-default" href="{% url 'appointment_approve' appointment.pk %}">
+  <a class="btn btn-default btn-primary" href="{% url 'appointment_approve' appointment.pk %}">
   Approve
 </a>
   <a class="btn btn-default btn-primary" href="{% url 'appointment_decline' appointment.pk %}">
