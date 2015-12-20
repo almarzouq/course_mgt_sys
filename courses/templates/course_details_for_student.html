@@ -24,8 +24,7 @@
   </p>
 </a>
 {% endfor %}
-{% endblock %}
 <h4> Your grades: </h4>
 <br>
-<a class="list-group-item">
-   <a href="#">Student grade</a>
+<a href="{% url 'list_student_grade' course.pk student.pk %}"> View Grade </a>
+{% endblock %}
