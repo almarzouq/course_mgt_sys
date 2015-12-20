@@ -15,7 +15,7 @@ from .forms import NewCourseForm, GradeForm, Grade
 
 from students.models import Student
 
-from instructors.models import Instructor
+from instructors.models import Instructor, Announcement
 
 from courses.models import (Course, CourseAnnouncement, Grade,
                             GradeColumn, Lecture, Attendance,
@@ -542,12 +542,13 @@ class CourseAnnouncementEdit(UpdateView):
 def student_view_course_announcments(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
     announcments = CourseAnnouncement.objects.filter(course__pk=course_id)
+    students = Student.objects.filter(course__pk=course_id)
     return render(
         request,
         "course_details_announcments.html",
         {
             'course': course,
-            'students': None,
+            'students': students,
             'announcments': announcments
         })
 
@@ -555,3 +556,28 @@ def student_view_course_announcments(request, course_id):
 def course_list(request):
     obj = Course.objects.all()
     return render(request, 'course_list.html', {'courses': obj})
+
+def list_of_announcements(request):
+    if request.user.is_anonymous():
+        course_announcements = None
+        instructor_announcements = None
+        in_anno_massage = ''
+        c_anno_massage = ''
+    elif not request.user.is_instructor():
+        course_announcements = CourseAnnouncement.objects.filter(
+            course__students=request.user.student)
+        c_anno_massage = 'No announcments in your courses'
+        instructor_announcements = Announcement.objects.filter(
+            instructor__course__students=request.user.student)
+        in_anno_massage = 'your instructors didnt post any announcement yet'
+    else:
+        course_announcements = CourseAnnouncement.objects.filter(
+            course__instructor=request.user.instructor)
+        c_anno_massage = 'No announcments in your courses'
+        instructor_announcements = Announcement.objects.filter(
+            instructor=request.user.instructor)
+        in_anno_massage = 'you didnt post any announcement yet'
+    return render(request, 'index.html', {'course_announcements': course_announcements,
+                                          'instructor_announcements': instructor_announcements,
+                                          'c_anno_massage': c_anno_massage,
+                                          'in_anno_massage': in_anno_massage},)

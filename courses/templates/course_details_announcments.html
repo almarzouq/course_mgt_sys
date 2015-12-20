@@ -12,7 +12,7 @@
 </a>
 <br>
 <h2> Student List: </h2>
-
+{% if user.is_instructor %}
 {% for student in students %}
 <br>
 <a class="list-group-item">
@@ -25,10 +25,13 @@
 </a>
 {% empty %}
     <h4>
-    No Students Added to the List
+    there are no registered students
   </h4>
 
 {% endfor %}
+{% else %}
+<h4> Sorry only instructor can view this <h4>
+  {% endif %}
 <br>
 <h3> Course Announcments: </h3>
 {% for announcment in announcments %}
@@ -44,6 +47,7 @@
 {% endfor %}
 {% if user.is_instructor %}
   <br/>  <a class="btn btn-default btn-primary" href="{% url 'lecture_create' course.id %}"> Add new Lecture  </a>
+   <a class="btn btn-default btn-primary" href="{% url 'create_course_announcment' course.id %}"> Add Course Announcement  </a>
 {% endif %}
 
 {% endblock %}
