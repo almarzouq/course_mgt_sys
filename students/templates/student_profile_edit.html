@@ -2,6 +2,6 @@
 <div>
   <form method="post" action="{% url 'student_edit'  %}"> {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
 
-    <input class="btn btn-default" type="submit" value="Done"> </form>
+    <input class="btn btn-default btn-primary" type="submit" value="Done"> </form>
 </div>
 {% endblock %}

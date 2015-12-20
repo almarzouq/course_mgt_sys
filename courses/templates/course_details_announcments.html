@@ -25,7 +25,7 @@
 </a>
 {% empty %}
     <h4>
-    Sorry only instructor can see this list
+    No Students Added to the List
   </h4>
 
 {% endfor %}
@@ -42,4 +42,8 @@
   </p>
 </a>
 {% endfor %}
+{% if user.is_instructor %}
+  <br/>  <a class="btn btn-default btn-primary" href="{% url 'lecture_create' course.id %}"> Add new Lecture  </a>
+{% endif %}
+
 {% endblock %}
