@@ -232,7 +232,7 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
 @login_required
 def list_student_grade(request, course_id, student_id):
     course_obj = get_object_or_404(Course, pk=course_id)
-    gradecolumns = course_obj.gradecolumn_set.all()
+    gradecolumns = course_obj.gradecolumn_set.all().order_by("id")
     student = get_object_or_404(Student, pk=student_id)
     grades = student.grade_set.all()
 
@@ -471,7 +471,7 @@ def student_view_course_announcments_grades(request, course_id, student_id):
 
 def list_students_grades_in_course(request, course_id):
     course_obj = get_object_or_404(Course, pk=course_id)
-    gradecolumns = course_obj.gradecolumn_set.all()
+    gradecolumns = course_obj.gradecolumn_set.all().order_by("id")
     student = course_obj.students.all()
     grades = Grade.objects.filter(column__course=course_id)
 
