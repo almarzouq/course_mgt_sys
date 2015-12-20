@@ -31,13 +31,12 @@
 </ul>
 <h2> Announcement </h2>
 <br/> {% for announcement in announcements %}
-<li class="list-group-item">
-  <h4 class="list-group-item-heading">Name: {{announcement.name}}
-  </h4>
-  <p class="list-group-item-text">Description: {{announcement.comment}}
-  </p>
-  <p class="list-group-item-text">submitted at: {{announcement.submitted_at}}
-  </p>
+<div class="list-group">
+  <a class="list-group-item">
+    <h4 class="list-group-item-heading">{{announcement.instructor.name}}</h4>
+    <p class="list-group-item-text">{{announcement.comment}}</p>
+  </a>
+</div>
   {% empty %}
   <div class="alert alert-info" role="alert">
     <p class="alert-link"> There is no announcement available yet
