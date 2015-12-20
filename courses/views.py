@@ -553,3 +553,8 @@ def student_view_course_announcments(request, course_id):
 def course_list(request):
     obj = Course.objects.all()
     return render(request, 'course_list.html', {'courses': obj})
+
+
+@login_required
+def add_announcment(request):
+    return render(request, 'add_announcment.html')

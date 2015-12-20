@@ -61,4 +61,6 @@ urlpatterns = [
         views.gradecolumn_delete, name='gradecolumn_delete'),
     url(r'^list/$', views.course_list,
         name='course_list'),
+    url(r'^add/announcment$', views.add_announcment,
+        name='add_announcment'),
 ]
