@@ -13,13 +13,28 @@ class StudentEditForm(forms.ModelForm):
         }
 
 
+class InstructorStudentEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Student
+        fields = '__all__'
+        widgets = {
+
+        'user' : forms.HiddenInput,
+        }
+
+
+
 class SignupForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
+        widgets = {
+        'user' : forms.HiddenInput,
+        }
     # university_id = forms.CharField(required=False)
     # twitter_id = forms.CharField(required=False)
-    
+
     def signup(self, request, user):
         Student.objects.create(
             user=user,
