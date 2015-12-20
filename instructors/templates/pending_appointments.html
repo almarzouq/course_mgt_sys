@@ -1,17 +1,15 @@
 {% extends "base.html" %} {% block content %}
 <h1>Available Appointments</h1>
-<div class="list-group">
   {% for a in appointments %}
-  </br>
-  <a class="list-group-item" href="{% url 'appointment_details' a.id %}">
-    </br>
-    <span class="badge">
-      {{a.date_time}}
-    </span>
-
-    <h4 class="list-group-item-heading">Name: {{a.name}}</h4> ​
-    <p class="list-group-item-text">Reason: {{a.reason}}</p>
-    ​ </a>
+  <div class="list-group">
+    <a href= "{% url 'appointment_details' a.pk %}" class="list-group-item">
+      <span class="badge">
+        {{a.date_time}}
+      </span>
+      <h4 class="list-group-item-heading">{{a.name}}</h4>
+      <p class="list-group-item-text">{{a.reason}}</p>
+    </a>
+  </div>
   {% empty %}
 
   <h2>
