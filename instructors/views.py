@@ -7,13 +7,24 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.http import Http404
 from .models import Instructor, Appointment, Announcement
-from .forms import AppointmentForm, AnnouncementForm
+from .forms import AppointmentForm, AnnouncementForm, InstructorForm
 
 
-class InstructorCreate(CreateView):
-    model = Instructor
-    fields = '__all__'
-    template_name = 'instructor_create_profile.html'
+def instructor_create(request):
+
+    if request.method == 'POST':
+        form = InstructorForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('instructor_list')
+    else:
+        form = InstructorForm(initial={'user': request.user.pk, })
+    return render(
+        request,
+        'instructor_create_profile.html',
+        {
+            'form': form,
+        })
 
 
 # Create your views here.
