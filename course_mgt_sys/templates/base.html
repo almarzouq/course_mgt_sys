@@ -71,6 +71,7 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Student Actions
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
+              <li><a href="{% url 'instructor_list' %}"> Faculty </a></li>
               <li><a href="{% url 'student_view' request.user.student.pk %}"> My Profile </a></li>
               <li><a href="{% url 'course_list_to_add' %}"> My Course List </a></li>
             </ul>
