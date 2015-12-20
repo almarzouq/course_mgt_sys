@@ -5,7 +5,7 @@ from instructors import views
 
 
 urlpatterns = [
-    url(r'^instructor/create/$', views.InstructorCreate.as_view(),
+    url(r'^instructor/create/$', views.instructor_create,
         name='instructor_create',),
     url(r'^instructor/(?P<pk>\d+)/$', views.instructor_view,
         name='instructor_view'),

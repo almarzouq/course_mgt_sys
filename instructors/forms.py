@@ -12,6 +12,9 @@ class InstructorForm(forms.ModelForm):
     class Meta:
         model = Instructor
         fields = '__all__'
+        widgets = {
+            'user': forms.HiddenInput,
+        }
 
 
 class AnnouncementForm(forms.ModelForm):
