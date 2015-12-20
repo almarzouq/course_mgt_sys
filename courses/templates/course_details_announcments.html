@@ -47,6 +47,7 @@
 {% endfor %}
 {% if user.is_instructor %}
   <br/>  <a class="btn btn-default btn-primary" href="{% url 'lecture_create' course.id %}"> Add new Lecture  </a>
+   <a class="btn btn-default btn-primary" href="{% url 'create_course_announcment' course.id %}"> Add Course Announcement  </a>
 {% endif %}
 
 {% endblock %}
