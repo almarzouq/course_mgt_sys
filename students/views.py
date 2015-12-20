@@ -7,7 +7,7 @@ from django.views.generic.edit import CreateView
 from django.db.models import Q
 from django.views.generic import ListView
 
-from .forms import StudentEditForm 
+from .forms import StudentEditForm,SignupForm
 from .models import Student
 
 def student_profile(request, pk):
@@ -19,6 +19,17 @@ def student_profile(request, pk):
             'student': qs,
         })
 
+def student_register(request):
+    if request.method == 'POST':
+        form = SignupForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = SignupForm(initial={'instructor': inst, })
+
+
+
 
 class StudentRegister(CreateView):
     # to use the models variable
@@ -28,20 +39,17 @@ class StudentRegister(CreateView):
     template_name = 'student_profile_create.html'
 
 
-def edit_profile(request, pk):
-    obj = Student.objects.get(pk=pk)
+def edit_profile(request):
+    obj = Student.objects.get(user_id=request.user.id)
     if request.method == 'POST':
         form = StudentEditForm(request.POST, instance=obj)
         if form.is_valid():
-
             form.save()
-
 # changed functionality to switch to the students list instead of view
 # that students own profile
-
             return redirect('students_list')
     else:
-        form = StudentEditForm(instance=obj)
+        form = StudentEditForm(initial={'user' : request.user },instance=obj)
     return render(request,
                   'student_profile_edit.html',
                   {
