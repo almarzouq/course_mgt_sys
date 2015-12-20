@@ -468,8 +468,11 @@ def student_view_course_announcments_grades(request, course_id, student_id):
                       'student': student,
                   })
 
-
+@login_required
 def list_students_grades_in_course(request, course_id):
+    if not request.user.is_instructor():
+        raise Http404
+
     course_obj = get_object_or_404(Course, pk=course_id)
     gradecolumns = course_obj.gradecolumn_set.all().order_by("id")
     student = course_obj.students.all()
@@ -507,7 +510,8 @@ def list_students_grades_in_course(request, course_id):
                     student_grade_value_dict[gc.pk] = ''
                 student_grade_column_list.append(student_grade_column_dict)
                 student_grade_value_list.append(student_grade_value_dict)
-            student_info_dict[s.university_id] = [student_grade_value_list, s.pk]
+            student_info_dict[s.university_id] = [
+                student_grade_value_list, s.pk]
             big.append(student_info_dict)
 
         for grade in grades:
