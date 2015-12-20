@@ -19,10 +19,10 @@
   <h4>This appointment was approved</h4> {% elif appointment.approved == False %}
   <h4>This appointment was declined </h4> {% else %}
   </br>
-  <a class="btn btn-default" href="{% url 'appointment_approve' appointment.pk %}">
+  <a class="btn btn-default btn-primary" href="{% url 'appointment_approve' appointment.pk %}">
   Approve
 </a>
-  <a class="btn btn-default" href="{% url 'appointment_decline' appointment.pk %}">
+  <a class="btn btn-default btn-primary" href="{% url 'appointment_decline' appointment.pk %}">
   Decline
 </a> {% endif %}
 
