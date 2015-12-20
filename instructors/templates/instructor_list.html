@@ -26,15 +26,14 @@
 
       <p class="list-group-item-text">Twitter Username: {{instructor.twitter_id}}
       </p>
-
-       <a class="btn btn-default" href="{% url 'instructor_edit' instructor.pk %}"> Edit Instructor </a>
         <a class="btn btn-default" href="{% url 'appointment_view' instructor.pk %}"> View Appointments </a>
         <a class="btn btn-default" href="{% url 'instructor_view' instructor.pk %}"> View Announcements </a>
         <a class="btn btn-default" href="{% url 'take_appointment' instructor.pk %}"> Take an appointment </a>
       </ul>
 
   {%endfor%}
+  {% if user.is_instructor %}
   <a class="btn btn-default" href="{% url 'instructor_create' %}"> register instructor </a>
-
+ {% endif %}
 </div>
   {% endblock %}
