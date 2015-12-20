@@ -2,6 +2,10 @@
 <div class="page-header">
   <h1>
     <span class="glyphicon glyphicon-list"></span> {% block title %}Courses{% endblock %}</h1>
+
+    <a class="btn btn-default" href="{% url 'course_create' %}"> Create Course  </a>
+
+
 </div>
 <table class="table table-bordered table-striped">
   <tr>
@@ -23,9 +27,9 @@
       </a>
     </td>
     <td>
-        <a class="btn btn-default" href="{% url 'list_course_grade_column' course.pk %}"> Grade Column </a>
-        <a class="btn btn-default" href="{% url 'instructor_view_course_stundets_announcments' course.pk %}"> Course Details </a>
-        <a class="btn btn-default" href="{% url 'list_students_grades_in_course' course.pk %}"> Grades in Course  </a>
+        <a class="btn btn-default" href="{% url 'list_course_grade_column' c.pk %}"> Grade Column </a>
+        <a class="btn btn-default" href="{% url 'instructor_view_course_stundets_announcments' c.pk %}"> Course Details </a>
+        <a class="btn btn-default" href="{% url 'list_students_grades_in_course' c.pk %}"> Grades in Course  </a>
     </td>
   </tr>
   {% endfor %}
