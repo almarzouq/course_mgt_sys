@@ -17,7 +17,8 @@
   </a>
   <br/> {% if appointment.approved == True %}
   <h4>This appointment was approved</h4> {% elif appointment.approved == False %}
-  <h4>This appointment was declined </h4> {% else %}
+  <h4>This appointment was declined </h4> {% else %}    {% if user.is_instructor %}
+
   </br>
   <a class="btn btn-default" href="{% url 'appointment_approve' appointment.pk %}">
   Approve
@@ -31,7 +32,7 @@
   <a class="btn btn-default" href="{% url 'appointment_delete' appointment.pk %}">
     Delete Appointment
   </a>
-
+  {% endif %}
 </html>
 
 {% endblock %}

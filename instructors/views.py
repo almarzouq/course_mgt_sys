@@ -134,6 +134,12 @@ class AppointmentList(ListView):
     context_object_name = "appointments"
 
 
+class PendingAppointmentList(ListView):
+    queryset = Appointment.objects.filter(approved=True)
+    template_name = "pending_appointments.html"
+    context_object_name = "appointments"
+
+
 class AppointmentEdit(UpdateView):
     model = Appointment
     template_name = 'appointment_edit.html'
