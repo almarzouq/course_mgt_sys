@@ -63,14 +63,12 @@ other head content must come *after* these tags -->
           {% if user.is_authenticated %}
           {% if user.is_instructor %}
           <li><a href="{% url 'my_course_list_to_add' %}"> My Course List </a></li>
-          <li><a href="{% url 'instructor_view' request.user.pk %}"> My Profile </a></li>
-          <li><a href="{% url 'create_general_announcment' request.user.pk %}"> Add General Announcement </a></li>
+          <li><a href="{% url 'instructor_view' request.user.instructor.pk %}"> My Profile </a></li>
+          <li><a href="{% url 'create_general_announcment' request.user.instructor.pk %}"> Add General Announcement </a></li>
           <li><a href="{% url 'pending_appointment_list' request.user.instructor.pk %}"> Pending Appointment </a></li>
 
 
-          <li><a href="{% url 'instructor_view' request.user.instructor.pk %}"> My Profile </a></li>
-          <li><a href="{% url 'my_course_list_to_add' %}"> My Course List </a></li>
-          <li><a href="{% url 'create_general_announcment' request.user.instructor.pk %}"> Add General Announcement </a></li>
+
           {% else %}
           <li><a href="{% url 'student_view' request.user.student.pk %}"> My Profile </a></li>
           <li><a href="{% url 'course_list_to_add' %}"> My Course List </a></li>
