@@ -47,11 +47,9 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           {% block nav %}
-          <li><a href="{% url 'index' %}"> Home </a></li>
+          {# <li><a href="{% url 'index' %}"> Home </a></li>#}
           <li><a href="{% url 'students_list' %}"> Student </a></li>
-          <li><a href="{% url 'instructor_list' %}"> Faculty </a></li>
           <li><a href="{% url 'course_list' %}"> Course </a></li>
-
 
 
           {% if user.is_authenticated %}
@@ -60,13 +58,11 @@
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Instructor Actions
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
+              <li><a href="{% url 'instructor_list' %}"> Faculty </a></li>
               <li><a href="{% url 'my_course_list_to_add' %}"> My Course List </a></li>
               <li><a href="{% url 'instructor_view' request.user.pk %}"> My Profile </a></li>
               <li><a href="{% url 'create_general_announcment' request.user.pk %}"> Add General Announcement </a></li>
               <li><a href="{% url 'pending_appointment_list' request.user.instructor.pk %}"> Pending Appointment </a></li>
-              <li><a href="{% url 'instructor_view' request.user.instructor.pk %}"> My Profile </a></li>
-              <li><a href="{% url 'my_course_list_to_add' %}"> My Course List </a></li>
-              <li><a href="{% url 'create_general_announcment' request.user.instructor.pk %}"> Add General Announcement </a></li>
             </ul>
           </li>
           {% else %}
