@@ -134,6 +134,19 @@ class AppointmentList(ListView):
     context_object_name = "appointments"
 
 
+
+def pending_appointment_list(request, pk):
+    inst = get_object_or_404(Instructor, pk=pk)
+    qs = inst.appointment_set.filter(approved__isnull=True)
+    return render(
+        request,
+        'pending_appointments.html',
+        {
+            'instructor': inst,
+            'appointments': qs
+        })
+
+
 class AppointmentEdit(UpdateView):
     model = Appointment
     template_name = 'appointment_edit.html'

@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^student/create/$', views.StudentRegister.as_view(),
         name="student_register",),
     url(r'^student/edit/$', views.edit_profile, name="student_edit",),
+
+    url(r'^student/instructor/edit/(?P<pk>\d+)$',views.instructor_edit_profile,name="instructor_student_edit",),
     url(r'^filter/(?P<search_text>\w+)/$',
         views.student_search, name="student_search",),
     url(r'^list$', views.students_list, name='students_list',),

@@ -38,8 +38,8 @@ def course_create(request):
             obj = form.save()
             return redirect(obj)
     else:
-        instructor = Instructor.objects.get(name=request.user)
-        form = NewCourseForm(initial={'instructor': instructor})
+        instructor = request.user.instructor
+        form = NewCourseForm(initial={'instructor': instructor.pk})
     return render(
         request,
         'course_create.html',

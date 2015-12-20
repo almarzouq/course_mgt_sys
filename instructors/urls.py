@@ -36,6 +36,7 @@ urlpatterns = [
         views.appointment_approve, name='appointment_approve'),
     url(r'^appointment/(?P<pk>\d+)/decline/$',
         views.appointment_decline, name='appointment_decline'),
-
+    url(r'^/instructor/(?P<pk>\d+)/pending/appointment/list/$', views.pending_appointment_list,
+        name='pending_appointment_list',),
 
 ]

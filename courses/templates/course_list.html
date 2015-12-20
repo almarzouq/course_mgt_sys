@@ -2,9 +2,9 @@
 <div class="page-header">
   <h1>
     <span class="glyphicon glyphicon-list"></span> {% block title %}Courses{% endblock %}</h1>
-
-    <a class="btn btn-default" href="{% url 'course_create' %}"> Create Course  </a>
-
+{% if user.is_instructor %}
+    <a class="btn btn-default btn-primary" href="{% url 'course_create' %}"> Create Course  </a>
+{% endif %}
 
 </div>
 <table class="table table-bordered table-striped">
@@ -27,9 +27,10 @@
       </a>
     </td>
     <td>
-        <a class="btn btn-default" href="{% url 'list_course_grade_column' c.pk %}"> Grade Column </a>
-        <a class="btn btn-default" href="{% url 'instructor_view_course_stundets_announcments' c.pk %}"> Course Details </a>
-        <a class="btn btn-default" href="{% url 'list_students_grades_in_course' c.pk %}"> Grades in Course  </a>
+        <a class="btn btn-default btn-primary" href="{% url 'list_course_grade_column' c.pk %}"> Grade Column </a>
+        <a class="btn btn-default btn-primary" href="{% url 'instructor_view_course_stundets_announcments' c.pk %}"> Course Details </a>
+        <a class="btn btn-default btn-primary" href="{% url 'list_students_grades_in_course' c.pk %}"> Grades in Course  </a>
+        <a class="btn btn-default btn-primary" href="{% url 'lecture_list' c.pk %}"> Lecture List  </a>
     </td>
   </tr>
   {% endfor %}
