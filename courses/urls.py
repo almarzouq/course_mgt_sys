@@ -59,5 +59,6 @@ urlpatterns = [
         views.lectures_list, name='lecture_list',),
     url(r'^course/(?P<course_id>\d+)/gradecolumn/(?P<gradecolumn_id>\d+)/delete/$',
         views.gradecolumn_delete, name='gradecolumn_delete'),
-
+    url(r'^list/$', views.course_list,
+        name='course_list'),
 ]
