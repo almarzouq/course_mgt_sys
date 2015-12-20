@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include,  url
 from django.contrib import admin
 from django.views.generic import TemplateView
+from courses import views
 
 
 urlpatterns = [
@@ -24,5 +25,5 @@ urlpatterns = [
     url(r'^instructors/', include('instructors.urls')),
     url(r'^courses/', include('courses.urls')),
     url(r'^accounts/', include('allauth.urls',)),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name="index",)
+    url(r'^$', views.list_of_announcements, name='list_of_announcements',),
 ]

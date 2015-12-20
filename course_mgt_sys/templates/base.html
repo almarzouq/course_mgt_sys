@@ -51,11 +51,11 @@ other head content must come *after* these tags -->
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{% url 'index' %}">Course Manager project </a> </div>
+        <a class="navbar-brand" href="{% url 'list_of_announcements' %}">Course Manager project </a> </div>
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           {% block nav %}
-          <li><a href="{% url 'index' %}"> Home </a></li>
+          <li><a href="{% url 'list_of_announcements' %}"> Home </a></li>
           <li><a href="{% url 'students_list' %}"> Student </a></li>
           <li><a href="{% url 'instructor_list' %}"> Faculty </a></li>
           <li><a href="{% url 'course_list_to_add' %}"> Course </a></li>
@@ -63,9 +63,9 @@ other head content must come *after* these tags -->
           {% if user.is_authenticated %}
           {% if user.is_instructor %}
           <li><a href="{% url 'my_course_list_to_add' %}"> My Course List </a></li>
-          <li><a href="{% url 'instructor_view' request.user.pk %}"> My Profile </a></li>
-          <li><a href="{% url 'create_general_announcment' request.user.pk %}"> Add General Announcement </a></li>
-          
+          <li><a href="{% url 'instructor_view' request.user.instructor.pk %}"> My Profile </a></li>
+          <li><a href="{% url 'create_general_announcment' request.user.instructor.pk %}"> Add General Announcement </a></li>
+
 
 
           {% endif %}

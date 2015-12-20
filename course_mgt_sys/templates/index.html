@@ -1,4 +1,41 @@
 {% extends "base.html" %} {% block content %}
 <h1> Welcome to Course Managment System </h1>
+{% if user.is_authenticated %}
+<h2> General Course Announcments: </h2>
+{%for c in course_announcements%}
+<a class="list-group-item">
+  <p class="list-group-item-text">Course Name: {{c.course.name}}
+  </p>
+  <p class="list-group-item-text">Announcment Name: {{c.name}}
+  </p>
+  <p class="list-group-item-text">Announcment Comment: {{c.comment}}
+  </p>
+  <p class="list-group-item-text">Submitted At: {{c.submitted_at}}
+  </p>
+</a>
+{% empty %}
+    <h4>
+    {{c_anno_massage}}
+  </h4>
+{%endfor%}
+<h2> Instructor Announcements:</h2>
 
+{%for c in instructor_announcements%}
+<a class="list-group-item">
+  <p class="list-group-item-text">Instructor Name: {{c.instructor.name}}
+  </p>
+  <p class="list-group-item-text">Announcment Name: {{c.name}}
+  </p>
+  <p class="list-group-item-text">Announcment Comment: {{c.comment}}
+  </p>
+  <p class="list-group-item-text">Submitted At: {{c.submitted_at}}
+  </p>
+</a>
+{% empty %}
+    <h4>
+    {{in_anno_massage}}
+  </h4>
+{%endfor%}
+{%else%}
+{%endif%}
 {% endblock %}
