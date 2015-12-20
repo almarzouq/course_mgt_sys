@@ -49,7 +49,7 @@
           {% block nav %}
           {# <li><a href="{% url 'index' %}"> Home </a></li>#}
           <li><a href="{% url 'students_list' %}"> Student </a></li>
-          <li><a href="{% url 'course_list' %}"> Course </a></li>
+          <li><a href="{% url 'course_list_to_add' %}"> Course </a></li>
 
 
           {% if user.is_authenticated %}
@@ -72,7 +72,7 @@
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{% url 'student_view' request.user.student.pk %}"> My Profile </a></li>
-              <li><a href="{% url 'course_list_to_add' %}"> My Course List </a></li>
+              <li><a href="{% url 'my_course_list_to_add' %}"> My Course List </a></li>
             </ul>
           </li>
           {% endif %}
