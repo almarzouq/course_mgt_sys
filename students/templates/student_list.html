@@ -7,7 +7,8 @@
   <ul>
     <li class="list-group-item">
       <p class="list-group-item-text"> University ID : {{s.university_id}}</p>
-          <p> Name : {{s.name}} </p> <a class="btn btn-default btn-primary" href="{% url 'student_edit'  %}"> Edit Student </a>
+          <p> Name : {{s.name}} </p>
+          <a class="btn btn-default btn-primary" href="{% url 'instructor_student_edit' s.pk %}"> Edit Student </a>
     </li>
 
   </ul>

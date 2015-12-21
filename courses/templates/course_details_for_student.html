@@ -15,7 +15,9 @@
 <h3> Course Announcments: </h3>
 {% for announcment in announcments %}
 <br>
+<h2>Course Lectures </h2>
 <a class="list-group-item">
+
   <p class="list-group-item-text">Announcment Name: {{announcment.name}}
   </p>
   <p class="list-group-item-text">Announcment Comment: {{announcment.comment}}
@@ -24,6 +26,18 @@
   </p>
 </a>
 {% endfor %}
+
+{% for l in lectures%}
+<br>
+<a class="list-group-item">
+  <p class="list-group-item-text">Lecture Name: {{l.name}}
+  </p>
+  <p class="list-group-item-text">Time of lecture : {{l.time_of_lecture}}
+  </p>
+  <p class="list-group-item-text">number of students: {{l.number_of_students}}
+  </p>
+</a>
+{%endfor%}
 <h4> Your grades: </h4>
 <br>
 <a href="{% url 'list_student_grade' course.pk student.pk %}"> View Grade </a>
