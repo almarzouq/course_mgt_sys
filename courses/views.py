@@ -23,7 +23,10 @@ from courses.models import (Course, CourseAnnouncement, Grade,
 
 from .forms import (NewCourseForm, GradeForm,
                     GradeColumnEditForm, CourseAnnouncmentForm,
-                    GradeColumnCreateForm, AttendanceStudentForm, InstructorLectureForm)
+                    GradeColumnCreateForm, AttendanceStudentForm, InstructorLectureForm,
+                    )
+
+
 from .models import GradeColumn
 # Create your views here.
 
@@ -329,7 +332,7 @@ class CourseEdit(UpdateView):
     model = Course
     template_name = "course_edit.html"
     context_object_name = "course"
-    fields = '__all__'
+    fields = "__all__"
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):

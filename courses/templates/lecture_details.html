@@ -4,7 +4,7 @@
 <p>Time of Lecture : {{lecture.time_of_lecture}}</p>
 <p>Course : {{lecture.course.name}}</p>
 <p>Instructor : {{lecture.course.instructor.name}}</p>
-<a href="{% url 'student_attendance' course_id  lecture_id %}">Student Check-in</a>
+<a class="btn btn-default btn-primary" href="{% url 'student_attendance' course_id  lecture_id %}">Student Check-in</a>
 <table class="table">
   <tr>
     <th>
