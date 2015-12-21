@@ -21,11 +21,9 @@ from courses.models import (Course, CourseAnnouncement, Grade,
                             GradeColumn, Lecture, Attendance,
                             CourseStudent)
 
-from .forms import (NewCourseForm, GradeForm,
+from .forms import (NewCourseForm, EditCourseForm, GradeForm,
                     GradeColumnEditForm, CourseAnnouncmentForm,
-                    GradeColumnCreateForm, AttendanceStudentForm, InstructorLectureForm,
-                    )
-
+                    GradeColumnCreateForm, AttendanceStudentForm, InstructorLectureForm)
 
 from .models import GradeColumn
 # Create your views here.
@@ -41,8 +39,10 @@ def course_create(request):
             obj = form.save()
             return redirect(obj)
     else:
-        instructor = request.user.instructor
-        form = NewCourseForm(initial={'instructor': instructor.pk})
+
+        form = NewCourseForm(initial={'instructor': request.user.instructor.pk,
+                                      'students': None, })
+
     return render(
         request,
         'course_create.html',
@@ -50,6 +50,7 @@ def course_create(request):
             "form": form,
         }
     )
+
 
 @login_required
 def list_course_grade_column(request, course_id):
@@ -332,7 +333,7 @@ class CourseEdit(UpdateView):
     model = Course
     template_name = "course_edit.html"
     context_object_name = "course"
-    fields = "__all__"
+    form_class = EditCourseForm
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
