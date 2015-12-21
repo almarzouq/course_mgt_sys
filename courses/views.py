@@ -23,7 +23,10 @@ from courses.models import (Course, CourseAnnouncement, Grade,
 
 from .forms import (NewCourseForm, GradeForm,
                     GradeColumnEditForm, CourseAnnouncmentForm,
-                    GradeColumnCreateForm, AttendanceStudentForm, InstructorLectureForm)
+                    GradeColumnCreateForm, AttendanceStudentForm, InstructorLectureForm,
+                    )
+
+
 from .models import GradeColumn
 # Create your views here.
 
@@ -329,7 +332,7 @@ class CourseEdit(UpdateView):
     model = Course
     template_name = "course_edit.html"
     context_object_name = "course"
-    fields = '__all__'
+    fields = "__all__"
 
     @method_decorator(login_required)
     def dispatch(self, *args, **kwargs):
@@ -559,7 +562,7 @@ def student_view_course_announcments(request, course_id):
 
 def course_list(request):
     obj = Course.objects.all()
-    return render(request, 'course_list.html', {'courses': obj})
+    return render(request, 'course_list_to_add.html', {'courses': obj})
 
 def list_of_announcements(request):
     if request.user.is_anonymous():

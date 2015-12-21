@@ -56,6 +56,7 @@ class GradeColumnCreateForm(forms.ModelForm):
 
 
 class GradeColumnCreateForm(forms.ModelForm):
+
     class Meta:
         model = GradeColumn
         fields = '__all__'
@@ -72,7 +73,7 @@ class AttendanceStudentForm(forms.ModelForm):
         widgets = {
 
             'student': forms.HiddenInput,
-            'lecture' : forms.HiddenInput,
+            'lecture': forms.HiddenInput,
 
         }
 

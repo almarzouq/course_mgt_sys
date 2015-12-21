@@ -16,8 +16,8 @@
         Actions
     </th>
   </tr>
+  {% if user.is_instructor %}
   {% for c in courses %}
-
   <tr>
     <td>{{ forloop.counter }}</td>
     <td><a href="{% url 'student_view_course_announcments' c.pk %}">{{ c.name }}</a></td>
@@ -27,6 +27,7 @@
       </a>
     </td>
     <td>
+      <a class="btn btn-default btn-primary" href="{% url 'course_edit' c.pk %}"> Edit Course </a>
         <a class="btn btn-default btn-primary" href="{% url 'list_course_grade_column' c.pk %}"> Grade Column </a>
         <a class="btn btn-default btn-primary" href="{% url 'instructor_view_course_stundets_announcments' c.pk %}"> Course Details </a>
         <a class="btn btn-default btn-primary" href="{% url 'list_students_grades_in_course' c.pk %}"> Grades in Course  </a>
@@ -36,5 +37,22 @@
     </td>
   </tr>
   {% endfor %}
+  {% else %}
+  {% for c in courses %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><a href="{% url 'student_view_course_announcments' c.pk %}">{{ c.name }}</a></td>
+    <td>
+      <a href="{% url 'student_view_course_announcments' c.pk %}">
+        <span class="btn btn-primary btn-xs glyphicon glyphicon-zoom-in"> Detail</span>
+      </a>
+    </td>
+    <td>
+        <a class="btn btn-default btn-primary" href="{% url 'list_student_grade' c.pk user.student.pk %}"> My Grades  </a>
+        <a class="btn btn-default btn-primary" href="{% url 'lecture_list' c.pk %}"> Lecture List  </a>
+    </td>
+  </tr>
+  {% endfor %}
+  {% endif %}
 </table>
 {% endblock %}
