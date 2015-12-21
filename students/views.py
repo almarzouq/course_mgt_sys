@@ -48,7 +48,7 @@ def edit_profile(request):
 
 
 def instructor_edit_profile(request, pk):
-    if not request.user.instructor:
+    if not request.user.is_instructor():
         raise Http404
     obj = Student.objects.get(pk=pk)
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def instructor_edit_profile(request, pk):
 
 
 def students_list(request):
-    obj = Student.objects.all()
+    obj = Student.objects.filter(user__instructor__isnull=True)
     return render(request, 'student_list.html', {'students': obj})
 
 
@@ -83,11 +83,11 @@ class StudentListUni(ListView):
     model = Student
     template_name = 'student_list.html'
     context_object_name = 'students'
-    queryset = Student.objects.order_by('university_id')
+    queryset = Student.objects.filter(user__instructor__isnull=True).order_by('university_id')
 
 
 class StudentListName(ListView):
     model = Student
     template_name = 'student_list.html'
     context_object_name = 'students'
-    queryset = Student.objects.order_by('name')
+    queryset = Student.objects.filter(user__instructor__isnull=True).order_by('name')
