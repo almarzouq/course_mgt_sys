@@ -10,6 +10,9 @@
   <p class="list-group-item-text">Days: {{course.days}}
   </p>
 </a>
+{% if not user.is_instructor %}
+<a class="btn btn-default btn-primary" href="{% url 'take_appointment' course.instructor.pk %}"> Take an appointment  </a>
+{% endif %}
 <br>
 
 <h2> Course Instructor Profile: </h2>
