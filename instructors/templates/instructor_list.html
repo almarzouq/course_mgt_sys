@@ -1,0 +1,39 @@
+{%extends "base.html"%} {% block content %}
+<h1> Instructor List </h1>
+
+<div class="list-group">
+  {% for instructor in instructors %}
+  <ul>
+    <a class="list-group-item" href="{% url 'instructor_view' instructor.pk %}">
+
+      <p class="list-group-item-heading">Instructor Name: {{instructor.name}}
+      </p>
+
+      <p class="list-group-item-text">Email: {{instructor.email}}
+      </p>
+
+      <p class="list-group-item-text">Phone: {{instructor.phone}}
+      </p>
+
+      <p class="list-group-item-text">Office Hours: {{instructor.office_hours}}
+      </p>
+
+      <p class="list-group-item-text">Department: {{instructor.department}}
+      </p>
+
+      <p class="list-group-item-text">School: {{instructor.school}}
+      </p>
+
+      <p class="list-group-item-text">Twitter Username: {{instructor.twitter_id}}
+      </p>
+        <a class="btn btn-default btn-primary" href="{% url 'appointment_view' instructor.pk %}"> View Appointments </a>
+        <a class="btn btn-default btn-primary" href="{% url 'instructor_view' instructor.pk %}"> View Announcements </a>
+        <a class="btn btn-default btn-primary" href="{% url 'take_appointment' instructor.pk %}"> Take an appointment </a>
+      </ul>
+
+  {%endfor%}
+  {% if user.is_instructor %}
+  <a class="btn btn-default btn-primary" href="{% url 'instructor_create' %}"> register instructor </a>
+ {% endif %}
+</div>
+  {% endblock %}

@@ -1,10 +1,13 @@
-{%extends "base.html"%} {% block content %}
+{%extends "base.html"%}
+{% block media  %} {{ form.media }} {% endblock %}
+{% block content %}
 <div>
-  <h1 style="color:grey"><b> Take Appointment </b></h1>
+  <h1> Take Appointment </h1>
   </br>
-  <form method="post" action="{% url 'take_appointment' %}">
-    {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
+  <form method="post" action="{% url 'take_appointment' instructor.pk %}">
+    {% csrf_token %} {{ form.as_p }}
 
-    <input class="btn btn-default" type="submit" value="Done!"> </form>
+    <input class="btn btn-default btn-primary"type="submit" value="Done"> </form>
+  </body>
 </div>
 {% endblock %}

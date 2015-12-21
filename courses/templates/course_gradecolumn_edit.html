@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block content %}
+<div class="page-header">
+  <h3> Course Name: {{ course.name }} </h3>
+  <h4> Section: {{ course.tag }} </h4>
+  <h4> Semester: {{ course.semester }} {{ course.academic_year }} </h4>
+  <br>
+  <h4>
+    <span class="glyphicon glyphicon-pencil"></span> {% block title %}Grade Column Edit Page{% endblock %}</h4>
+</div>
+<form method="post" action="{% url 'gradecolumn_edit' course_id gradecolumn_id %}">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <br>
+  <input class="btn btn-primary btn-md " type="submit" value="Done">
+</form>
+{% endblock %}

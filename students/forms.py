@@ -6,19 +6,40 @@ class StudentEditForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        exclude = ['name', 'university_id']
+        exclude = ['name']
+        widgets = {
+
+        'user' : forms.HiddenInput,
+        }
 
 
-class StudentForm(forms.ModelForm):
+class InstructorStudentEditForm(forms.ModelForm):
 
     class Meta:
         model = Student
-        exclude = ('name',)
+        fields = '__all__'
+        widgets = {
+
+        'user' : forms.HiddenInput,
+        }
+
+
+
+class SignupForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = '__all__'
+        widgets = {
+        'user' : forms.HiddenInput,
+        }
+    # university_id = forms.CharField(required=False)
+    # twitter_id = forms.CharField(required=False)
 
     def signup(self, request, user):
         Student.objects.create(
-            name=user,
-            email=self.cleaned_data.get('email'),
+            user=user,
+            name=user.username,
+            email=user.email,
             university_id=self.cleaned_data.get('university_id'),
             twitter_id=self.cleaned_data.get('twitter_id')
         )

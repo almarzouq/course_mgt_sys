@@ -1,7 +1,7 @@
 {%extends "base.html"%} {% block content %}
 <div>
-  <form method="post" action="{% url 'student_edit' student.pk %}"> {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
+  <form method="post" action="{% url 'student_edit'  %}"> {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
 
-    <input class="btn btn-default" type="submit" value="done!"> </form>
+    <input class="btn btn-default btn-primary" type="submit" value="Done"> </form>
 </div>
 {% endblock %}

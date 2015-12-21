@@ -1,0 +1,44 @@
+{% extends "base.html" %} {% block content %}
+<h1> student name: {{student.name}}<h1>
+<h2> Course Details: </h2>
+<a class="list-group-item">
+  <p class="list-group-item-text">Course Name: {{course.name}}
+  </p>
+  <p class="list-group-item-text">Section: {{ course.tag }}
+  </p>
+  <p class="list-group-item-text">Semester: {{ course.semester }} {{ course.academic_year }}
+  </p>
+  <p class="list-group-item-text">Days: {{course.days}}
+  </p>
+</a>
+<br>
+<h3> Course Announcments: </h3>
+{% for announcment in announcments %}
+<br>
+<h2>Course Lectures </h2>
+<a class="list-group-item">
+
+  <p class="list-group-item-text">Announcment Name: {{announcment.name}}
+  </p>
+  <p class="list-group-item-text">Announcment Comment: {{announcment.comment}}
+  </p>
+  <p class="list-group-item-text">Submitted At: {{announcment.submitted_at}}
+  </p>
+</a>
+{% endfor %}
+
+{% for l in lectures%}
+<br>
+<a class="list-group-item">
+  <p class="list-group-item-text">Lecture Name: {{l.name}}
+  </p>
+  <p class="list-group-item-text">Time of lecture : {{l.time_of_lecture}}
+  </p>
+  <p class="list-group-item-text">number of students: {{l.number_of_students}}
+  </p>
+</a>
+{%endfor%}
+<h4> Your grades: </h4>
+<br>
+<a href="{% url 'list_student_grade' course.pk student.pk %}"> View Grade </a>
+{% endblock %}

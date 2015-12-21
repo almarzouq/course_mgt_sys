@@ -1,0 +1,17 @@
+{%extends "base.html"%}{%block content%}
+<h1> Lecture Creation  </h1>
+<p id="time"></p>
+
+<script>
+//<====script to show the current date and time =====>
+document.getElementById("time").innerHTML = new Date();
+</script>
+
+<h2> {{course.name}} {{ course.tag }}</h2>
+
+<form method="post" action="{% url 'lecture_create' course_id   %}">
+  {% csrf_token %} {{ form.as_p }}
+
+  <input class="btn btn-default btn-primary" type="submit" value="Done">
+</form>
+{%endblock%}

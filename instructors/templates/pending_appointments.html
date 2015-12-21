@@ -1,0 +1,20 @@
+{% extends "base.html" %} {% block content %}
+<h1>Available Appointments</h1>
+  {% for a in appointments %}
+  <div class="list-group">
+    <a href= "{% url 'appointment_details' a.pk %}" class="list-group-item">
+      <span class="badge">
+        {{a.date_time}}
+      </span>
+      <h4 class="list-group-item-heading">{{a.name}}</h4>
+      <p class="list-group-item-text">{{a.reason}}</p>
+    </a>
+  </div>
+  {% empty %}
+
+  <h2>
+    There is no appointment available
+  </h2>
+
+  </ul>
+  {% endfor %} {% endblock %}

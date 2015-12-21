@@ -1,5 +1,6 @@
 *.tar.gz
 local_settings.py
+local_settings.py.template
 fabfile.py
 .DS_Store
 *.db

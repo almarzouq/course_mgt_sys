@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.twitter',
+    'datetimewidget',
 )
 
 
@@ -57,6 +58,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    #for the datetimewidget to take the local time from the user`s pc
+    'django.middleware.locale.LocaleMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -119,11 +122,23 @@ AUTHENTICATION_BACKENDS = (
 
 STATIC_URL = '/static/'
 
-SITE_ID = 1
-ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.StudentForm'
 
+SITE_ID = 1
+ACCOUNT_SIGNUP_FORM_CLASS = 'students.forms.SignupForm'
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'None'
+LOGIN_REDIRECT_URL = "/"
+
+from django.contrib.messages import constants as message_constants
+
+MESSAGE_TAGS = {
+    message_constants.SUCCESS: 'alert-success',
+    message_constants.ERROR: 'alert-danger',
+}
 # do not put anything under this line
 try:
     from local_settings import *
-except ImportError, exp:
+except ImportError as exp:
     pass

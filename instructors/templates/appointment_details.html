@@ -1,0 +1,35 @@
+{% extends "base.html" %} {% block content %}
+<html>
+<h1> Appoinement Details </h1>
+</br>
+<body>
+  <a class="list-group-item">
+    <p class="list-group-item-text">Student name: {{appointment.name}}
+    </p>
+    <p class="list-group-item-text">Time: {{appointment.date_time}}
+    </p>
+    <p class="list-group-item-text">Reason: {{appointment.reason}}
+    </p>
+  </a>
+  <br/> {% if appointment.approved == True %}
+  <h4>This appointment was approved</h4> {% elif appointment.approved == False %}
+  <h4>This appointment was declined </h4> {% else %}
+  {% if request.user.is_instructor %}
+  </br>
+  <a class="btn btn-default btn-primary" href="{% url 'appointment_approve' appointment.pk %}">
+  Approve
+</a>
+  <a class="btn btn-default btn-primary" href="{% url 'appointment_decline' appointment.pk %}">
+  Decline
+</a> {% endif %}
+
+</body>
+
+  <a class="btn btn-default btn-primary" href="{% url 'appointment_delete' appointment.pk %}">
+    Delete Appointment
+  </a>
+ {% endif %}
+
+</html>
+
+{% endblock %}

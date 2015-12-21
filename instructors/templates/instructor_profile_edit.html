@@ -1,10 +1,10 @@
 {%extends "base.html"%} {% block content %}
 <div>
-  <h1 style="color:grey"><b> Instructor Edit Profile </b></h1>
+  <h1> Instructor Edit Profile </h1>
   </br>
   <form method="post" action="{% url 'instructor_edit' instructor.pk %}">
     {% csrf_token %} {{ form.as_p }} {{ formset.as_p }}
 
-    <input class="btn btn-default" type="submit" value="done!"> </form>
+    <input class="btn btn-default btn-primary" type="submit" value="Done"> </form>
 </div>
 {% endblock %}
