@@ -7,12 +7,19 @@ class NewCourseForm(forms.ModelForm):
 
     class Meta:
         model = Course
-        fields = '__all__'
+        exclude = ['students']
         widgets = {
-            'students': forms.HiddenInput,
             'instructor': forms.HiddenInput,
         }
+        
+class EditCourseForm(forms.ModelForm):
 
+    class Meta:
+        model = Course
+        exclude = ['students']
+        widgets = {
+            'instructor': forms.HiddenInput,
+        }
 
 class GradeForm(forms.ModelForm):
 
