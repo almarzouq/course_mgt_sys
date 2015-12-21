@@ -11,6 +11,31 @@
   </p>
 </a>
 <br>
+
+<h2> Course Instructor Profile: </h2>
+<div class="list-group-item">
+  <h4 class="list-group-item-heading">Instructor Name: {{course.instructor.name}}
+  </h4>
+  <br/>
+  <p class="list-group-item-text">Email: {{course.instructor.email}}
+  </p>
+  <br/>
+  <p class="list-group-item-text">Phone: {{course.instructor.phone}}
+  </p>
+  <br/>
+  <p class="list-group-item-text">Office Hours: {{course.instructor.office_hours}}
+  </p>
+  <br/>
+  <p class="list-group-item-text">Department: {{course.instructor.department}}
+  </p>
+  <br/>
+  <p class="list-group-item-text">School: {{course.instructor.school}}
+  </p>
+  <br/>
+  <p class="list-group-item-text">Twitter username: {{course.instructor.twitter_id}}
+  </p>
+</div>
+
 <h2> Student List: </h2>
 {% if user.is_instructor %}
 {% for student in students %}
