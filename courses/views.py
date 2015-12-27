@@ -526,6 +526,8 @@ def list_students_grades_in_course(request, course_id):
     if not student:
         course_grade_avg = []
         gradecolumn_list = []
+        course_grade_max = []
+        course_grade_min = []
         for gc in gradecolumns:
             student_grade_value_dict = {}
             student_grade_column_dict = {}
@@ -536,6 +538,14 @@ def list_students_grades_in_course(request, course_id):
                 course_grade_avg.append(0)
             else:
                 course_grade_avg.append(gc.grade_avg)
+            if gc.grade_max is None:
+                course_grade_max.append(0)
+            else:
+                course_grade_max.append(gc.grade_max)
+            if gc.grade_min is None:
+                course_grade_min.append(0)
+            else:
+                course_grade_min.append(gc.grade_min)
 
     else:
 
