@@ -20,6 +20,30 @@ $( document ).ready(function() {
               data: [{% for grade in course_grade_avg %}
                           "{{grade}}",
                         {%endfor%}]
+          },
+          {
+              label: "Max Grade",
+              fillColor: "rgba(0,0,255,0)",
+              strokeColor: "rgba(0,0,255,1)",
+              pointColor: "rgba(0,0,255,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(0,0,255,1)",
+              data: [{% for grade in course_grade_max %}
+                          "{{grade}}",
+                        {%endfor%}]
+          },
+          {
+              label: "Min Grade",
+              fillColor: "rgba(0,0,0,0)",
+              strokeColor: "rgba(0,0,0,1)",
+              pointColor: "rgba(0,0,0,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(0,0,0,1)",
+              data: [{% for grade in course_grade_min %}
+                          "{{grade}}",
+                        {%endfor%}]
           }
       ]
   };
@@ -54,6 +78,7 @@ $( document ).ready(function() {
 
 
 <h1> Students Grades list: </h1>
+{{course_grade_max}}
 <table class="table table-striped">
   <tr>
     <th>

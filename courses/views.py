@@ -511,7 +511,7 @@ def list_students_grades_in_course(request, course_id):
 
     course_obj = get_object_or_404(Course, pk=course_id)
     gradecolumns = course_obj.gradecolumn_set.all().order_by(
-        "id").annotate(grade_avg=Avg('grade__value'))
+        "id").annotate(grade_avg=Avg('grade__value'), grade_max=Max('grade__value'), grade_min=Min('grade__value'))
     student = course_obj.students.all()
     grades = Grade.objects.filter(column__course=course_id)
 
@@ -544,6 +544,8 @@ def list_students_grades_in_course(request, course_id):
             student_grade_column_list = []
             student_grade_value_list = []
             course_grade_avg = []
+            course_grade_max = []
+            course_grade_min = []
             gradecolumn_list = []
             for gc in gradecolumns:
                 student_grade_value_dict = {}
@@ -554,6 +556,15 @@ def list_students_grades_in_course(request, course_id):
                     course_grade_avg.append(0)
                 else:
                     course_grade_avg.append(gc.grade_avg)
+                if gc.grade_max is None:
+                    course_grade_max.append(0)
+                else:
+                    course_grade_max.append(gc.grade_max)
+                if gc.grade_min is None:
+                    course_grade_min.append(0)
+                else:
+                    course_grade_min.append(gc.grade_min)
+
                 for g in grades:
                     if gc.pk == g.column.pk:
                         if s.pk == g.student.pk:
@@ -581,6 +592,8 @@ def list_students_grades_in_course(request, course_id):
             'student_grade_value': student_grade_id_list,
             'gradecolumn_list': gradecolumn_list,
             'course_grade_avg': course_grade_avg,
+            'course_grade_max': course_grade_max,
+            'course_grade_min': course_grade_min,
             's': big,
             'g': lists,
             'ss': student
