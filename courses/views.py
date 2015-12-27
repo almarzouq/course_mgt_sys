@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.views.generic.edit import UpdateView
 from django.views.generic import DetailView
-
+from django.db.models import Avg, Max, Min
 from .forms import NewCourseForm, GradeForm, Grade
 
 
@@ -176,7 +176,7 @@ def post_student_grade(request, course_id, student_id, gradecolumn_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Grade was successfully posted.')
-            return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
+            return redirect(reverse('list_students_grades_in_course', args=(course_id)))
 
     else:
         form = GradeForm(initial={'column': gradecolumn_id,
@@ -203,7 +203,7 @@ def edit_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
         if form.is_valid():
             form.save()
             messages.success(request, 'Grade was successfully Edited.')
-            return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
+            return redirect(reverse('list_students_grades_in_course', args=(course_id)))
     else:
         form = GradeForm(instance=grade)
     return render(
@@ -236,19 +236,40 @@ def view_student_grade(request, course_id, student_id, gradecolumn_id, grade_id)
 @login_required
 def list_student_grade(request, course_id, student_id):
     course_obj = get_object_or_404(Course, pk=course_id)
-    gradecolumns = course_obj.gradecolumn_set.all().order_by("id")
+    gradecolumns = course_obj.gradecolumn_set.all().order_by(
+        "id").annotate(grade_avg=Avg('grade__value'), grade_max=Max('grade__value'), grade_min=Min('grade__value'))
     student = get_object_or_404(Student, pk=student_id)
     grades = student.grade_set.all()
-
     student_grade_value_list = []
     student_grade_column_list = []
     student_grade_value_dict = {}
     student_grade_column_dict = {}
+    course_grade_avg = []
+    course_grade_max = []
+    course_grade_min = []
+    my_grades = []
+    gradecolumn_list = []
 
     for gc in gradecolumns:
         student_grade_value_dict = {}
         student_grade_column_dict = {}
         student_grade_column_dict[gc.total] = gc.name
+        gradecolumn_list.append(gc.name)
+
+
+        if gc.grade_avg is None:
+            course_grade_avg.append(0)
+        else:
+            course_grade_avg.append(gc.grade_avg)
+        if gc.grade_max is None:
+            course_grade_max.append(0)
+        else:
+            course_grade_max.append(gc.grade_max)
+        if gc.grade_min is None:
+            course_grade_min.append(0)
+        else:
+            course_grade_min.append(gc.grade_min)
+
         for g in grades:
             if gc.pk == g.column.pk:
                 student_grade_value_dict[g.pk] = g.value
@@ -256,7 +277,12 @@ def list_student_grade(request, course_id, student_id):
             student_grade_value_dict[gc.pk] = ''
         student_grade_column_list.append(student_grade_column_dict)
         student_grade_value_list.append(student_grade_value_dict)
-
+    for grade in student_grade_value_list:
+        for k, v in grade.items():
+            if v == "":
+                my_grades.append(0)
+            else:
+                my_grades.append(float(v))
     return render(
         request,
         'list_student_grade.html',
@@ -266,10 +292,14 @@ def list_student_grade(request, course_id, student_id):
             'student_grade_column': student_grade_column_list,
             'student_grade_value': student_grade_value_list,
             'student': student,
+            'course_grade_avg': course_grade_avg,
+            'gcs': gradecolumn_list,
+            'my_grades': my_grades,
+            'course_grade_max': course_grade_max,
+            'course_grade_min': course_grade_min
+
         }
     )
-
-
 
 @login_required
 def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_id):
@@ -278,7 +308,7 @@ def delete_student_grade(request, course_id, student_id, gradecolumn_id, grade_i
     grade = get_object_or_404(Grade, pk=grade_id)
     grade.delete()
     messages.success(request, 'Grade was successfully deleteded.')
-    return redirect(reverse('list_student_grade', args=(course_id, student_id,)))
+    return redirect(reverse('list_students_grades_in_course', args=(course_id)))
 
 
 @login_required
@@ -480,7 +510,8 @@ def list_students_grades_in_course(request, course_id):
         raise Http404
 
     course_obj = get_object_or_404(Course, pk=course_id)
-    gradecolumns = course_obj.gradecolumn_set.all().order_by("id")
+    gradecolumns = course_obj.gradecolumn_set.all().order_by(
+        "id").annotate(grade_avg=Avg('grade__value'), grade_max=Max('grade__value'), grade_min=Min('grade__value'))
     student = course_obj.students.all()
     grades = Grade.objects.filter(column__course=course_id)
 
@@ -493,21 +524,57 @@ def list_students_grades_in_course(request, course_id):
     big = []
     lists = []
     if not student:
+        course_grade_avg = []
+        gradecolumn_list = []
+        course_grade_max = []
+        course_grade_min = []
         for gc in gradecolumns:
             student_grade_value_dict = {}
             student_grade_column_dict = {}
             student_grade_column_dict[gc.total] = gc.name
             student_grade_column_list.append(student_grade_column_dict)
+            gradecolumn_list.append(gc.name)
+            if gc.grade_avg is None:
+                course_grade_avg.append(0)
+            else:
+                course_grade_avg.append(gc.grade_avg)
+            if gc.grade_max is None:
+                course_grade_max.append(0)
+            else:
+                course_grade_max.append(gc.grade_max)
+            if gc.grade_min is None:
+                course_grade_min.append(0)
+            else:
+                course_grade_min.append(gc.grade_min)
+
     else:
 
         for s in student:
             student_info_dict = {}
             student_grade_column_list = []
             student_grade_value_list = []
+            course_grade_avg = []
+            course_grade_max = []
+            course_grade_min = []
+            gradecolumn_list = []
             for gc in gradecolumns:
                 student_grade_value_dict = {}
                 student_grade_column_dict = {}
                 student_grade_column_dict[gc.total] = gc.name
+                gradecolumn_list.append(gc.name)
+                if gc.grade_avg is None:
+                    course_grade_avg.append(0)
+                else:
+                    course_grade_avg.append(gc.grade_avg)
+                if gc.grade_max is None:
+                    course_grade_max.append(0)
+                else:
+                    course_grade_max.append(gc.grade_max)
+                if gc.grade_min is None:
+                    course_grade_min.append(0)
+                else:
+                    course_grade_min.append(gc.grade_min)
+
                 for g in grades:
                     if gc.pk == g.column.pk:
                         if s.pk == g.student.pk:
@@ -533,11 +600,16 @@ def list_students_grades_in_course(request, course_id):
             'course_id': course_id,
             'student_grade_column': student_grade_column_list,
             'student_grade_value': student_grade_id_list,
+            'gradecolumn_list': gradecolumn_list,
+            'course_grade_avg': course_grade_avg,
+            'course_grade_max': course_grade_max,
+            'course_grade_min': course_grade_min,
             's': big,
             'g': lists,
             'ss': student
         }
     )
+
 
 
 class CourseAnnouncementEdit(UpdateView):
