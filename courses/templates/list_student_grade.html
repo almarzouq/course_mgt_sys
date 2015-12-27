@@ -1,4 +1,77 @@
 {% extends "base.html" %} {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var data = {
+      labels: [{% for gc in gcs %}
+                  "{{gc}}",
+                {%endfor%}],
+      datasets: [
+          {
+              label: "Class Average",
+              fillColor: "rgba(139,0,139,0)",
+              strokeColor: "rgba(139,0,139,1)",
+              pointColor: "rgba(139,0,139,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(139,0,139,1)",
+              data: [{% for grade in course_grade_avg %}
+                          "{{grade}}",
+                        {%endfor%}]
+          },
+          {
+              label: "Your Grade",
+              fillColor: "rgba(255,0,0,0)",
+              strokeColor: "rgba(255,0,0,1)",
+              pointColor: "rgba(255,0,0,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(255,0,0,1)",
+              data: [{% for grade in my_grades %}
+                          "{{grade}}",
+                        {%endfor%}]
+          },
+          {
+              label: "Max Grade",
+              fillColor: "rgba(0,0,255,0)",
+              strokeColor: "rgba(0,0,255,1)",
+              pointColor: "rgba(0,0,255,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(0,0,255,1)",
+              data: [{% for grade in course_grade_max %}
+                          "{{grade}}",
+                        {%endfor%}]
+          },
+          {
+              label: "Min Grade",
+              fillColor: "rgba(0,0,0,0)",
+              strokeColor: "rgba(0,0,0,1)",
+              pointColor: "rgba(0,0,0,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(0,0,0,1)",
+              data: [{% for grade in course_grade_min %}
+                          "{{grade}}",
+                        {%endfor%}]
+          }
+      ]
+  };
+
+
+
+    var myLineChart = new Chart(ctx).Line(data, {
+  responsive: true,
+  pointDotRadius: 5,
+  scaleShowVerticalLines: false,
+  scaleGridLineColor : "rgba(0,0,0,.05)",
+  multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>",
+});
+
+});
+</script>
 <style>
   table,
   th,
@@ -44,4 +117,5 @@ Student Name: {{student.name}}
   </tr>
 
 </table>
+<canvas id="myChart" width="1000" height="300"></canvas>
 {% endblock %}

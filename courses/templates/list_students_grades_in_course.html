@@ -1,4 +1,41 @@
 {% extends "base.html" %} {% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+$( document ).ready(function() {
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var data = {
+      labels: [{% for gc in gradecolumn_list %}
+                  "{{gc}}",
+                {%endfor%}],
+      datasets: [
+          {
+              label: "Class Average",
+              fillColor: "rgba(139,0,139,0)",
+              strokeColor: "rgba(139,0,139,1)",
+              pointColor: "rgba(139,0,139,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(139,0,139,1)",
+              data: [{% for grade in course_grade_avg %}
+                          "{{grade}}",
+                        {%endfor%}]
+          }
+      ]
+  };
+
+
+
+    var myLineChart = new Chart(ctx).Line(data, {
+  responsive: true,
+  pointDotRadius: 5,
+  scaleShowVerticalLines: false,
+  scaleGridLineColor : "rgba(0,0,0,.05)",
+  multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>",
+});
+
+});
+</script>
 
 <style>
   table,
@@ -14,6 +51,8 @@
     text-align: center;
   }
 </style>
+
+
 <h1> Students Grades list: </h1>
 <table class="table table-striped">
   <tr>
@@ -42,4 +81,5 @@
   </tr>
   {% endfor %}
 </table>
+<canvas id="myChart" width="1000" height="300"></canvas>
 {% endblock %}
